@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, BookOpen, Award } from 'lucide-react';
 import { fadeIn, staggerContainer } from '../utils/animations';
+import profilePic from '../assets/front.jpg';
 
 const About = () => {
   return (
@@ -44,7 +45,7 @@ const About = () => {
           <div className="absolute inset-0 bg-blue-600 rounded-2xl translate-x-4 translate-y-4 -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
           {/* NOTE: Replace the src below with your actual photo path! e.g., src="/my-photo.jpg" */}
           <img 
-            src="src/assets/front.jpg" 
+            src={profilePic} 
             alt="Krish Gupta" 
             className="w-full h-auto aspect-square object-cover rounded-2xl border border-slate-700 grayscale-[0.3] group-hover:grayscale-0 transition-all duration-500 shadow-2xl" 
           />
