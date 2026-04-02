@@ -28,7 +28,8 @@ const CustomCursor = () => {
         e.target.tagName === 'A' || 
         e.target.tagName === 'BUTTON' || 
         e.target.closest('a') || 
-        e.target.closest('button')
+        e.target.closest('button') ||
+        e.target.closest('.group')
       ) {
         setIsHovering(true);
       } else {
