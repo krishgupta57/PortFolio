@@ -49,7 +49,7 @@ const Contact = () => {
       id="contact"
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
-      className="max-w-4xl mx-auto"
+      className="max-w-4xl mx-auto px-6"
     >
       <div className="bg-slate-900 rounded-3xl border border-slate-800 p-8 md:p-12 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[80px] rounded-full"></div>
