@@ -19,6 +19,14 @@ export const skills = [
     icon: <Code2 className="w-6 h-6" /> 
   },
   { 
+    name: 'HTML/CSS', 
+    label: 'Styling', 
+    details: 'Responsive Design, Animations, Transitions', 
+    percentage: 95, 
+    color: '#ff0000', 
+    icon: <Code2 className="w-6 h-6" /> 
+  },
+  { 
     name: 'Tailwind CSS', 
     label: 'Styling Framework', 
     details: 'SASS, Animations, Responsive Design', 
@@ -46,7 +54,7 @@ export const skills = [
     name: 'REST APIs', 
     label: 'Integration Layer', 
     details: 'Postman, JWT Auth, API Design', 
-    percentage: 80, 
+    percentage: 70, 
     color: '#f97316', 
     icon: <Globe className="w-6 h-6" /> 
   },
