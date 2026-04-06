@@ -44,7 +44,7 @@ function App() {
       {/* Edge-to-edge Marquee component sitting outside the constrained width */}
       <TechMarquee />
 
-      <main className="max-w-6xl mx-auto px-6 pt-16 pb-24 space-y-16 md:space-y-24">
+      <main className="max-w-6xl mx-auto px-6 pt-16 pb-8 space-y-16 md:space-y-24">
         <About />
         <Skills />
         <Projects />
