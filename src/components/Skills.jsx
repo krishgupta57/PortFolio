@@ -1,7 +1,74 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, Layout, Server, Database, Layers } from 'lucide-react';
+import { skills } from '../data/portfolioData';
 import { fadeIn, staggerContainer } from '../utils/animations';
+
+const SkillCard = ({ skill, index }) => {
+  return (
+    <motion.div
+      variants={fadeIn}
+      className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-all duration-300 group relative overflow-hidden"
+    >
+      {/* Background Glow Effect */}
+      <div 
+        className="absolute -right-10 -top-10 w-32 h-32 blur-[80px] rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"
+        style={{ backgroundColor: skill.color }}
+      ></div>
+
+      <div className="flex items-start justify-between mb-8">
+        <div className="flex items-center gap-4">
+          <div 
+            className="w-12 h-12 rounded-xl flex items-center justify-center border border-slate-700/50 bg-slate-800/50 group-hover:scale-110 transition-transform duration-300 shadow-lg"
+            style={{ color: skill.color }}
+          >
+            {skill.icon}
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors uppercase tracking-tight">
+              {skill.name}
+            </h3>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold">
+              {skill.label}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Progress Bar Container */}
+      <div className="space-y-4">
+        <div className="relative h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: `${skill.percentage}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, delay: 0.5 + index * 0.1, ease: "easeOut" }}
+            className="absolute top-0 left-0 h-full rounded-full shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+            style={{ 
+              backgroundColor: skill.color,
+              boxShadow: `0 0 15px ${skill.color}55`
+            }}
+          />
+        </div>
+
+        <div className="flex justify-between items-end">
+          <div className="max-w-[70%]">
+            <p className="text-[10px] uppercase tracking-widest text-slate-500 font-medium leading-relaxed">
+              {skill.details}
+            </p>
+          </div>
+          <div className="text-right">
+            <span 
+              className="text-lg font-black tracking-tighter"
+              style={{ color: skill.color }}
+            >
+              {skill.percentage}%
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Skills = () => {
   return (
@@ -9,92 +76,25 @@ const Skills = () => {
       id="skills"
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
+      className="py-20 relative"
     >
-      <motion.h2 variants={fadeIn} className="text-3xl font-bold mb-12 flex items-center">
-        <span className="text-blue-500 mr-4 font-mono text-lg">02.</span> Technical Arsenal
-      </motion.h2>
+      {/* Background Decor */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+      
+      <motion.div variants={fadeIn} className="flex flex-col mb-16 px-4 md:px-0">
+        <div className="flex items-center gap-4 mb-4">
+          <span className="text-blue-500 font-mono text-sm tracking-widest uppercase">02. Technical Arsenal</span>
+          <div className="h-[1px] w-24 bg-gradient-to-r from-blue-500 to-transparent"></div>
+        </div>
+        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
+          The <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Engine Room</span>
+        </h2>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[600px] cursor-none">
-        
-        {/* Large Tile: Full Stack Engine (Spans 2 columns, 2 rows) */}
-        <motion.div 
-          variants={fadeIn} 
-          className="md:col-span-2 md:row-span-2 bg-gradient-to-br from-slate-900 to-black border border-slate-800 rounded-3xl p-8 shadow-2xl overflow-hidden relative group hover:border-blue-500/50 transition-colors"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[80px] rounded-full group-hover:bg-blue-500/20 transition-colors pointer-events-none"></div>
-          
-          <div className="w-14 h-14 bg-blue-500/10 text-blue-400 flex items-center justify-center rounded-2xl mb-8 border border-blue-500/20">
-            <Layers className="w-7 h-7" />
-          </div>
-          <h3 className="text-3xl font-black mb-4 text-white tracking-tight">Full Stack Architecture</h3>
-          <p className="text-slate-400 text-lg mb-8 leading-relaxed max-w-sm">
-            Expertise in bridging high-performance React frontend interfaces with profoundly optimized Python Django backends and secure authentication workflows.
-          </p>
-          
-          <ul className="space-y-3">
-            {['React.js (Hooks, Context)', 'Django (REST Framework)', 'Authentication (JWT, Sessions)', 'System Design Basics'].map((item, i) => (
-              <li key={i} className="flex items-center text-slate-300 font-medium bg-slate-800/50 py-2 px-4 rounded-lg w-fit border border-slate-700/50">
-                <ChevronRight className="w-4 h-4 text-blue-500 mr-2 flex-shrink-0" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Wide Tile: Frontend Engineering (Spans 2 columns, 1 row) */}
-        <motion.div 
-          variants={fadeIn} 
-          className="md:col-span-2 md:row-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-indigo-500/50 transition-colors group relative overflow-hidden flex flex-col justify-center"
-        >
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="w-12 h-12 bg-indigo-500/10 text-indigo-400 flex items-center justify-center rounded-xl mb-6 border border-indigo-500/20">
-                <Layout className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-bold mb-2 text-white">Frontend Engineering</h3>
-              <p className="text-slate-400">Crafting incredibly smooth, fully responsive, and animated user interfaces using modern DOM manipulations and frameworks.</p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2 mt-6">
-            {['React Framework', 'JavaScript (ES6+)', 'Tailwind CSS v4', 'Responsive Design', 'Framer Motion'].map((tag, i) => (
-              <span key={i} className="px-3 py-1 bg-black border border-slate-700 rounded-full text-xs font-mono text-indigo-300 group-hover:border-indigo-500/30 transition-colors">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Small Tile A: Database (Spans 1 column, 1 row) */}
-        <motion.div 
-          variants={fadeIn} 
-          className="md:col-span-1 md:row-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-orange-500/50 transition-colors flex flex-col justify-between"
-        >
-          <div className="w-12 h-12 bg-orange-500/10 text-orange-400 flex items-center justify-center rounded-xl mb-4 border border-orange-500/20">
-            <Database className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold mb-2 text-white">Database Optimization</h3>
-            <p className="text-slate-400 text-sm">Structuring perfectly normalized relational tables via MySQL and SQLite. Deep focus on query speeds and caching.</p>
-          </div>
-        </motion.div>
-
-        {/* Small Tile B: Tooling (Spans 1 column, 1 row) */}
-        <motion.div 
-          variants={fadeIn} 
-          className="md:col-span-1 md:row-span-1 bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-emerald-500/50 transition-colors flex flex-col justify-between relative overflow-hidden shadow-inner"
-        >
-          <div className="absolute -right-4 -bottom-4 opacity-5 pointer-events-none">
-            <Server className="w-48 h-48" />
-          </div>
-          <div className="w-12 h-12 bg-emerald-500/10 text-emerald-400 flex items-center justify-center rounded-xl mb-4 border border-emerald-500/20">
-            <Server className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold mb-2 text-white">API & Tooling</h3>
-            <p className="text-slate-400 text-sm">RESTful API development. Experienced with deployment pipelines, Git workflows, and containerization basics (Docker).</p>
-          </div>
-        </motion.div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10 px-4 md:px-0">
+        {skills.map((skill, index) => (
+          <SkillCard key={index} skill={skill} index={index} />
+        ))}
       </div>
     </motion.section>
   );

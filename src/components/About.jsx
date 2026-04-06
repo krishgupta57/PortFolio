@@ -1,8 +1,53 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, BookOpen, Award } from 'lucide-react';
+import { education } from '../data/portfolioData';
 import { fadeIn, staggerContainer } from '../utils/animations';
 import profilePic from '../assets/front.jpg';
+
+const EducationCard = ({ item, index }) => {
+  const isEven = index % 2 === 0;
+
+  return (
+    <div className={`relative flex items-center justify-between w-full mb-16 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} flex-row`}>
+      {/* Central Line Node */}
+      <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 w-10 h-10 bg-slate-900 border-2 rounded-full flex items-center justify-center z-20 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+           style={{ borderColor: item.color }}>
+        <div className="text-white">
+          {React.cloneElement(item.icon, { className: 'w-5 h-5', style: { color: item.color } })}
+        </div>
+      </div>
+
+      {/* Content Card */}
+      <motion.div 
+        initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className={`relative w-[calc(100%-60px)] md:w-[45%] p-6 bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-3xl hover:border-slate-700 transition-colors group shadow-xl ml-auto md:ml-0`}
+      >
+        {/* Glow Effect */}
+        <div 
+          className="absolute -right-10 -top-10 w-24 h-24 blur-[60px] rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-500"
+          style={{ backgroundColor: item.color }}
+        ></div>
+
+        <div className="flex flex-col gap-2">
+          <span 
+            className="font-mono text-xs font-bold tracking-widest uppercase px-3 py-1 bg-white/5 rounded-full w-fit border border-white/10"
+            style={{ color: item.color }}
+          >
+            {item.year} • {item.grade}
+          </span>
+          <h3 className="text-xl md:text-2xl font-black text-white tracking-tight">{item.title}</h3>
+          <p className="text-slate-400 font-medium mb-2">{item.institution}</p>
+          <p className="text-slate-500 text-sm leading-relaxed border-t border-white/5 pt-4">
+            {item.description}
+          </p>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
 
 const About = () => {
   return (
@@ -10,14 +55,15 @@ const About = () => {
       id="about" 
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
+      className="relative"
     >
       <motion.h2 variants={fadeIn} className="text-3xl font-bold mb-12 flex items-center">
         <span className="text-blue-500 mr-4 font-mono text-lg">01.</span> About Background
       </motion.h2>
       
-      {/* Top Section: Text & Image horizontally balanced */}
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <motion.div variants={fadeIn} className="space-y-6 text-slate-400 text-lg leading-relaxed">
+      {/* Top Section: Text & Image */}
+      <div className="grid md:grid-cols-2 gap-12 items-center mb-32">
+        <motion.div variants={fadeIn} className="space-y-6 text-slate-400 text-lg leading-relaxed order-2 md:order-1">
           <p>
             As a passionate Full-Stack Developer, I thrive on building end-to-end applications that solve real-world problems. With 3+ major projects under my belt featuring completely integrated authentication systems and REST APIs, I am heavily focused on scalable backend logic and smooth frontend experiences.
           </p>
@@ -41,9 +87,8 @@ const About = () => {
           </ul>
         </motion.div>
         
-        <motion.div variants={fadeIn} className="relative group mx-auto md:ml-auto md:mr-0 w-full max-w-sm">
+        <motion.div variants={fadeIn} className="relative group mx-auto md:ml-auto md:mr-0 w-full max-w-sm order-1 md:order-2">
           <div className="absolute inset-0 bg-blue-600 rounded-2xl translate-x-4 translate-y-4 -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
-          {/* NOTE: Replace the src below with your actual photo path! e.g., src="/my-photo.jpg" */}
           <img 
             src={profilePic} 
             alt="Krish Gupta" 
@@ -52,68 +97,27 @@ const About = () => {
         </motion.div>
       </div>
 
-      {/* Bottom Section: Horizontal Education Timeline Spanning Full Width */}
-      <motion.div 
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        className="mt-24 pt-16 border-t border-slate-800/50"
-      >
-        <motion.h3 variants={fadeIn} className="text-2xl font-bold text-white mb-20 text-center tracking-tight">The Education Journey</motion.h3>
-        
-        <div className="grid md:grid-cols-3 gap-12 md:gap-6 relative">
+      {/* Vertical Education Timeline Section */}
+      <motion.div variants={fadeIn} className="relative max-w-5xl mx-auto px-4">
+        <div className="flex flex-col items-center mb-20 text-center">
+            <div className="flex items-center gap-4 mb-4">
+                <span className="text-purple-500 font-mono text-sm tracking-widest uppercase text-center">Educational Odyssey</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
+                The Journey of <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-500">Learning</span>
+            </h2>
+        </div>
+
+        <div className="relative mt-10">
+          {/* Central Connecting Vertical Line */}
+          <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-blue-500 via-indigo-500 to-purple-500 opacity-30 z-10"></div>
           
-          {/* Glowing Connecting Line for Desktop */}
-          <motion.div 
-            initial={{ scaleX: 0, opacity: 0 }}
-            whileInView={{ scaleX: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
-            style={{ transformOrigin: "left" }}
-            className="hidden md:block absolute top-[28px] left-[15%] w-[70%] h-[3px] bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 shadow-[0_0_20px_rgba(99,102,241,0.6)] z-0 rounded-full"
-          ></motion.div>
-          
-          {/* Mobile connecting line */}
-          <motion.div 
-            initial={{ scaleY: 0, opacity: 0 }}
-            whileInView={{ scaleY: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
-            style={{ transformOrigin: "top" }}
-            className="block md:hidden absolute top-[10%] left-[50%] w-[2px] h-[80%] bg-gradient-to-b from-purple-500 via-indigo-500 to-blue-500 -translate-x-1/2 z-0"
-          ></motion.div>
-
-          {/* Point 1: 10th Grade */}
-          <motion.div variants={fadeIn} className="relative z-10 flex flex-col items-center text-center group bg-black/50 md:bg-transparent p-6 rounded-2xl">
-            <div className="w-14 h-14 bg-black border-[3px] border-purple-500 rounded-full flex items-center justify-center text-purple-500 shadow-[0_0_25px_rgba(168,85,247,0.5)] mb-6 group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-300">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <p className="text-purple-400 text-xs font-mono mb-4 px-4 py-1.5 bg-purple-500/10 rounded-full border border-purple-500/20 tracking-widest uppercase">2019 • 65%</p>
-            <h4 className="text-white font-bold text-lg mb-2">High School (10th)</h4>
-            <p className="text-slate-400 text-sm">Delhi Public School, Satna</p>
-          </motion.div>
-
-          {/* Point 2: 12th Grade */}
-          <motion.div variants={fadeIn} className="relative z-10 flex flex-col items-center text-center group bg-black/50 md:bg-transparent p-6 rounded-2xl">
-            <div className="w-14 h-14 bg-black border-[3px] border-indigo-500 rounded-full flex items-center justify-center text-indigo-500 shadow-[0_0_25px_rgba(99,102,241,0.5)] mb-6 group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-300">
-              <Award className="w-6 h-6" />
-            </div>
-            <p className="text-indigo-400 text-xs font-mono mb-4 px-4 py-1.5 bg-indigo-500/10 rounded-full border border-indigo-500/20 tracking-widest uppercase">2021 • 65%</p>
-            <h4 className="text-white font-bold text-lg mb-2">Senior Secondary (12th)</h4>
-            <p className="text-slate-400 text-sm">Delhi Public School, Satna</p>
-          </motion.div>
-
-          {/* Point 3: B.Tech */}
-          <motion.div variants={fadeIn} className="relative z-10 flex flex-col items-center text-center group bg-black/50 md:bg-transparent p-6 rounded-2xl">
-            <div className="w-14 h-14 bg-black border-[3px] border-blue-500 rounded-full flex items-center justify-center text-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.5)] mb-6 group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-300">
-              <GraduationCap className="w-6 h-6" />
-            </div>
-            <p className="text-blue-400 text-xs font-mono mb-4 px-4 py-1.5 bg-blue-500/10 rounded-full border border-blue-500/20 tracking-widest uppercase">2021 – 2025 • CGPA: 7.01</p>
-            <h4 className="text-white font-bold text-lg mb-2">B.Tech Computer Science</h4>
-            <p className="text-slate-400 text-sm">Lakshmi Narain College of Technology</p>
-          </motion.div>
-
+          {/* Render Education Cards */}
+          <div className="relative z-20">
+            {education.map((item, index) => (
+              <EducationCard key={item.id} item={item} index={index} />
+            ))}
+          </div>
         </div>
       </motion.div>
 

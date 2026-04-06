@@ -25,3 +25,18 @@ html {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
+
+/* Custom Skill Section Glow & Grid */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+@keyframes progress-load {
+  from { width: 0; }
+  to { width: var(--progress-width); }
+}
+
+.animate-progress {
+  animation: progress-load 1.5s ease-out forwards;
+}

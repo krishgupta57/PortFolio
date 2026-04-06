@@ -1,11 +1,122 @@
 import React from 'react';
-import { Layout, Server, Database, Layers } from 'lucide-react';
+import { Layout, Server, Database, Layers, Globe, Code2, Command, ShieldCheck, Box, GraduationCap, BookOpen, Award } from 'lucide-react';
 
 export const skills = [
-  { name: 'Frontend', icon: <Layout className="w-6 h-6" />, items: ['React.js', 'JavaScript (ES6+)', 'Tailwind CSS', 'HTML5 & CSS3'] },
-  { name: 'Backend', icon: <Server className="w-6 h-6" />, items: ['Python', 'Django', 'REST APIs', 'Authentication'] },
-  { name: 'Database', icon: <Database className="w-6 h-6" />, items: ['MySQL', 'SQLite', 'Query Optimization', 'Data Modeling'] },
-  { name: 'Tools & Core', icon: <Layers className="w-6 h-6" />, items: ['Git & GitHub', 'Docker (Basic)', 'Data Structures', 'OOP'] }
+  { 
+    name: 'React.js', 
+    label: 'Frontend Library', 
+    details: 'Next.js, Redux, Context API, Hooks', 
+    percentage: 90, 
+    color: '#3b82f6', 
+    icon: <Layout className="w-6 h-6" /> 
+  },
+  { 
+    name: 'JavaScript', 
+    label: 'Core Language', 
+    details: 'ES6+, TypeScript (Basic), DOM, Promises', 
+    percentage: 90, 
+    color: '#eab308', 
+    icon: <Code2 className="w-6 h-6" /> 
+  },
+  { 
+    name: 'Tailwind CSS', 
+    label: 'Styling Framework', 
+    details: 'SASS, Animations, Responsive Design', 
+    percentage: 95, 
+    color: '#06b6d4', 
+    icon: <Command className="w-6 h-6" /> 
+  },
+  { 
+    name: 'Django', 
+    label: 'Backend Framework', 
+    details: 'DRF, ORM, Middleware, Security', 
+    percentage: 75, 
+    color: '#10b981', 
+    icon: <Server className="w-6 h-6" /> 
+  },
+  { 
+    name: 'Python', 
+    label: 'Programming', 
+    details: 'OOP, Scripting, Automation', 
+    percentage: 80, 
+    color: '#6366f1', 
+    icon: <Code2 className="w-6 h-6" /> 
+  },
+  { 
+    name: 'REST APIs', 
+    label: 'Integration Layer', 
+    details: 'Postman, JWT Auth, API Design', 
+    percentage: 80, 
+    color: '#f97316', 
+    icon: <Globe className="w-6 h-6" /> 
+  },
+  { 
+    name: 'MySQL', 
+    label: 'Relational Database', 
+    details: 'Query Optimization, Data Modeling', 
+    percentage: 80, 
+    color: '#0ea5e9', 
+    icon: <Database className="w-6 h-6" /> 
+  },
+  { 
+    name: 'Git & GitHub', 
+    label: 'Version Control', 
+    details: 'Branching, Pull Requests, Workflows', 
+    percentage: 90, 
+    color: '#ef4444', 
+    icon: <ShieldCheck className="w-6 h-6" /> 
+  },
+  { 
+    name: 'System Design', 
+    label: 'Architecture', 
+    details: 'Scalability, Clean Code, OOP', 
+    percentage: 80, 
+    color: '#a855f7', 
+    icon: <Box className="w-6 h-6" /> 
+  }
+];
+
+export const education = [
+  {
+    id: 0,
+    title: "Full Stack Developer Intern",
+    institution: "Cybrom Technology Pvt. Ltd.",
+    year: "March 2026 – Present",
+    grade: "Internship",
+    description: "Intensive hands-on experience in building enterprise-grade web applications. Mastering advanced React patterns, Django REST framework optimizations, and industry-standard deployment workflows.",
+    icon: <Code2 className="w-6 h-6" />,
+    color: "#10b981"
+  },
+  {
+    id: 1,
+    title: "B.Tech Computer Science",
+    institution: "Lakshmi Narain College of Technology",
+    year: "2021 – 2025",
+    grade: "CGPA: 7.01",
+    description: "Deep-diving into Full-Stack Development, Data Structures, and RDBMS. Built multiple engineering projects using React and Django with a focus on scalable architecture.",
+    icon: <GraduationCap className="w-6 h-6" />,
+    color: "#3b82f6"
+  },
+  {
+    id: 2,
+    title: "Senior Secondary (12th)",
+    institution: "Delhi Public School, Satna",
+    year: "2021",
+    grade: "65%",
+    description: "Specialized in Physics, Chemistry, and Mathematics (PCM). Developed a strong foundation in analytical thinking and complex problem-solving strategies.",
+    icon: <Award className="w-6 h-6" />,
+    color: "#6366f1"
+  },
+  {
+    id: 3,
+    title: "High School (10th)",
+    institution: "Delhi Public School, Satna",
+    year: "2019",
+    grade: "65%",
+    description: "Gained foundational knowledge in Science and Mathematics, consistently maintaining high academic performance and participating in various technical workshops.",
+    icon: <BookOpen className="w-6 h-6" />,
+    color: "#a855f7"
+  }
 ];
 
 export const projects = [
