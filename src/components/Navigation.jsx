@@ -1,28 +1,82 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useSpring, useTransform } from 'framer-motion';
 import { Menu, X, Send } from 'lucide-react';
+
+const MagneticButton = ({ children, onClick, onMouseEnter, onMouseLeave, isActive }) => {
+  const ref = useRef(null);
+  const x = useSpring(0, { stiffness: 150, damping: 15 });
+  const y = useSpring(0, { stiffness: 150, damping: 15 });
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    const distanceX = clientX - centerX;
+    const distanceY = clientY - centerY;
+
+    x.set(distanceX * 0.4);
+    y.set(distanceY * 0.4);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+    onMouseLeave?.();
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={onMouseEnter}
+      onClick={onClick}
+      style={{ x, y }}
+      className={`relative px-4 py-2 text-sm font-bold transition-colors cursor-none ${
+        isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+      }`}
+    >
+      {children}
+    </motion.button>
+  );
+};
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
   const [isHidden, setIsHidden] = useState(false);
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const lastScrollY = useRef(0);
-
+  
   const navItems = ['About', 'Skills', 'Projects', 'Contact'];
 
+  // Reading Progress Ring Math
+  const circumference = 2 * Math.PI * 18;
+  const strokeDashoffset = useTransform(scrollYProgress, [0, 1], [circumference, 0]);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const isScrollingUp = latest < lastScrollY.current;
-    
+    // Standard Smart Hide: Hide on DOWN, Show on UP
     if (latest < 50) {
       setIsHidden(false);
     } else if (latest > lastScrollY.current) {
-      setIsHidden(true); // Standard: Scroll DOWN to hide
-    } else if (isScrollingUp) {
-      setIsHidden(false); // Standard: Scroll UP to show
+      setIsHidden(true);
+    } else {
+      setIsHidden(false);
     }
-    
     lastScrollY.current = latest;
+
+    // ScrollSpy Logic
+    const sections = navItems.map(item => document.getElementById(item.toLowerCase()));
+    const scrollPos = latest + 200;
+
+    sections.forEach((section, i) => {
+      if (section && scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+        setActiveSection(navItems[i]);
+      }
+    });
+
+    if (latest < 100) setActiveSection(null);
   });
 
   const scrollToSection = (id) => {
@@ -40,49 +94,51 @@ const Navigation = () => {
       <motion.div 
         initial={{ y: -100, opacity: 0 }}
         animate={{ 
-          y: isHidden && !isOpen ? -45 : 0, 
-          opacity: 1 
+          y: isHidden && !isOpen ? -120 : 0, 
+          opacity: 1,
+          borderColor: isHidden ? 'rgba(255,255,255,0.05)' : 'rgba(59,130,246,0.2)'
         }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="flex items-center gap-4 bg-slate-900/50 backdrop-blur-2xl border border-white/5 rounded-full px-4 py-2 shadow-[0_20px_50px_rgba(0,0,0,0.3)] pointer-events-auto relative max-w-full overflow-hidden md:overflow-visible transition-all duration-300"
+        className="flex items-center gap-2 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-full px-4 py-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative max-w-full group/nav"
       >
-        {/* Logo/Brand */}
+        {/* Progress Ring Logo */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="text-lg font-black tracking-tighter mr-4 pl-2 group relative cursor-none"
+          className="relative w-10 h-10 flex items-center justify-center mr-2 cursor-none group/logo"
         >
-          <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:to-indigo-400">
+          <svg className="absolute inset-0 w-full h-full -rotate-90">
+            <circle cx="20" cy="20" r="18" fill="transparent" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
+            <motion.circle 
+              cx="20" cy="20" r="18" fill="transparent" 
+              stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"
+              style={{ strokeDasharray: circumference, strokeDashoffset }}
+            />
+          </svg>
+          <span className="text-[10px] font-black tracking-tighter bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent transform group-hover/logo:scale-110 transition-transform">
             KG.
           </span>
-          <div className="absolute -inset-2 bg-blue-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </button>
 
         {/* Desktop Nav Items */}
         <ul className="hidden md:flex items-center gap-1 relative">
           <AnimatePresence>
-            {hoveredItem && (
+            {activeSection && (
               <motion.div
-                layoutId="nav-pill"
-                className="absolute inset-0 bg-white/5 rounded-full z-0 h-full"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                layoutId="nav-active-pill"
+                className="absolute inset-0 bg-blue-500/10 border border-blue-500/20 rounded-full z-0"
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
           </AnimatePresence>
 
           {navItems.map((item) => (
             <li key={item} className="relative z-10">
-              <button
+              <MagneticButton
+                isActive={activeSection === item}
                 onClick={() => scrollToSection(item)}
-                onMouseEnter={() => setHoveredItem(item)}
-                onMouseLeave={() => setHoveredItem(null)}
-                className={`px-4 py-2 text-sm font-bold transition-colors cursor-none ${
-                    hoveredItem === item ? 'text-white' : 'text-slate-400'
-                }`}
               >
                 {item}
-              </button>
+              </MagneticButton>
             </li>
           ))}
         </ul>
@@ -92,7 +148,7 @@ const Navigation = () => {
         {/* Drop Mail Button */}
         <button 
           onClick={() => scrollToSection('Contact')}
-          className="hidden md:flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-widest px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105 active:scale-95 group cursor-none"
+          className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105 active:scale-95 group cursor-none"
         >
           Drop Mail
           <Send className="w-3 h-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -120,14 +176,16 @@ const Navigation = () => {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="w-full text-left px-6 py-4 rounded-2xl hover:bg-white/5 text-lg font-bold text-slate-300 hover:text-white transition-all active:scale-95"
+                className={`w-full text-left px-6 py-4 rounded-2xl transition-all text-lg font-bold ${
+                    activeSection === item ? 'bg-blue-500/10 text-blue-400' : 'text-slate-300 hover:bg-white/5'
+                }`}
               >
                 {item}
               </button>
             ))}
             <button 
               onClick={() => scrollToSection('Contact')}
-              className="mt-4 w-full bg-blue-600 p-5 rounded-2xl flex items-center justify-between text-white font-black uppercase tracking-widest text-sm shadow-xl"
+              className="mt-4 w-full bg-gradient-to-r from-blue-600 to-indigo-600 p-5 rounded-2xl flex items-center justify-between text-white font-black uppercase tracking-widest text-sm shadow-xl"
             >
               Drop Mail
               <Send className="w-4 h-4" />
