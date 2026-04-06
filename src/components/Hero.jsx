@@ -141,8 +141,8 @@ const Hero = () => {
               
               {/* The Actual embedded PDF */}
               <div className="w-full h-full bg-slate-950 flex justify-center items-center relative overflow-hidden">
-                <iframe src="/resume.pdf" className="w-full h-full border-none bg-white">
-                  <p className="text-white text-center p-8">Your browser doesn't support PDF viewing. <a href="/resume.pdf" className="text-blue-400 underline">Download it here</a>.</p>
+                <iframe src="/Krish_Resume.pdf" className="w-full h-full border-none bg-white">
+                  <p className="text-white text-center p-8">Your browser doesn't support PDF viewing. <a href="/Krish_Resume.pdf" className="text-blue-400 underline">Download it here</a>.</p>
                 </iframe>
               </div>
             </motion.div>
