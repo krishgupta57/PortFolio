@@ -3,12 +3,12 @@ import { Layout, Server, Database, Layers, Globe, Code2, Command, ShieldCheck, B
 
 export const skills = [
   { 
-    name: 'React.js', 
-    label: 'Frontend Library', 
-    details: 'Next.js, Redux, Context API, Hooks', 
-    percentage: 90, 
-    color: '#3b82f6', 
-    icon: <Layout className="w-6 h-6" /> 
+    name: 'HTML/CSS', 
+    label: 'Styling', 
+    details: 'Responsive Design, Animations, Transitions', 
+    percentage: 95, 
+    color: '#ff0000', 
+    icon: <Code2 className="w-6 h-6" /> 
   },
   { 
     name: 'JavaScript', 
@@ -19,12 +19,12 @@ export const skills = [
     icon: <Code2 className="w-6 h-6" /> 
   },
   { 
-    name: 'HTML/CSS', 
-    label: 'Styling', 
-    details: 'Responsive Design, Animations, Transitions', 
-    percentage: 95, 
-    color: '#ff0000', 
-    icon: <Code2 className="w-6 h-6" /> 
+    name: 'React.js', 
+    label: 'Frontend Library', 
+    details: 'Next.js, Redux, Context API, Hooks', 
+    percentage: 90, 
+    color: '#3b82f6', 
+    icon: <Layout className="w-6 h-6" /> 
   },
   { 
     name: 'Tailwind CSS', 
@@ -35,20 +35,20 @@ export const skills = [
     icon: <Command className="w-6 h-6" /> 
   },
   { 
-    name: 'Django', 
-    label: 'Backend Framework', 
-    details: 'DRF, ORM, Middleware, Security', 
-    percentage: 75, 
-    color: '#10b981', 
-    icon: <Server className="w-6 h-6" /> 
-  },
-  { 
     name: 'Python', 
     label: 'Programming', 
     details: 'OOP, Scripting, Automation', 
     percentage: 80, 
     color: '#6366f1', 
     icon: <Code2 className="w-6 h-6" /> 
+  },
+  { 
+    name: 'Django', 
+    label: 'Backend Framework', 
+    details: 'DRF, ORM, Middleware, Security', 
+    percentage: 75, 
+    color: '#10b981', 
+    icon: <Server className="w-6 h-6" /> 
   },
   { 
     name: 'REST APIs', 
