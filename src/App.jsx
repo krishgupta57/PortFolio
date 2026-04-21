@@ -1,5 +1,5 @@
-import React from 'react';
-import CustomCursor from './components/CustomCursor';
+import React, { useState, useEffect, useMemo } from 'react';
+import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import Navigation from './components/Navigation';
 import SplashName from './components/SplashName';
 import Hero from './components/Hero';
@@ -9,60 +9,216 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import BootSequence from './components/BootSequence';
+import SystemTelemetry from './components/SystemTelemetry';
+
+const CustomCursor = () => {
+  const [isHovering, setIsHovering] = useState(false);
+  
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  const cursorXSpring = useSpring(cursorX, { damping: 25, stiffness: 400, mass: 0.5 });
+  const cursorYSpring = useSpring(cursorY, { damping: 25, stiffness: 400, mass: 0.5 });
+
+  const dotXSpring = useSpring(cursorX, { damping: 40, stiffness: 1000, mass: 0.1 });
+  const dotYSpring = useSpring(cursorY, { damping: 40, stiffness: 1000, mass: 0.1 });
+
+  useEffect(() => {
+    const moveCursor = (e) => {
+      cursorX.set(e.clientX - 16);
+      cursorY.set(e.clientY - 16);
+    };
+
+    const handleMouseOver = (e) => {
+      if (
+        e.target.tagName === 'A' || 
+        e.target.tagName === 'BUTTON' || 
+        e.target.closest('a') || 
+        e.target.closest('button') ||
+        e.target.closest('.group')
+      ) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+
+    window.addEventListener('mousemove', moveCursor);
+    window.addEventListener('mouseover', handleMouseOver);
+
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+      window.removeEventListener('mouseover', handleMouseOver);
+    };
+  }, [cursorX, cursorY]);
+
+  return (
+    <motion.div 
+      initial={false}
+      className="fixed inset-0 pointer-events-none z-[100] hidden md:block"
+    >
+      <motion.div
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-pink-500/50 mix-blend-screen"
+        style={{
+          x: cursorXSpring,
+          y: cursorYSpring,
+        }}
+        animate={{
+          scale: isHovering ? 1.8 : 1,
+          borderColor: isHovering ? "#ec4899" : "#3b82f6",
+          backgroundColor: isHovering ? "rgba(236, 72, 153, 0.15)" : "transparent"
+        }}
+        transition={{ duration: 0.2 }}
+      />
+      
+      <motion.div 
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-pink-500 shadow-[0_0_10px_#ec4899]"
+        style={{
+          x: dotXSpring,
+          y: dotYSpring,
+          translateX: "12px", 
+          translateY: "12px"
+        }}
+      />
+    </motion.div>
+  );
+};
+
+const BackgroundDataStream = () => {
+    const particles = useMemo(() => Array.from({ length: 40 }), []);
+
+    return (
+        <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+            {particles.map((_, i) => (
+                <div 
+                    key={i}
+                    className="absolute rounded-full animate-data-drift"
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        width: `${Math.random() * 4 + 1}px`,
+                        height: `${Math.random() * 4 + 1}px`,
+                        backgroundColor: Math.random() > 0.5 ? '#ec4899' : '#3b82f6',
+                        animationDelay: `${Math.random() * 20}s`,
+                        animationDuration: `${Math.random() * 10 + 15}s`
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
 
 function App() {
-  return (
-    <div className="bg-black min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden relative cursor-none">
-      <CustomCursor />
+  const [showBoot, setShowBoot] = useState(true);
 
-      {/* Global Raster Scan Line */}
+  return (
+    <motion.div 
+      layout
+      initial={false}
+      className="min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden relative" 
+      style={{ backgroundColor: '#010409' }}
+    >
+      <AnimatePresence mode="wait">
+        {showBoot ? (
+          <BootSequence key="boot" onComplete={() => setShowBoot(false)} />
+        ) : (
+          <motion.div 
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="relative"
+          >
+
+      {/* 1. Global Multi-Layered Background System */}
+      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        
+        {/* Layer 1: Fixed Technical Noise Texture */}
+        <div className="absolute inset-0 opacity-[0.03] bg-noise mix-blend-overlay" />
+        
+        {/* Layer 2: Topological Schematic Pattern */}
+        <div className="absolute inset-0 opacity-[0.08] bg-topology" />
+        
+        {/* Layer 3: High-Performance Moving Blueprint Grid */}
+        <div className="absolute inset-[-100px] opacity-[0.04]">
+            <div 
+                className="absolute inset-0 animate-bp-grid"
+                style={{ 
+                    backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
+                    backgroundSize: "45px 45px"
+                }}
+            />
+        </div>
+
+        {/* Layer 4: Breathing Telemetry Glows (System Pulse) */}
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-600/10 blur-[120px] animate-breathing" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-pink-600/10 blur-[120px] animate-breathing" style={{ animationDelay: '-5s' }} />
+      </div>
+
+            <Navigation />
+            <SystemTelemetry />
+
+            <main className="relative w-full">
+                <div id="hero" className="max-w-6xl mx-auto px-6 text-center pt-10 relative">
+                    <Hero />
+                </div>
+      
+                <TechMarquee />
+
+                <div className="max-w-6xl mx-auto px-6 space-y-16 md:space-y-24 relative">
+                    <SplashName />
+                    <div id="about">
+                        <About />
+                    </div>
+                </div>
+      
+                <div id="skills" className="relative">
+                    <Skills />
+                </div>
+                
+                <div id="projects" className="relative">
+                    <Projects />
+                </div>
+
+                <div id="contact" className="max-w-6xl mx-auto px-6 pt-16 pb-24 text-center relative">
+                    <Contact />
+                </div>
+            </main>
+
+                  <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <CustomCursor />
+      <BackgroundDataStream />
+      
+      {/* 1. Global Multi-Layered Background System */}
+      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        {/* Layer 1: Fixed Technical Noise Texture */}
+        <div className="absolute inset-0 opacity-[0.03] bg-noise mix-blend-overlay" />
+        {/* Layer 2: Topological Schematic Pattern */}
+        <div className="absolute inset-0 opacity-[0.08] bg-topology" />
+        {/* Layer 3: High-Performance Moving Blueprint Grid */}
+        <div className="absolute inset-[-100px] opacity-[0.04]">
+            <div 
+                className="absolute inset-0 animate-bp-grid"
+                style={{ 
+                    backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
+                    backgroundSize: "45px 45px"
+                }}
+            />
+        </div>
+        {/* Layer 4: Breathing Telemetry Glows (System Pulse) */}
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-600/10 blur-[120px] animate-breathing" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-pink-600/10 blur-[120px] animate-breathing" style={{ animationDelay: '-5s' }} />
+      </div>
+
       <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
         <div className="w-full h-[1px] bg-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-scan" />
       </div>
-      
-      {/* High-Performance Global Blueprint Grid */}
-      <div className="fixed inset-[-100px] pointer-events-none -z-10 overflow-hidden opacity-[0.03]">
-        <div 
-          className="absolute inset-0 animate-bp-grid"
-          style={{ 
-            backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
-            backgroundSize: "40px 40px"
-          }}
-        />
-      </div>
-      
-      {/* Decorative Background Gradients updated for high performance */}
-      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none bg-black">
-        {/* Floating corner light blobs */}
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full z-10" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.08) 0%, rgba(0,0,0,0) 70%)' }}></div>
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full z-10" style={{ background: 'radial-gradient(circle, rgba(79,70,229,0.08) 0%, rgba(0,0,0,0) 70%)' }}></div>
-      </div>
-
-      <Navigation />
-
-      <SplashName />
-
-      <main className="max-w-6xl mx-auto px-6 pt-10 pb-24 space-y-16 md:space-y-24">
-        <Hero />
-      </main>
-      
-      {/* Edge-to-edge Marquee component sitting outside the constrained width */}
-      <TechMarquee />
-
-      <main className="max-w-6xl mx-auto px-6 pt-16 pb-8 space-y-16 md:space-y-24">
-        <About />
-      </main>
-      
-      <Skills />
-      
-      <Projects />
-
-      <main className="max-w-6xl mx-auto px-6 pt-16 pb-8 space-y-16 md:space-y-24">
-        <Contact />
-      </main>
-
-      <Footer />
-    </div>
+    </motion.div>
   );
 }
 

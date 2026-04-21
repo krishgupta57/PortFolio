@@ -67,7 +67,7 @@ export const skills = [
   },
   { 
     name: 'MySQL', 
-    category: 'Backend',
+    category: 'Database',
     label: 'Relational Database', 
     details: 'Query Optimization, Data Modeling', 
     percentage: 80, 
@@ -76,7 +76,7 @@ export const skills = [
   },
   { 
     name: 'PostgreSQL', 
-    category: 'Backend',
+    category: 'Database',
     label: 'Database', 
     details: 'Basic Knowledge', 
     percentage: 50, 

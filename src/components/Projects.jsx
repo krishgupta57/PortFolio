@@ -6,10 +6,10 @@ import { projects } from '../data/portfolioData';
 
 const CornerFrame = () => (
     <>
-        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-blue-500/50 -translate-x-2 -translate-y-2" />
-        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-blue-500/50 translate-x-2 -translate-y-2" />
-        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-blue-500/50 -translate-x-2 translate-y-2" />
-        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-blue-500/50 translate-x-2 translate-y-2" />
+        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-pink-500/50 -translate-x-2 -translate-y-2" />
+        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-pink-500/50 translate-x-2 -translate-y-2" />
+        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-pink-500/50 -translate-x-2 translate-y-2" />
+        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-pink-500/50 translate-x-2 translate-y-2" />
     </>
 );
 
@@ -30,12 +30,12 @@ const ProjectSlide = memo(({ project, active, index }) => {
           scale: active ? 1 : 0.9,
         }}
         transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-        className="w-full max-w-5xl h-[550px] md:h-[650px] bg-slate-900/40 backdrop-blur-3xl border border-blue-500/10 rounded-sm relative p-1"
+        className="w-full max-w-5xl h-[550px] md:h-[650px] bg-slate-900/40 backdrop-blur-3xl border border-pink-500/10 rounded-sm relative p-1"
       >
         {/* Schematic Corner Frame */}
         <CornerFrame />
 
-        <div className="relative w-full h-full border border-blue-500/5 overflow-hidden">
+        <div className="relative w-full h-full border border-pink-500/5 overflow-hidden">
             {/* Raster Scan Line Animation */}
             {active && (
                 <motion.div 
@@ -59,13 +59,13 @@ const ProjectSlide = memo(({ project, active, index }) => {
             </div>
 
             {/* Hardware Specs - Top Left */}
-            <div className="absolute top-8 left-8 z-30 font-mono text-[10px] text-blue-400 opacity-60 flex flex-col gap-1 uppercase tracking-tighter">
+            <div className="absolute top-8 left-8 z-30 font-mono text-[10px] text-pink-400 opacity-60 flex flex-col gap-1 uppercase tracking-tighter">
                 <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                    <span className="w-2 h-2 bg-pink-500 rounded-full animate-pulse" />
                     <span>SYSTEM_ACTIVE // {project.status}</span>
                 </div>
                 <div>MODULE_ID: 00{index + 1}</div>
-                <div className="flex items-center gap-2 mt-4 text-xs font-black text-white bg-blue-500/20 px-2 py-1 w-fit">
+                <div className="flex items-center gap-2 mt-4 text-xs font-black text-white bg-pink-500/20 px-2 py-1 w-fit">
                     <Cpu className="w-3 h-3" />
                     {project.category}
                 </div>
@@ -81,36 +81,64 @@ const ProjectSlide = memo(({ project, active, index }) => {
             {/* Content Section */}
             <div className="absolute bottom-0 left-0 w-full p-8 md:p-16 z-30 overflow-hidden">
                 <div className="max-w-2xl">
-                    <h3 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-none flex items-baseline gap-4">
-                        <span className="text-blue-500 font-mono text-xl">/0{index + 1}</span>
+                    <motion.h3 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={active ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-6 leading-none flex items-baseline gap-4"
+                    >
+                        <span className="text-pink-500 font-mono text-xl">/0{index + 1}</span>
                         {project.title}
-                    </h3>
+                    </motion.h3>
 
-                    <p className="text-slate-300 text-base md:text-lg font-medium mb-10 leading-relaxed border-l-2 border-blue-500/30 pl-6">
+                    <motion.p 
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={active ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="text-slate-300 text-base md:text-lg font-medium mb-10 leading-relaxed border-l-2 border-pink-500/30 pl-6"
+                    >
                         {project.description}
-                    </p>
+                    </motion.p>
 
                     {/* Spec Grid */}
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
                         {project.specs.map((spec, i) => (
-                            <div key={i} className="flex flex-col gap-1">
-                                <span className="text-[9px] font-mono text-blue-400 opacity-50 uppercase">Diagnostic_{i}</span>
+                            <motion.div 
+                                key={i} 
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={active ? { opacity: 1, y: 0 } : {}}
+                                transition={{ delay: 0.4 + (i * 0.1) }}
+                                className="flex flex-col gap-1"
+                            >
+                                <span className="text-[9px] font-mono text-pink-400 opacity-50 uppercase">Diagnostic_{i}</span>
                                 <span className="text-xs font-black text-white uppercase tracking-widest">{spec}</span>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
 
                     <div className="flex flex-wrap items-center gap-4">
-                        <a 
+                        <motion.a 
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={active ? { opacity: 1, scale: 1 } : {}}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             href={project.link}
-                            className="inline-flex items-center gap-4 bg-blue-600 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-white hover:text-blue-600 transition-all group/btn cursor-none border border-blue-400/50"
+                            className="inline-flex items-center gap-4 bg-gradient-to-r from-pink-600 to-blue-600 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs transition-all group/btn cursor-none border border-pink-400/50 shadow-[0_10px_20px_rgba(236,72,153,0.2)]"
                         >
                             Launch Core System
                             <ExternalLink className="w-5 h-5 group-hover/btn:rotate-45 transition-transform" />
-                        </a>
+                        </motion.a>
                         <div className="flex gap-2">
-                             {project.tags.map(tag => (
-                                <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 text-[9px] font-mono text-slate-500 uppercase">{tag}</span>
+                             {project.tags.map((tag, i) => (
+                                <motion.span 
+                                    key={tag} 
+                                    initial={{ opacity: 0 }}
+                                    whileInView={active ? { opacity: 1 } : {}}
+                                    transition={{ delay: 0.6 + (i * 0.1) }}
+                                    className="px-3 py-1 bg-white/5 border border-white/10 text-[9px] font-mono text-slate-500 uppercase"
+                                >
+                                    {tag}
+                                </motion.span>
                              ))}
                         </div>
                     </div>
@@ -140,13 +168,13 @@ const Projects = () => {
 
       <div className="max-w-6xl mx-auto px-6 mb-16 relative z-10">
         <div className="flex items-center gap-6 mb-6">
-            <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-sm">
-                <Dna className="text-blue-500 w-6 h-6" />
+            <div className="p-3 bg-pink-500/10 border border-pink-500/20 rounded-sm">
+                <Dna className="text-pink-500 w-6 h-6" />
             </div>
             <div>
-                <span className="text-blue-500 font-mono text-[10px] tracking-widest uppercase block mb-1">Project Schema v2.0 // Selected Files</span>
+                <span className="text-pink-500 font-mono text-[10px] tracking-widest uppercase block mb-1">Project Schema v3.2 // Selected Files</span>
                 <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none">
-                    Visionary <span className="text-blue-500">Creations</span>
+                    Visionary <span className="text-pink-blue">Creations</span>
                 </h2>
             </div>
         </div>
@@ -154,16 +182,16 @@ const Projects = () => {
 
       <div className="relative group/slider cursor-none w-full">
         {/* Schematic Navigation */}
-        <div className="absolute top-1/2 left-4 md:left-12 -translate-y-1/2 z-[30] opacity-0 group-hover/slider:opacity-100 transition-all duration-500">
+        <div className="absolute top-1/2 left-4 md:left-12 -translate-y-1/2 z-[100] opacity-0 group-hover/slider:opacity-100 transition-all duration-500">
             <button onClick={prevSlide} className="w-16 h-16 bg-slate-900 border border-blue-500/20 hover:border-blue-500 text-white transition-all flex flex-col items-center justify-center gap-1 group/nav">
                 <ChevronLeft className="w-6 h-6" />
                 <span className="text-[8px] font-mono text-blue-500/50 group-hover/nav:text-blue-500">PREV</span>
             </button>
         </div>
-        <div className="absolute top-1/2 right-4 md:right-12 -translate-y-1/2 z-[30] opacity-0 group-hover/slider:opacity-100 transition-all duration-500">
-            <button onClick={nextSlide} className="w-16 h-16 bg-slate-900 border border-blue-500/20 hover:border-blue-500 text-white transition-all flex flex-col items-center justify-center gap-1 group/nav">
+        <div className="absolute top-1/2 right-4 md:right-12 -translate-y-1/2 z-[100] opacity-0 group-hover/slider:opacity-100 transition-all duration-500">
+            <button onClick={nextSlide} className="w-16 h-16 bg-slate-900 border border-pink-500/20 hover:border-pink-500 text-white transition-all flex flex-col items-center justify-center gap-1 group/nav">
                 <ChevronRight className="w-6 h-6" />
-                <span className="text-[8px] font-mono text-blue-500/50 group-hover/nav:text-blue-500">NEXT</span>
+                <span className="text-[8px] font-mono text-pink-500/50 group-hover/nav:text-pink-500">NEXT</span>
             </button>
         </div>
 
@@ -189,7 +217,7 @@ const Projects = () => {
                     key={i}
                     onClick={() => setIndex(i)}
                     className={`transition-all duration-500 h-2 rounded-sm border ${
-                        i === index ? 'w-16 bg-blue-600 border-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'w-4 bg-slate-900 border-slate-800'
+                        i === index ? 'w-16 bg-pink-600 border-pink-400 shadow-[0_0_10px_rgba(236,72,153,0.5)]' : 'w-4 bg-slate-900 border-slate-800'
                     }`}
                 />
             ))}

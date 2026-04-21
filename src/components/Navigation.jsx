@@ -110,19 +110,19 @@ const Navigation = () => {
             <circle cx="20" cy="20" r="18" fill="transparent" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
             <motion.circle 
               cx="20" cy="20" r="18" fill="transparent" 
-              stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"
+              stroke="#ec4899" strokeWidth="2" strokeLinecap="round"
               style={{ strokeDasharray: circumference, strokeDashoffset }}
             />
           </svg>
-          <span className="text-[10px] font-black tracking-tighter bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent transform group-hover/logo:scale-110 transition-transform">
+          <span className="text-[10px] font-black tracking-tighter bg-gradient-to-r from-pink-400 to-blue-500 bg-clip-text text-transparent transform group-hover/logo:scale-110 transition-transform">
             KG.
           </span>
         </button>
 
         {/* System Status Telemetry */}
-        <div className="hidden lg:flex items-center gap-3 px-3 py-1 border-l border-white/10 mr-2 opacity-40">
-            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-            <span className="text-[8px] font-mono tracking-widest text-blue-400 whitespace-nowrap">V3.1.2 // SYSTEM_OPTIMAL</span>
+        <div className="hidden lg:flex items-center gap-3 px-3 py-1 border-l border-white/10 mr-2 opacity-60">
+            <div className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse shadow-[0_0_8px_#ec4899]" />
+            <span className="text-[8px] font-mono tracking-widest text-pink-400 whitespace-nowrap uppercase">V3.2.0 // SYSTEM_OPTIMAL</span>
         </div>
 
         {/* Desktop Nav Items */}
@@ -131,7 +131,7 @@ const Navigation = () => {
             {activeSection && (
               <motion.div
                 layoutId="nav-active-pill"
-                className="absolute inset-0 bg-blue-500/10 border border-blue-500/20 rounded-full z-0"
+                className="absolute inset-0 bg-pink-500/10 border border-pink-500/20 rounded-full z-0"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
@@ -154,7 +154,7 @@ const Navigation = () => {
         {/* Drop Mail Button */}
         <button 
           onClick={() => scrollToSection('Contact')}
-          className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105 active:scale-95 group cursor-none"
+          className="hidden md:flex items-center gap-2 bg-gradient-to-r from-pink-600 to-blue-600 hover:from-pink-500 hover:to-blue-500 text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] hover:scale-105 active:scale-95 group cursor-none"
         >
           Hire Me
           <Send className="w-3 h-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
