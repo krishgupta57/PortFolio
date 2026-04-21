@@ -67,6 +67,14 @@ export const skills = [
     icon: <Database className="w-6 h-6" /> 
   },
   { 
+    name: 'PostgreSQL', 
+    label: 'Database', 
+    details: 'Basic Knowledge', 
+    percentage: 50, 
+    color: '#336791', 
+    icon: <Database className="w-6 h-6" /> 
+  },
+  { 
     name: 'Git & GitHub', 
     label: 'Version Control', 
     details: 'Branching, Pull Requests, Workflows', 
