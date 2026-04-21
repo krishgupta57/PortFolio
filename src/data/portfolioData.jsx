@@ -4,6 +4,7 @@ import { Layout, Server, Database, Layers, Globe, Code2, Command, ShieldCheck, B
 export const skills = [
   { 
     name: 'HTML/CSS', 
+    category: 'Frontend',
     label: 'Styling', 
     details: 'Responsive Design, Animations, Transitions', 
     percentage: 95, 
@@ -12,6 +13,7 @@ export const skills = [
   },
   { 
     name: 'JavaScript', 
+    category: 'Frontend',
     label: 'Core Language', 
     details: 'ES6+, TypeScript (Basic), DOM, Promises', 
     percentage: 90, 
@@ -20,6 +22,7 @@ export const skills = [
   },
   { 
     name: 'React.js', 
+    category: 'Frontend',
     label: 'Frontend Library', 
     details: 'Next.js, Redux, Context API, Hooks', 
     percentage: 90, 
@@ -28,6 +31,7 @@ export const skills = [
   },
   { 
     name: 'Tailwind CSS', 
+    category: 'Frontend',
     label: 'Styling Framework', 
     details: 'SASS, Animations, Responsive Design', 
     percentage: 95, 
@@ -36,6 +40,7 @@ export const skills = [
   },
   { 
     name: 'Python', 
+    category: 'Backend',
     label: 'Programming', 
     details: 'OOP, Scripting, Automation', 
     percentage: 80, 
@@ -44,6 +49,7 @@ export const skills = [
   },
   { 
     name: 'Django', 
+    category: 'Backend',
     label: 'Backend Framework', 
     details: 'DRF, ORM, Middleware, Security', 
     percentage: 75, 
@@ -52,6 +58,7 @@ export const skills = [
   },
   { 
     name: 'REST APIs', 
+    category: 'Backend',
     label: 'Integration Layer', 
     details: 'Postman, JWT Auth, API Design', 
     percentage: 70, 
@@ -60,6 +67,7 @@ export const skills = [
   },
   { 
     name: 'MySQL', 
+    category: 'Backend',
     label: 'Relational Database', 
     details: 'Query Optimization, Data Modeling', 
     percentage: 80, 
@@ -68,6 +76,7 @@ export const skills = [
   },
   { 
     name: 'PostgreSQL', 
+    category: 'Backend',
     label: 'Database', 
     details: 'Basic Knowledge', 
     percentage: 50, 
@@ -76,6 +85,7 @@ export const skills = [
   },
   { 
     name: 'Git & GitHub', 
+    category: 'Tools',
     label: 'Version Control', 
     details: 'Branching, Pull Requests, Workflows', 
     percentage: 90, 
@@ -84,6 +94,7 @@ export const skills = [
   },
   { 
     name: 'System Design', 
+    category: 'Tools',
     label: 'Architecture', 
     details: 'Scalability, Clean Code, OOP', 
     percentage: 80, 
@@ -142,22 +153,28 @@ export const projects = [
     tags: ['React.js', 'Django', 'MySQL', 'REST API'],
     description: 'Developed a full-stack job portal with role-based authentication. Integrated REST APIs, optimized database queries improving response times, and built responsive UI components.',
     image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    link: '#'
+    link: '#',
+    featured: true,
+    accent: '#3b82f6'
   },
   {
     title: 'Credit Management System',
     category: 'FinTech',
     tags: ['React.js', 'Django', 'MySQL'],
-    description: 'Built a financial tracking system for managing credit/debit transactions with real-time updates. Implemented scalable backend APIs and integrated a dynamic dashboard for data visualization.',
+    description: 'Built a financial tracking system for managing credit/debit transactions with real-time updates. Implemented scalable backend APIs.',
     image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    link: '#'
+    link: '#',
+    featured: false,
+    accent: '#10b981'
   },
   {
     title: 'Quiz Application System',
     category: 'EdTech',
     tags: ['Templates', 'Django', 'SQLite'],
-    description: 'Developed a quiz platform with strict admin controls, automated scoring, and real-time result calculations via an efficiently designed API-driven architecture.',
+    description: 'Developed a quiz platform with strict admin controls, automated scoring, and real-time result calculations via an efficiently designed architecture.',
     image: 'https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    link: '#'
+    link: '#',
+    featured: false,
+    accent: '#a855f7'
   }
 ];

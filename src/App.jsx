@@ -47,7 +47,11 @@ function App() {
       <main className="max-w-6xl mx-auto px-6 pt-16 pb-8 space-y-16 md:space-y-24">
         <About />
         <Skills />
-        <Projects />
+      </main>
+      
+      <Projects />
+
+      <main className="max-w-6xl mx-auto px-6 pt-16 pb-8 space-y-16 md:space-y-24">
         <Contact />
       </main>
 

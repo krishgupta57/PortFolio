@@ -1,38 +1,82 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Code, Maximize2, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Code, Maximize2, X, Sparkles } from 'lucide-react';
 import { fadeIn, staggerContainer } from '../utils/animations';
 
 const Hero = () => {
   const [isZoomed, setIsZoomed] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
+  const roles = ["Full-Stack Developer", "Django Specialist", "React Architect", "Cybrom Intern"];
+  
+  // Ambient Mouse Glow Logic
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <section id="hero" className="min-h-[50vh] flex items-center relative border-none w-full">
-      <div className="grid md:grid-cols-[1fr_auto] gap-12 items-center w-full">
+    <section id="hero" className="min-h-[60vh] flex items-center relative border-none w-full py-12">
+      {/* Ambient Mouse Glow Follower */}
+      <motion.div 
+        className="absolute pointer-events-none -z-10 w-[600px] h-[600px] rounded-full blur-[120px] opacity-20"
+        style={{ 
+          x: useTransform(springX, (val) => val - 300), 
+          y: useTransform(springY, (val) => val - 300),
+          background: "radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(99,102,241,0.2) 50%, transparent 100%)"
+        }}
+      />
+
+      <div className="grid md:grid-cols-[1fr_auto] gap-12 items-center w-full relative">
         
         {/* Left Column: Text Content */}
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="space-y-6 z-10 w-full max-w-2xl">
-          <motion.div variants={fadeIn} className="flex items-center space-x-2 text-blue-400 font-mono text-sm bg-blue-500/10 px-4 py-2 rounded-full w-fit">
-            <Code className="w-4 h-4" />
-            <span>Full-Stack Developer</span>
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="space-y-8 z-10 w-full max-w-2xl">
+          <motion.div variants={fadeIn} className="flex items-center space-x-3 text-blue-400 font-mono text-sm bg-blue-500/10 border border-blue-500/20 px-5 py-2.5 rounded-full w-fit shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+            <Sparkles className="w-4 h-4 animate-pulse" />
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={roles[roleIndex]}
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -10, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {roles[roleIndex]}
+              </motion.span>
+            </AnimatePresence>
           </motion.div>
           
-          <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight">
-            Building scalable <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
-              web applications.
+          <motion.h1 variants={fadeIn} className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9]">
+            Building elite <br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500">
+              web systems.
             </span>
           </motion.h1>
           
-          <motion.p variants={fadeIn} className="text-xl text-slate-400 leading-relaxed">
-            Hi, I'm <span className="text-white font-semibold">Krish Gupta</span>. I specialize in developing robust React and Django projects, combining beautiful frontend interfaces with deeply optimized backend architecture.
+          <motion.p variants={fadeIn} className="text-xl text-slate-400 leading-relaxed max-w-xl">
+            Hi, I'm <span className="text-white font-black underline decoration-blue-500 underline-offset-4">Krish Gupta</span>. I engineer high-performance Full-Stack applications that bridge stunning design with iron-clad backend logic.
           </motion.p>
           
-          <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-4 pt-4">
-            <a href="#projects" className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] cursor-none">
-              View My Projects
+          <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-6 pt-4">
+            <a href="#projects" className="px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-[0_15px_30px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.4)] hover:-translate-y-1 active:translate-y-0 cursor-none">
+              Explore Projects
             </a>
-            <button onClick={() => setIsZoomed(true)} className="px-8 py-4 bg-transparent border border-blue-500 text-blue-400 hover:bg-blue-500/10 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] cursor-none">
+            <button onClick={() => setIsZoomed(true)} className="px-10 py-5 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-blue-500/50 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:bg-slate-800 hover:-translate-y-1 active:translate-y-0 shadow-xl cursor-none">
               Zoom Resume
             </button>
             <div className="flex space-x-4 pl-0 md:pl-4 border-l-0 md:border-l border-slate-700">
@@ -97,7 +141,7 @@ const Hero = () => {
           </div>
 
           {/* Glaringly obvious hovering call-to-action badge */}
-          <div className="absolute -bottom-4 right-[-10px] bg-blue-600 border border-blue-400 text-white text-xs font-bold px-4 py-2 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.6)] z-20 flex items-center gap-2 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 cursor-none">
+          <div className="absolute -bottom-6 -right-6 bg-blue-600 border border-blue-400 text-white text-xs font-bold px-4 py-2 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.6)] z-20 flex items-center gap-2 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 cursor-none">
             <Maximize2 className="w-3 h-3" />
             Click to View Resume
           </div>
