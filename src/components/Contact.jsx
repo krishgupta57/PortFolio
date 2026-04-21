@@ -1,23 +1,36 @@
 import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Mail, MapPin, Phone, Send, ExternalLink, Sparkles } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Terminal, Hash, ShieldCheck, Activity } from 'lucide-react';
 import { fadeIn, staggerContainer } from '../utils/animations';
 
-const ContactCard = ({ icon, label, value, href, color }) => (
+const CornerFrame = () => (
+    <>
+        <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-blue-500/50 -translate-x-1 -translate-y-1" />
+        <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-blue-500/50 translate-x-1 -translate-y-1" />
+        <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-blue-500/50 -translate-x-1 translate-y-1" />
+        <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-blue-500/50 translate-x-1 translate-y-1" />
+    </>
+);
+
+const CommunicationModule = ({ icon, label, value, href, color }) => (
   <motion.a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     variants={fadeIn}
-    className="flex flex-col items-center p-6 bg-slate-900/40 backdrop-blur-md border border-slate-800 rounded-3xl hover:border-slate-700 transition-all duration-300 group relative overflow-hidden text-center cursor-none"
+    className="group bg-slate-900/20 backdrop-blur-xl border border-blue-500/10 rounded-sm p-6 hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden flex flex-col items-center text-center cursor-none"
   >
-    <div className="absolute -right-4 -top-4 w-12 h-12 blur-2xl rounded-full opacity-0 group-hover:opacity-20 transition-opacity" style={{ backgroundColor: color }}></div>
-    <div className="w-12 h-12 bg-black/50 rounded-2xl flex items-center justify-center mb-4 border border-slate-800 transition-transform group-hover:scale-110 duration-300" style={{ color }}>
+    <CornerFrame />
+    <div className="w-12 h-12 bg-blue-500/5 border border-blue-500/10 rounded-sm flex items-center justify-center mb-4 transition-all group-hover:bg-blue-500/10 group-hover:scale-110" style={{ color }}>
       {icon}
     </div>
-    <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1">{label}</p>
-    <p className="text-white font-bold text-sm truncate max-w-full">{value}</p>
-    <ExternalLink className="absolute top-4 right-4 w-3 h-3 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+    <p className="text-xs font-mono uppercase tracking-[0.2em] text-blue-500/50 mb-1">{label}</p>
+    <p className="text-white font-black text-sm uppercase tracking-widest truncate max-w-full">{value}</p>
+    
+    {/* Diagnostic HUD marker */}
+    <div className="absolute top-2 right-2 font-mono text-[6px] text-blue-500/20">
+        MOD_L: ACTIVE
+    </div>
   </motion.a>
 );
 
@@ -30,8 +43,8 @@ const Contact = () => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(y, [-100, 100], [10, -10]), { stiffness: 100, damping: 30 });
-  const rotateY = useSpring(useTransform(x, [-100, 100], [-10, 10]), { stiffness: 100, damping: 30 });
+  const rotateX = useSpring(useTransform(y, [-100, 100], [5, -5]), { stiffness: 100, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-100, 100], [-5, 5]), { stiffness: 100, damping: 30 });
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -66,13 +79,13 @@ const Contact = () => {
 
       const result = await response.json();
       if (result.success) {
-        setStatus({ type: 'success', msg: 'Message successfully delivered. Thank you!' });
+        setStatus({ type: 'success', msg: 'LINK_ESTABLISHED // PACKET_DELIVERED' });
         setFormState({ name: '', email: '', message: '' });
       } else {
-        throw new Error(result.message || "Submission failed.");
+        throw new Error(result.message || "UPLINK_FAILURE");
       }
     } catch (error) {
-      setStatus({ type: 'error', msg: 'Failed to send message. Please try again.' });
+      setStatus({ type: 'error', msg: 'TERMINAL_ERROR // RETRY_PROTOCOL' });
     } finally {
       setIsSubmitting(false);
     }
@@ -83,100 +96,131 @@ const Contact = () => {
       id="contact"
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
-      className="max-w-6xl mx-auto px-4 pt-4 pb-12 relative"
+      className="py-24 relative overflow-hidden"
     >
-      <motion.div variants={fadeIn} className="flex flex-col mb-16 items-center text-center">
-        <div className="flex items-center gap-4 mb-4">
-          <span className="text-blue-500 font-mono text-sm tracking-widest uppercase">04. Connection Hub</span>
-          <div className="h-[1px] w-24 bg-gradient-to-r from-blue-500 to-transparent"></div>
-        </div>
-        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">
-          Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Touch</span>
-        </h2>
-        
-        {/* Availability Badge */}
-        <div className="flex items-center gap-2 px-4 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-          <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]"></div>
-          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Available for new projects</span>
-        </div>
-      </motion.div>
+      {/* Infinite Blueprint Grid Sync */}
+      <motion.div 
+        animate={{ backgroundPosition: ["0px 0px", "50px 50px"] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{ 
+            backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
+            backgroundSize: "40px 40px"
+        }}
+      />
 
-      <div className="grid lg:grid-cols-3 gap-8 items-start">
-        {/* Contact Method Cards */}
-        <div className="grid grid-cols-1 gap-4 lg:col-span-1">
-          <ContactCard icon={<Mail />} label="Email" value="krishgupta7898@gmail.com" href="mailto:krishgupta7898@gmail.com" color="#3b82f6" />
-          <ContactCard icon={<Phone />} label="Phone" value="+91 7898325702" href="tel:+917898325702" color="#6366f1" />
-          <ContactCard icon={<MapPin />} label="Location" value="Bhopal, India" href="#" color="#a855f7" />
-        </div>
-
-        {/* 3D Form Card */}
-        <motion.div 
-          ref={cardRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          style={{ rotateX, rotateY, perspective: 1000 }}
-          className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 md:p-12 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] relative overflow-hidden group"
-        >
-          {/* Subtle Grid Background */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 blur-[100px] rounded-full group-hover:bg-blue-600/20 transition-colors duration-700"></div>
-
-          <form onSubmit={handleFormSubmit} className="relative z-10 space-y-6">
-            <div className="flex items-center gap-2 mb-8">
-              <Sparkles className="w-5 h-5 text-blue-500" />
-              <h3 className="text-xl font-bold text-white tracking-tight uppercase">Let's build something masterpiece.</h3>
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <motion.div variants={fadeIn} className="flex items-center gap-6 mb-16">
+            <div className="p-3 bg-blue-500/10 border border-blue-500/20">
+                <Activity className="text-blue-500 w-6 h-6" />
             </div>
-
-            {status.msg && (
-              <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className={`p-4 rounded-2xl text-sm font-bold ${status.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-                {status.msg}
-              </motion.div>
-            )}
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2 group/input">
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest ml-4 transition-colors group-focus-within/input:text-blue-400">Full Name</p>
-                <input 
-                  type="text" required placeholder="Ex: John Doe" 
-                  value={formState.name} onChange={e => setFormState({...formState, name: e.target.value})}
-                  className="w-full bg-slate-800/50 border border-slate-700/50 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-600 cursor-none"
-                />
-              </div>
-              <div className="space-y-2 group/input">
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest ml-4 transition-colors group-focus-within/input:text-blue-400">Email Address</p>
-                <input 
-                  type="email" required placeholder="Ex: john@email.com" 
-                  value={formState.email} onChange={e => setFormState({...formState, email: e.target.value})}
-                  className="w-full bg-slate-800/50 border border-slate-700/50 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-600 cursor-none"
-                />
-              </div>
+            <div>
+                <span className="text-blue-500 font-mono text-[10px] tracking-widest uppercase block mb-1">04. Communcation Protocol</span>
+                <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none">
+                    Direct <span className="text-blue-500">Uplink</span>
+                </h2>
             </div>
-            
-            <div className="space-y-2 group/input">
-              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest ml-4 transition-colors group-focus-within/input:text-blue-400">Project Details</p>
-              <textarea 
-                required placeholder="Tell me more about your project..." rows="5"
-                value={formState.message} onChange={e => setFormState({...formState, message: e.target.value})}
-                className="w-full bg-slate-800/50 border border-slate-700/50 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-600 resize-none cursor-none"
-              ></textarea>
-            </div>
-
-            <button 
-              type="submit" 
-              disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl py-6 font-black uppercase tracking-[0.2em] transition-all shadow-[0_15px_30px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.5)] disabled:opacity-70 flex justify-center items-center group cursor-none hover:-translate-y-1 active:translate-y-0"
-            >
-              {isSubmitting ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-              ) : (
-                <span className="flex items-center gap-3">
-                  Send Message
-                  <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </span>
-              )}
-            </button>
-          </form>
         </motion.div>
+
+        <div className="grid lg:grid-cols-3 gap-12 items-start">
+          {/* Communication Modules */}
+          <div className="grid grid-cols-1 gap-6 lg:col-span-1">
+            <CommunicationModule icon={<Mail />} label="Secure_Mail" value="krishgupta7898@gmail.com" href="mailto:krishgupta7898@gmail.com" color="#3b82f6" />
+            <CommunicationModule icon={<Phone />} label="Direct_Line" value="+91 7898325702" href="tel:+917898325702" color="#3b82f6" />
+            <CommunicationModule icon={<MapPin />} label="Loc_Coord" value="Bhopal, India" href="#" color="#3b82f6" />
+            
+            {/* System Availability Hud */}
+            <div className="p-6 bg-blue-500/5 border border-blue-500/10 rounded-sm">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
+                    <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest">Sys_Status: Operational</span>
+                </div>
+                <p className="text-[10px] font-mono text-slate-500 leading-relaxed uppercase">
+                    Ready for end-to-end architecture deployment and full-stack integration.
+                </p>
+            </div>
+          </div>
+
+          {/* Command Terminal Form */}
+          <motion.div 
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ rotateX, rotateY, perspective: 1000 }}
+            className="lg:col-span-2 bg-slate-900/40 backdrop-blur-2xl border border-blue-500/10 rounded-sm p-8 md:p-16 relative overflow-hidden group"
+          >
+            <CornerFrame />
+            <div className="absolute top-4 right-8 font-mono text-[9px] text-blue-500/20">TERM_ID: KRISH_UPLINK_PRO</div>
+
+            <form onSubmit={handleFormSubmit} className="relative z-10 space-y-8">
+              <div className="flex items-center gap-4 mb-10">
+                <Terminal className="w-6 h-6 text-blue-500" />
+                <h3 className="text-2xl font-black text-white tracking-widest uppercase leading-none">Execute Message Protocol</h3>
+              </div>
+
+              {status.msg && (
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className={`p-4 font-mono text-[10px] font-bold border ${status.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
+                  {status.msg}
+                </motion.div>
+              )}
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-3 group/input">
+                  <div className="flex justify-between items-center px-1">
+                      <span className="text-xs font-mono text-blue-500/50 uppercase tracking-widest">Input_Identity</span>
+                      <span className="text-[10px] font-mono text-slate-600 uppercase">Status: {formState.name ? 'VALID' : 'WAITING'}</span>
+                  </div>
+                  <input 
+                    type="text" required placeholder="User_Name" 
+                    value={formState.name} onChange={e => setFormState({...formState, name: e.target.value})}
+                    className="w-full bg-slate-950 border border-blue-500/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/5 transition-all placeholder:text-slate-700 font-mono text-sm uppercase cursor-none"
+                  />
+                </div>
+                <div className="space-y-3 group/input">
+                  <div className="flex justify-between items-center px-1">
+                      <span className="text-xs font-mono text-blue-500/50 uppercase tracking-widest">Input_Address</span>
+                      <span className="text-[10px] font-mono text-slate-600 uppercase">Status: {formState.email ? 'VALID' : 'WAITING'}</span>
+                  </div>
+                  <input 
+                    type="email" required placeholder="User_Email" 
+                    value={formState.email} onChange={e => setFormState({...formState, email: e.target.value})}
+                    className="w-full bg-slate-950 border border-blue-500/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/5 transition-all placeholder:text-slate-700 font-mono text-sm uppercase cursor-none"
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-3 group/input">
+                <div className="flex justify-between items-center px-1">
+                    <span className="text-xs font-mono text-blue-500/50 uppercase tracking-widest">Input_Payload</span>
+                    <span className="text-[10px] font-mono text-slate-600 uppercase">Size: {formState.message.length} bytes</span>
+                </div>
+                <textarea 
+                  required placeholder="Enter_Encryption_Details..." rows="6"
+                  value={formState.message} onChange={e => setFormState({...formState, message: e.target.value})}
+                  className="w-full bg-slate-950 border border-blue-500/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/5 transition-all placeholder:text-slate-700 resize-none font-mono text-sm uppercase cursor-none"
+                ></textarea>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full bg-blue-600 text-white rounded-sm py-6 font-black uppercase tracking-[0.3em] text-xs transition-all shadow-[0_10px_20px_rgba(37,99,235,0.2)] hover:bg-white hover:text-blue-600 disabled:opacity-70 flex justify-center items-center group cursor-none"
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span className="animate-pulse">ENCRYPTING...</span>
+                  </div>
+                ) : (
+                  <span className="flex items-center gap-4">
+                    Initialize Transmission
+                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </span>
+                )}
+              </button>
+            </form>
+          </motion.div>
+        </div>
       </div>
     </motion.section>
   );

@@ -119,6 +119,12 @@ const Navigation = () => {
           </span>
         </button>
 
+        {/* System Status Telemetry */}
+        <div className="hidden lg:flex items-center gap-3 px-3 py-1 border-l border-white/10 mr-2 opacity-40">
+            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+            <span className="text-[8px] font-mono tracking-widest text-blue-400 whitespace-nowrap">V3.1.2 // SYSTEM_OPTIMAL</span>
+        </div>
+
         {/* Desktop Nav Items */}
         <ul className="hidden md:flex items-center gap-1 relative">
           <AnimatePresence>

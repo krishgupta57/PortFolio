@@ -14,6 +14,11 @@ function App() {
   return (
     <div className="bg-black min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden relative cursor-none">
       <CustomCursor />
+
+      {/* Global Raster Scan Line */}
+      <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+        <div className="w-full h-[1px] bg-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-scan" />
+      </div>
       
       {/* Decorative Background Gradients updated for high performance */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none bg-black">
