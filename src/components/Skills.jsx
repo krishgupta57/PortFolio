@@ -84,16 +84,7 @@ const Skills = () => {
       variants={staggerContainer}
       className="py-16 relative w-full bg-slate-950 overflow-hidden"
     >
-      {/* Infinite Blueprint Grid Sync */}
-      <motion.div 
-        animate={{ backgroundPosition: ["0px 0px", "50px 50px"] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ 
-            backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
-            backgroundSize: "40px 40px"
-        }}
-      />
+      {/* No local background - handled globally for performance */}
 
       <div className="max-w-[90rem] mx-auto px-6 md:px-12 relative z-10">
         <motion.div variants={fadeIn} className="flex flex-col mb-16 items-center md:items-start text-center md:text-left">

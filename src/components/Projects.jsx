@@ -135,16 +135,7 @@ const Projects = () => {
       variants={staggerContainer}
       className="py-24 relative overflow-hidden bg-slate-950"
     >
-      {/* Infinite Blueprint Grid Background */}
-      <motion.div 
-        animate={{ backgroundPosition: ["0px 0px", "50px 50px"] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ 
-            backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
-            backgroundSize: "40px 40px"
-        }}
-      />
+      {/* No local background - handled globally for performance */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-transparent to-slate-950 pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 mb-16 relative z-10">

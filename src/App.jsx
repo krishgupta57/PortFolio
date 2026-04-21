@@ -20,19 +20,19 @@ function App() {
         <div className="w-full h-[1px] bg-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-scan" />
       </div>
       
-      {/* Decorative Background Gradients updated for high performance */}
-      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none bg-black">
-        {/* Animated fading geometric grid pattern */}
+      {/* High-Performance Global Blueprint Grid */}
+      <div className="fixed inset-[-100px] pointer-events-none -z-10 overflow-hidden opacity-[0.03]">
         <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
-            WebkitMaskImage: 'radial-gradient(circle at center, black 10%, transparent 80%)',
-            maskImage: 'radial-gradient(circle at center, black 10%, transparent 80%)'
+          className="absolute inset-0 animate-bp-grid"
+          style={{ 
+            backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
+            backgroundSize: "40px 40px"
           }}
-        ></div>
-
+        />
+      </div>
+      
+      {/* Decorative Background Gradients updated for high performance */}
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none bg-black">
         {/* Floating corner light blobs */}
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full z-10" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.08) 0%, rgba(0,0,0,0) 70%)' }}></div>
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full z-10" style={{ background: 'radial-gradient(circle, rgba(79,70,229,0.08) 0%, rgba(0,0,0,0) 70%)' }}></div>
