@@ -14,15 +14,27 @@ import SystemTelemetry from './components/SystemTelemetry';
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
-  
+  const [binary, setBinary] = useState("1");
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
+  
+  const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+  
+  const dotSpringConfig = { damping: 25, stiffness: 700, mass: 0.2 };
+  const dotXSpring = useSpring(cursorX, dotSpringConfig);
+  const dotYSpring = useSpring(cursorY, dotSpringConfig);
 
-  const cursorXSpring = useSpring(cursorX, { damping: 25, stiffness: 400, mass: 0.5 });
-  const cursorYSpring = useSpring(cursorY, { damping: 25, stiffness: 400, mass: 0.5 });
+  // Trail spring with more delay
+  const trailSpringConfig = { damping: 30, stiffness: 150, mass: 1 };
+  const trailXSpring = useSpring(cursorX, trailSpringConfig);
+  const trailYSpring = useSpring(cursorY, trailSpringConfig);
 
-  const dotXSpring = useSpring(cursorX, { damping: 40, stiffness: 1000, mass: 0.1 });
-  const dotYSpring = useSpring(cursorY, { damping: 40, stiffness: 1000, mass: 0.1 });
+  useEffect(() => {
+    const timer = setInterval(() => setBinary(Math.random() > 0.5 ? "1" : "0"), 100);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const moveCursor = (e) => {
@@ -81,6 +93,19 @@ const CustomCursor = () => {
           translateY: "12px"
         }}
       />
+
+      {/* Cybernetic Data Node Trail */}
+      <motion.div
+        className="fixed top-0 left-0 text-[10px] font-mono text-blue-500/50 font-bold"
+        style={{
+          x: trailXSpring,
+          y: trailYSpring,
+          translateX: "24px",
+          translateY: "24px"
+        }}
+      >
+        {binary}
+      </motion.div>
     </motion.div>
   );
 };

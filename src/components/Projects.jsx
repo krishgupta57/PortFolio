@@ -1,8 +1,45 @@
 import React, { useState, useRef, memo } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink, Dna, Cpu, ShieldCheck } from 'lucide-react';
 import { fadeIn, staggerContainer } from '../utils/animations';
 import { projects } from '../data/portfolioData';
+
+const CyberButton = ({ children, href, className, primary }) => {
+  const ref = useRef(null);
+  const x = useSpring(0, { stiffness: 150, damping: 15 });
+  const y = useSpring(0, { stiffness: 150, damping: 15 });
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    x.set((clientX - centerX) * 0.3);
+    y.set((clientY - centerY) * 0.3);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.a
+      href={href}
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x, y }}
+      className={`relative overflow-hidden group cursor-none ${className}`}
+    >
+      <div className="relative z-10 flex items-center gap-4">{children}</div>
+      <motion.div 
+        className={`absolute top-0 bottom-0 w-12 -skew-x-[20deg] -translate-x-[150%] group-hover:animate-[scan_1.5s_ease-in-out_infinite] ${primary ? 'bg-white/30 blur-[2px]' : 'bg-pink-500/20 blur-[2px]'}`}
+        style={{ zIndex: 0 }}
+      />
+    </motion.a>
+  );
+};
 
 const CornerFrame = () => (
     <>
@@ -117,17 +154,14 @@ const ProjectSlide = memo(({ project, active, index }) => {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-4">
-                        <motion.a 
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={active ? { opacity: 1, scale: 1 } : {}}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                        <CyberButton 
                             href={project.link}
-                            className="inline-flex items-center gap-4 bg-gradient-to-r from-pink-600 to-blue-600 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs transition-all group/btn cursor-none border border-pink-400/50 shadow-[0_10px_20px_rgba(236,72,153,0.2)]"
+                            primary={true}
+                            className="inline-flex items-center gap-4 bg-gradient-to-r from-pink-600 to-blue-600 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs transition-all border border-pink-400/50 shadow-[0_10px_20px_rgba(236,72,153,0.2)] hover:shadow-[0_20px_40px_rgba(236,72,153,0.4)]"
                         >
                             Launch Core System
-                            <ExternalLink className="w-5 h-5 group-hover/btn:rotate-45 transition-transform" />
-                        </motion.a>
+                            <ExternalLink className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                        </CyberButton>
                         <div className="flex gap-2">
                              {project.tags.map((tag, i) => (
                                 <motion.span 
@@ -155,6 +189,16 @@ const Projects = () => {
 
   const nextSlide = () => setIndex((prev) => (prev + 1) % projects.length);
   const prevSlide = () => setIndex((prev) => (prev - 1 + projects.length) % projects.length);
+
+  const handleDragEnd = (e, { offset, velocity }) => {
+    const swipeDistance = offset.x;
+    if (swipeDistance < -50) {
+      nextSlide();
+    } 
+    else if (swipeDistance > 50) {
+      prevSlide();
+    }
+  };
 
   return (
     <motion.section 
@@ -195,15 +239,23 @@ const Projects = () => {
             </button>
         </div>
 
-        <div className="w-full relative py-8 overflow-visible min-h-[670px]">
-            <motion.div 
-                animate={{ x: `-${index * 100}vw` }}
-                transition={{ type: "spring", stiffness: 180, damping: 25, mass: 0.8 }}
-                className="flex items-center flex-nowrap"
+        <div className="w-full relative py-8 overflow-visible min-h-[670px] cursor-grab active:cursor-grabbing overflow-x-hidden">
+            <motion.div
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.1}
+                onDragEnd={handleDragEnd}
+                className="w-full"
             >
-                {projects.map((project, i) => (
-                    <ProjectSlide key={project.title} project={project} index={i} active={i === index} />
-                ))}
+                <motion.div 
+                    animate={{ x: `-${index * 100}vw` }}
+                    transition={{ type: "spring", stiffness: 180, damping: 25, mass: 0.8 }}
+                    className="flex items-center flex-nowrap w-full"
+                >
+                    {projects.map((project, i) => (
+                        <ProjectSlide key={project.title} project={project} index={i} active={i === index} />
+                    ))}
+                </motion.div>
             </motion.div>
         </div>
       </div>

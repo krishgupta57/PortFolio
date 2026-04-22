@@ -72,31 +72,7 @@ const BootSequence = ({ onComplete }) => {
         "INITIALIZING_STATE_MACHINE... [ OK ]",
         "LOADING_PLUGINS... [ OK ]",
         "CONFIGURING_ENVIRONMENT_VARIABLES... [ OK ]",
-        "ALLOCATING_THREAD_POOL... [ OK ]",
-        "DISCOVERING_NODE_MODULES... [ OK ]",
-        "COMPILING_TYPESCRIPT_INTERFACES... [ OK ]",
-        "GENERATING_SOURCEMAPS... [ OK ]",
-        "LINKING_CSS_MODULES... [ OK ]",
-        "INITIALIZING_VITE_HMR... [ OK ]",
-        "INJECTING_POLYFILLS... [ OK ]",
-        "WARMING_UP_SERVICE_WORKERS... [ OK ]",
-        "SYNCING_LOCAL_STATE... [ OK ]",
-        "RESOLVING_GRAPHQL_SCHEMA... [ OK ]",
-        "CHECKING_DATABASE_MIGRATIONS... [ OK ]",
-        "LOADING_MACHINE_LEARNING_MODELS... [ OK ]",
-        "CONFIGURING_LOAD_BALANCER... [ OK ]",
-        "INITIALIZING_CI_CD_PIPELINE... [ OK ]",
-        "SECURING_API_ENDPOINTS... [ OK ]",
-        "GENERATING_SSL_CERTIFICATES... [ OK ]",
-        "BINDING_UDP_PORTS... [ OK ]",
-        "STARTING_WEB_SOCKET_SERVER... [ OK ]",
-        "COMPILING_STATIC_ASSETS... [ OK ]",
-        "OPTIMIZING_CHUNKS... [ OK ]",
-        "MINIFYING_JAVASCRIPT... [ OK ]",
-        "ANALYZING_BUNDLE_SIZE... [ OK ]",
-        "CHECKING_VULNERABILITIES... [ OK ]",
-        "STARTING_MONITORING_DAEMON... [ OK ]",
-        "INITIALIZING_LOGGING_SERVICE... [ OK ]",
+
         "FETCHING_PROJECT_DATA... [ OK ]",
         "COMPILING_REACT_TREE...",
         "VERIFYING_DYNAMICS: [ OPTIMAL ]",
@@ -111,21 +87,32 @@ const BootSequence = ({ onComplete }) => {
 
     useEffect(() => {
         let currentIdx = 0;
-        const logInterval = setInterval(() => {
+        let timeoutId;
+        const themeColors = ['text-pink-500', 'text-blue-400', 'text-purple-400', 'text-cyan-400', 'text-slate-300', 'text-indigo-400'];
+
+        const processNextLog = () => {
             if (currentIdx < bootLogs.length) {
                 const nextLog = bootLogs[currentIdx];
                 if (nextLog) {
-                    setLogs(prev => [...prev.slice(-15), nextLog]);
+                    // Assign a stable random color from the theme palette
+                    const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
+                    setLogs(prev => [...prev.slice(-15), { text: nextLog, color: randomColor }]);
                 }
                 currentIdx++;
+                
+                // Realistic dynamic delay: 90% fast, 10% slightly slower pause
+                const isSlow = Math.random() > 0.9;
+                const delay = isSlow ? Math.random() * 150 + 100 : 25;
+                timeoutId = setTimeout(processNextLog, delay);
             } else {
-                clearInterval(logInterval);
                 setTimeout(() => setIsDone(true), 400); // stops blinking cursor
                 setTimeout(onComplete, 1000); // 1-second pause before proceeding
             }
-        }, 40);
+        };
 
-        return () => clearInterval(logInterval);
+        processNextLog();
+
+        return () => clearTimeout(timeoutId);
     }, [onComplete]);
 
     useEffect(() => {
@@ -196,15 +183,15 @@ const BootSequence = ({ onComplete }) => {
                     {/* Right: The Terminal Log */}
                     <div className="bg-black/40 border border-white/5 p-4 h-64 flex flex-col shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
                         <div className="flex-1 overflow-hidden" ref={scrollRef}>
-                            {logs.map((log, i) => (
+                            {logs.map((logObj, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    className={`text-[11px] mb-1 tracking-tight ${log?.includes?.('OK') || log?.includes?.('COMPLETE') ? 'text-emerald-500' : 'text-slate-300'}`}
+                                    className={`text-[11px] mb-1 tracking-tight ${logObj.color}`}
                                 >
                                     <span className="opacity-30 mr-2">{'>'}</span>
-                                    {log}
+                                    {logObj.text}
                                 </motion.div>
                             ))}
                             {!isDone && (

@@ -56,10 +56,25 @@ const SkillCard = ({ skill }) => {
           
           <div className="flex items-center gap-5 mb-6">
             <div 
-              className="w-12 h-12 rounded-sm flex items-center justify-center bg-pink-500/5 border border-pink-500/10 group-hover:border-pink-500/30 group-hover:bg-pink-500/10 transition-all"
+              className="w-12 h-12 rounded-sm flex items-center justify-center bg-pink-500/5 border border-pink-500/10 group-hover:border-pink-500/30 group-hover:bg-pink-500/10 transition-all relative"
               style={{ color: '#ec4899' }}
             >
-              {React.cloneElement(skill.icon, { className: 'w-6 h-6' })}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity" viewBox="0 0 100 100">
+                <motion.path 
+                    d="M 50,0 L 50,15 L 85,15 L 85,50 L 100,50 M 0,50 L 15,50 L 15,85 L 50,85 L 50,100"
+                    fill="transparent"
+                    stroke="#ec4899"
+                    strokeWidth="2"
+                    strokeDasharray="300"
+                    initial={{ strokeDashoffset: 300 }}
+                    whileInView={{ strokeDashoffset: 0 }}
+                    transition={{ duration: 2, delay: 0.2, ease: "easeInOut" }}
+                    viewport={{ once: true }}
+                />
+              </svg>
+              <div className="relative z-10 group-hover:animate-pulse">
+                {React.cloneElement(skill.icon, { className: 'w-6 h-6' })}
+              </div>
             </div>
             <div className="flex-grow">
               <div className="flex justify-between items-baseline">

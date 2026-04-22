@@ -35,6 +35,24 @@ const CommunicationModule = ({ icon, label, value, href, color }) => (
   </motion.a>
 );
 
+const SysStatusCard = () => (
+  <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.5 }}
+      className="p-6 bg-pink-500/5 border border-pink-500/10 rounded-sm"
+  >
+      <div className="flex items-center gap-3 mb-4">
+          <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
+          <span className="text-[10px] font-mono text-pink-400 uppercase tracking-widest">Sys_Status: Operational</span>
+      </div>
+      <p className="text-[10px] font-mono text-slate-500 leading-relaxed uppercase">
+          Ready for end-to-end architecture deployment and full-stack integration.
+      </p>
+  </motion.div>
+);
+
 const Contact = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,22 +151,10 @@ const Contact = () => {
                 </motion.div>
             ))}
             
-            {/* System Availability Hud */}
-            <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="p-6 bg-pink-500/5 border border-pink-500/10 rounded-sm"
-            >
-                <div className="flex items-center gap-3 mb-4">
-                    <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
-                    <span className="text-[10px] font-mono text-pink-400 uppercase tracking-widest">Sys_Status: Operational</span>
-                </div>
-                <p className="text-[10px] font-mono text-slate-500 leading-relaxed uppercase">
-                    Ready for end-to-end architecture deployment and full-stack integration.
-                </p>
-            </motion.div>
+            {/* Desktop System Availability Hud */}
+            <div className="hidden lg:block">
+                <SysStatusCard />
+            </div>
           </div>
 
           {/* Command Terminal Form */}
@@ -252,6 +258,11 @@ const Contact = () => {
                 </div>
             </BorderConduit>
           </motion.div>
+
+          {/* Mobile System Availability Hud - Shown at the bottom on phone view */}
+          <div className="lg:hidden w-full">
+              <SysStatusCard />
+          </div>
         </div>
       </div>
     </motion.section>

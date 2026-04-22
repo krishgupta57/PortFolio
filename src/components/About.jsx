@@ -197,10 +197,24 @@ const About = () => {
                   </div>
 
                   <div className="relative overflow-hidden">
-                      <img 
+                      <motion.img 
+                          initial={{ opacity: 0, filter: "hue-rotate(90deg) blur(10px)", scale: 1.1 }}
+                          whileInView={{ 
+                              opacity: [0, 1, 0.5, 1],
+                              filter: [
+                                  "hue-rotate(90deg) blur(10px)",
+                                  "hue-rotate(-90deg) blur(5px)",
+                                  "hue-rotate(45deg) blur(2px)",
+                                  "hue-rotate(0deg) blur(0px)"
+                              ],
+                              scale: [1.1, 1.05, 1.02, 1],
+                              x: [-10, 10, -5, 0]
+                          }}
+                          transition={{ duration: 0.8, ease: "easeInOut", times: [0, 0.2, 0.5, 1] }}
+                          viewport={{ once: true }}
                           src={profilePic} 
                           alt="Krish Gupta" 
-                          className="w-full h-auto aspect-[3/4] object-cover transition-all duration-1000 ease-in-out" 
+                          className="w-full h-auto aspect-[3/4] object-cover" 
                       />
                       {/* Subtle Material Vignette */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />

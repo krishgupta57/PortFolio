@@ -2,10 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent, useSpring, useTransform } from 'framer-motion';
 import { Menu, X, Send } from 'lucide-react';
 
-const MagneticButton = ({ children, onClick, onMouseEnter, onMouseLeave, isActive }) => {
+const MagneticButton = ({ children, onClick, isActive }) => {
   const ref = useRef(null);
   const x = useSpring(0, { stiffness: 150, damping: 15 });
   const y = useSpring(0, { stiffness: 150, damping: 15 });
+  const [displayText, setDisplayText] = useState(children);
+  const intervalRef = useRef(null);
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
 
   const handleMouseMove = (e) => {
     const { clientX, clientY } = e;
@@ -19,10 +22,25 @@ const MagneticButton = ({ children, onClick, onMouseEnter, onMouseLeave, isActiv
     y.set(distanceY * 0.4);
   };
 
+  const handleMouseEnter = () => {
+    let iteration = 0;
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setDisplayText(children.toString().split("").map((char, index) => {
+        if (index < iteration) return children[index];
+        return letters[Math.floor(Math.random() * letters.length)];
+      }).join(""));
+      
+      if (iteration >= children.toString().length) clearInterval(intervalRef.current);
+      iteration += 1 / 2; // Speed of decode
+    }, 30);
+  };
+
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
-    onMouseLeave?.();
+    clearInterval(intervalRef.current);
+    setDisplayText(children);
   };
 
   return (
@@ -30,14 +48,14 @@ const MagneticButton = ({ children, onClick, onMouseEnter, onMouseLeave, isActiv
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onMouseEnter={onMouseEnter}
+      onMouseEnter={handleMouseEnter}
       onClick={onClick}
       style={{ x, y }}
       className={`relative px-4 py-2 text-sm font-bold transition-colors cursor-none ${
         isActive ? 'text-white' : 'text-slate-400 hover:text-white'
       }`}
     >
-      {children}
+      <span className="font-mono">{displayText}</span>
     </motion.button>
   );
 };
