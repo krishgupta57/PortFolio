@@ -59,7 +59,7 @@ const CustomCursor = () => {
       className="fixed inset-0 pointer-events-none z-[100] hidden md:block"
     >
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-pink-500/50 mix-blend-screen"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-pink-500/50"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -73,7 +73,7 @@ const CustomCursor = () => {
       />
       
       <motion.div 
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-pink-500 shadow-[0_0_10px_#ec4899]"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-pink-500"
         style={{
           x: dotXSpring,
           y: dotYSpring,
@@ -86,7 +86,7 @@ const CustomCursor = () => {
 };
 
 const BackgroundDataStream = () => {
-    const particles = useMemo(() => Array.from({ length: 40 }), []);
+    const particles = useMemo(() => Array.from({ length: 15 }), []);
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
@@ -131,30 +131,6 @@ function App() {
             className="relative"
           >
 
-      {/* 1. Global Multi-Layered Background System */}
-      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        
-        {/* Layer 1: Fixed Technical Noise Texture */}
-        <div className="absolute inset-0 opacity-[0.03] bg-noise mix-blend-overlay" />
-        
-        {/* Layer 2: Topological Schematic Pattern */}
-        <div className="absolute inset-0 opacity-[0.08] bg-topology" />
-        
-        {/* Layer 3: High-Performance Moving Blueprint Grid */}
-        <div className="absolute inset-[-100px] opacity-[0.04]">
-            <div 
-                className="absolute inset-0 animate-bp-grid"
-                style={{ 
-                    backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
-                    backgroundSize: "45px 45px"
-                }}
-            />
-        </div>
-
-        {/* Layer 4: Breathing Telemetry Glows (System Pulse) */}
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-600/10 blur-[120px] animate-breathing" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-pink-600/10 blur-[120px] animate-breathing" style={{ animationDelay: '-5s' }} />
-      </div>
 
             <Navigation />
             <SystemTelemetry />
@@ -197,7 +173,7 @@ function App() {
       {/* 1. Global Multi-Layered Background System */}
       <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
         {/* Layer 1: Fixed Technical Noise Texture */}
-        <div className="absolute inset-0 opacity-[0.03] bg-noise mix-blend-overlay" />
+        <div className="absolute inset-0 opacity-[0.03] bg-noise" />
         {/* Layer 2: Topological Schematic Pattern */}
         <div className="absolute inset-0 opacity-[0.08] bg-topology" />
         {/* Layer 3: High-Performance Moving Blueprint Grid */}
@@ -211,12 +187,12 @@ function App() {
             />
         </div>
         {/* Layer 4: Breathing Telemetry Glows (System Pulse) */}
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-600/10 blur-[120px] animate-breathing" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-pink-600/10 blur-[120px] animate-breathing" style={{ animationDelay: '-5s' }} />
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-600/10 blur-[64px] animate-breathing" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-pink-600/10 blur-[64px] animate-breathing" style={{ animationDelay: '-5s' }} />
       </div>
 
       <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
-        <div className="w-full h-[1px] bg-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-scan" />
+        <div className="w-full h-[1px] bg-blue-500/20 animate-scan" />
       </div>
     </motion.div>
   );
