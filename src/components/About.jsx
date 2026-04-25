@@ -21,7 +21,7 @@ const EducationCard = ({ item, index }) => {
   return (
     <div className={`relative flex items-center justify-between w-full mb-20 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} flex-row`}>
       {/* Schematic Node */}
-      <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 w-12 h-12 bg-slate-950 border border-blue-500/20 flex items-center justify-center z-20 overflow-hidden">
+      <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 md:-translate-x-1/2 w-12 h-12 bg-slate-950 border border-blue-500/20 flex items-center justify-center z-20 overflow-hidden">
         <div className="absolute inset-0 bg-blue-500/5 animate-pulse" />
         <div className="relative z-10 text-blue-500 font-mono text-[10px]">0{index + 1}</div>
         <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-blue-500" />
@@ -33,7 +33,7 @@ const EducationCard = ({ item, index }) => {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className={`relative w-[calc(100%-60px)] md:w-[42%] p-8 bg-slate-900/40 backdrop-blur-xl border border-blue-500/10 rounded-sm hover:border-blue-500/30 transition-all group ml-auto md:ml-0`}
+        className={`relative w-[calc(100%-40px)] md:w-[42%] p-8 bg-slate-900/40 backdrop-blur-xl border border-blue-500/10 rounded-sm hover:border-blue-500/30 transition-all group ml-auto md:ml-0`}
       >
         <CornerFrame />
         
@@ -248,7 +248,7 @@ const About = () => {
 
           <div className="relative mt-10">
             {/* Schematic Central Wire */}
-            <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 w-[2px] h-full bg-blue-500/5 z-10 overflow-hidden">
+            <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 md:-translate-x-1/2 w-[2px] h-full bg-blue-500/5 z-10 overflow-hidden">
                 <motion.div 
                     initial={{ height: 0 }}
                     whileInView={{ height: '100%' }}
