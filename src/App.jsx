@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import Navigation from './components/Navigation';
-import SplashName from './components/SplashName';
+
 import Hero from './components/Hero';
 import TechMarquee from './components/TechMarquee';
 import About from './components/About';
@@ -168,7 +168,7 @@ function App() {
                 <TechMarquee />
 
                 <div className="max-w-6xl mx-auto px-6 space-y-16 md:space-y-24 relative">
-                    <SplashName />
+
                     <div id="about">
                         <About />
                     </div>
