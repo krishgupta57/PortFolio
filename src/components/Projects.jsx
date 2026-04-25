@@ -67,7 +67,7 @@ const ProjectSlide = memo(({ project, active, index }) => {
           scale: active ? 1 : 0.9,
         }}
         transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-        className="w-full max-w-5xl h-[550px] md:h-[650px] bg-slate-900/40 backdrop-blur-3xl border border-pink-500/10 rounded-sm relative p-1"
+        className="w-full max-w-5xl h-[600px] md:h-[650px] bg-slate-900/40 backdrop-blur-3xl border border-pink-500/10 rounded-sm relative p-1"
       >
         {/* Schematic Corner Frame */}
         <CornerFrame />
@@ -116,29 +116,29 @@ const ProjectSlide = memo(({ project, active, index }) => {
             </div>
 
             {/* Content Section */}
-            <div className="absolute bottom-0 left-0 w-full p-8 md:p-16 z-30 overflow-hidden">
-                <div className="max-w-2xl">
+            <div className="absolute bottom-0 left-0 w-full p-5 sm:p-8 md:p-16 z-30 overflow-hidden bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent pt-20">
+                <div className="max-w-2xl relative">
                     <motion.h3 
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={active ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-6 leading-none flex items-baseline gap-4"
+                        className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tighter mb-4 md:mb-6 leading-none flex flex-wrap md:flex-nowrap items-baseline gap-2 md:gap-4"
                     >
-                        <span className="text-pink-500 font-mono text-xl">/0{index + 1}</span>
-                        {project.title}
+                        <span className="text-pink-500 font-mono text-lg md:text-xl shrink-0">/0{index + 1}</span>
+                        <span>{project.title}</span>
                     </motion.h3>
 
                     <motion.p 
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={active ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        className="text-slate-300 text-base md:text-lg font-medium mb-10 leading-relaxed border-l-2 border-pink-500/30 pl-6"
+                        className="text-slate-300 text-sm md:text-lg font-medium mb-6 md:mb-10 leading-relaxed border-l-2 border-pink-500/30 pl-4 md:pl-6 line-clamp-4 md:line-clamp-none"
                     >
                         {project.description}
                     </motion.p>
 
                     {/* Spec Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-10">
                         {project.specs.map((spec, i) => (
                             <motion.div 
                                 key={i} 
@@ -147,8 +147,8 @@ const ProjectSlide = memo(({ project, active, index }) => {
                                 transition={{ delay: 0.4 + (i * 0.1) }}
                                 className="flex flex-col gap-1"
                             >
-                                <span className="text-[9px] font-mono text-pink-400 opacity-50 uppercase">Diagnostic_{i}</span>
-                                <span className="text-xs font-black text-white uppercase tracking-widest">{spec}</span>
+                                <span className="text-[8px] md:text-[9px] font-mono text-pink-400 opacity-50 uppercase">Diagnostic_{i}</span>
+                                <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">{spec}</span>
                             </motion.div>
                         ))}
                     </div>
@@ -157,10 +157,10 @@ const ProjectSlide = memo(({ project, active, index }) => {
                         <CyberButton 
                             href={project.link}
                             primary={true}
-                            className="inline-flex items-center gap-4 bg-gradient-to-r from-pink-600 to-blue-600 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs transition-all border border-pink-400/50 shadow-[0_10px_20px_rgba(236,72,153,0.2)] hover:shadow-[0_20px_40px_rgba(236,72,153,0.4)]"
+                            className="inline-flex items-center gap-2 md:gap-4 bg-gradient-to-r from-pink-600 to-blue-600 text-white px-6 py-4 md:px-10 md:py-5 rounded-sm font-black uppercase tracking-widest text-[10px] md:text-xs transition-all border border-pink-400/50 shadow-[0_10px_20px_rgba(236,72,153,0.2)] hover:shadow-[0_20px_40px_rgba(236,72,153,0.4)]"
                         >
                             Launch Core System
-                            <ExternalLink className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                            <ExternalLink className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-45 transition-transform" />
                         </CyberButton>
                         <div className="flex gap-2">
                              {project.tags.map((tag, i) => (
