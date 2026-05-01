@@ -56,24 +56,44 @@ const SysStatusCard = () => (
 );
 
 const SectionHeader = ({ label, title, status, location }) => (
-    <motion.div variants={fadeIn} className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 border-b border-white/5 pb-8 w-full">
-        <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-                <div className="w-8 h-[1px] bg-purple-500 shadow-[0_0_10px_#a855f7]" />
-                <span className="text-purple-400 font-mono text-[9px] font-black tracking-[0.4em] uppercase">{label}</span>
+    <motion.div variants={fadeIn} className="relative mb-24 w-full group/header">
+        {/* The Frame Background */}
+        <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl md:rounded-[2.5rem] -m-4 md:-m-8 pointer-events-none" />
+        
+        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="flex flex-col gap-4">
+                {/* Module Label Tag */}
+                <div className="flex items-center gap-3">
+                    <span className="bg-purple-600 text-white font-mono text-[8px] font-black tracking-[0.3em] uppercase px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                        {label}
+                    </span>
+                    <div className="h-[1px] w-24 bg-gradient-to-r from-purple-500 to-transparent opacity-30" />
+                </div>
+                
+                {/* Main High-Contrast Title */}
+                <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter uppercase leading-none">
+                    {title.split(' ')[0]} 
+                    <span className="text-purple-500 ml-4 group-hover/header:ml-8 transition-all duration-700">
+                        {title.split(' ').slice(1).join(' ')}
+                    </span>
+                </h2>
             </div>
-            <h2 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-none uppercase">
-                {title.split(' ')[0]} <span className="text-white/20 italic">{title.split(' ').slice(1).join(' ')}</span>
-                <span className="text-purple-500 italic">.</span>
-            </h2>
-        </div>
-        <div className="flex flex-col items-end gap-2 mb-1">
-            <div className="px-4 py-1.5 bg-[#0a0a0a] border border-white/10 rounded-sm flex items-center gap-2 shadow-2xl relative overflow-hidden group">
-                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
-                <span className="text-[9px] font-mono text-slate-300 font-black tracking-[0.2em] uppercase">{status || 'SYSTEM_SYNC: ACTIVE'}</span>
+
+            {/* Diagnostic Data Block */}
+            <div className="flex flex-col items-start md:items-end gap-3 font-mono">
+                <div className="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-lg">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                    <span className="text-[10px] text-slate-300 font-bold tracking-widest uppercase">{status || 'SYSTEM_READY'}</span>
+                </div>
+                <div className="text-[10px] text-slate-500 tracking-[0.4em] uppercase font-black pl-2">
+                    {location || 'IN // BHOPAL_HUB'}
+                </div>
             </div>
-            <span className="text-[9px] font-mono text-slate-600 uppercase tracking-[0.3em] font-black">{location || 'BHOPAL // INDIA_REGION'}</span>
         </div>
+
+        {/* Decorative Corner Markers */}
+        <div className="absolute -top-4 -left-4 md:-top-8 md:-left-8 w-12 h-12 border-t-2 border-l-2 border-purple-500/30 rounded-tl-2xl pointer-events-none" />
+        <div className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-12 h-12 border-b-2 border-r-2 border-purple-500/30 rounded-br-2xl pointer-events-none" />
     </motion.div>
 );
 
@@ -162,6 +182,7 @@ const Contact = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15 }}
+                    className="relative"
                 >
                     <CommunicationModule {...module} />
                 </motion.div>
@@ -206,7 +227,7 @@ const Contact = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 }}
-                        className="space-y-4 group/input"
+                        className="space-y-4 group/input relative"
                     >
                     <div className="flex justify-between items-center px-2">
                         <span className="text-[10px] font-mono text-purple-500/50 uppercase tracking-[0.3em] font-black">Input_Identity</span>
@@ -223,7 +244,7 @@ const Contact = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.4 }}
-                        className="space-y-4 group/input"
+                        className="space-y-4 group/input relative"
                     >
                     <div className="flex justify-between items-center px-2">
                         <span className="text-[10px] font-mono text-purple-500/50 uppercase tracking-[0.3em] font-black">Input_Address</span>
@@ -242,7 +263,7 @@ const Contact = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5 }}
-                    className="space-y-4 group/input"
+                    className="space-y-4 group/input relative"
                 >
                     <div className="flex justify-between items-center px-2">
                         <span className="text-[10px] font-mono text-purple-500/50 uppercase tracking-[0.3em] font-black">Input_Payload</span>

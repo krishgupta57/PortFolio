@@ -73,29 +73,33 @@ const Navigation = () => {
   const circumference = 2 * Math.PI * 18;
   const strokeDashoffset = useTransform(scrollYProgress, [0, 1], [circumference, 0]);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    // Standard Smart Hide: Hide on DOWN, Show on UP
-    if (latest < 50) {
-      setIsHidden(false);
-    } else if (latest > lastScrollY.current) {
-      setIsHidden(true);
-    } else {
-      setIsHidden(false);
-    }
-    lastScrollY.current = latest;
+    // Optimized ScrollSpy Logic
+    const sections = useRef([]);
+    useEffect(() => {
+        sections.current = navItems.map(item => document.getElementById(item.toLowerCase()));
+    }, []);
 
-    // ScrollSpy Logic
-    const sections = navItems.map(item => document.getElementById(item.toLowerCase()));
-    const scrollPos = latest + 200;
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        // Standard Smart Hide: Hide on DOWN, Show on UP
+        if (latest < 50) {
+            setIsHidden(false);
+        } else if (latest > lastScrollY.current) {
+            setIsHidden(true);
+        } else {
+            setIsHidden(false);
+        }
+        lastScrollY.current = latest;
 
-    sections.forEach((section, i) => {
-      if (section && scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-        setActiveSection(navItems[i]);
-      }
+        // Optimized ScrollSpy
+        const scrollPos = latest + 200;
+        sections.current.forEach((section, i) => {
+            if (section && scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+                setActiveSection(navItems[i]);
+            }
+        });
+
+        if (latest < 100) setActiveSection(null);
     });
-
-    if (latest < 100) setActiveSection(null);
-  });
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id.toLowerCase());
@@ -135,7 +139,7 @@ const Navigation = () => {
           opacity: 1,
         }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="hidden md:flex items-center bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl px-2 py-2 pointer-events-auto shadow-2xl"
+        className="hidden md:flex items-center bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl px-2 py-2 pointer-events-auto shadow-2xl relative"
       >
         <ul className="flex items-center gap-1">
           {navItems.map((item, index) => (
@@ -190,7 +194,7 @@ const Navigation = () => {
             initial={{ opacity: 0, scale: 0.95, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            className="md:hidden absolute top-20 left-4 right-4 bg-slate-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl z-40 flex flex-col gap-2 pointer-events-auto"
+            className="md:hidden absolute top-20 left-4 right-4 bg-slate-900/95 backdrop-blur-lg border border-white/10 rounded-2xl p-4 shadow-2xl z-40 flex flex-col gap-2 pointer-events-auto"
           >
             {navItems.map((item, index) => (
               <button

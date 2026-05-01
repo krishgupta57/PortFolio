@@ -1,6 +1,6 @@
 import React, { useState, useRef, memo } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ExternalLink, Dna, Cpu, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Dna, Cpu, ShieldCheck, Code2 } from 'lucide-react';
 import { fadeIn, staggerContainer } from '../utils/animations';
 import { projects } from '../data/portfolioData';
 
@@ -60,7 +60,7 @@ const ProjectSlide = memo(({ project, active, index }) => {
   const parallaxY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
   return (
-    <div ref={containerRef} className="w-screen shrink-0 flex justify-center px-4 md:px-20 relative">
+    <div ref={containerRef} className="w-screen shrink-0 flex justify-center px-2 md:px-20 relative">
       <motion.div
         animate={{ 
           opacity: active ? 1 : 0.3, 
@@ -68,20 +68,20 @@ const ProjectSlide = memo(({ project, active, index }) => {
           filter: active ? "blur(0px)" : "blur(4px)"
         }}
         transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-        className="w-full max-w-7xl h-[650px] md:h-[700px] bg-[#111111]/30 backdrop-blur-3xl border border-white/5 rounded-[3rem] relative overflow-hidden group shadow-2xl"
+        className="w-full max-w-7xl h-[600px] md:h-[700px] bg-[#111111]/30 backdrop-blur-md border border-white/5 rounded-[2rem] md:rounded-[3rem] relative overflow-hidden group shadow-2xl will-change-[transform,opacity]"
       >
         {/* Large Background Number */}
-        <div className="absolute top-0 right-0 text-[20rem] font-black text-white/5 leading-none select-none -translate-y-1/4 translate-x-1/4 pointer-events-none group-hover:text-purple-500/10 transition-colors duration-1000">
+        <div className="absolute top-0 right-0 text-[20rem] font-black text-white/5 leading-none select-none -translate-y-1/4 translate-x-1/4 pointer-events-none group-hover:text-purple-500/10 transition-colors duration-1000 will-change-transform">
             0{index + 1}
         </div>
 
-        {/* Raster Scan Line Animation */}
+        {/* Raster Scan Line Animation - Enhanced Visibility */}
         {active && (
             <motion.div 
                 initial={{ top: "-10%" }}
                 animate={{ top: "110%" }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                className="absolute left-0 w-full h-[2px] bg-purple-500/20 shadow-[0_0_20px_rgba(168,85,247,0.5)] z-40 pointer-events-none"
+                className="absolute left-0 w-full h-[2px] bg-purple-500/40 shadow-[0_0_20px_rgba(168,85,247,0.5)] z-40 pointer-events-none will-change-[top]"
             />
         )}
 
@@ -113,6 +113,7 @@ const ProjectSlide = memo(({ project, active, index }) => {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={active ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.8, delay: 0.2 }}
+                    className="relative"
                 >
                     <div className="flex items-center gap-4 mb-6">
                         <span className="text-purple-500 font-mono text-sm font-black tracking-widest">/0{index + 1}</span>
@@ -141,13 +142,23 @@ const ProjectSlide = memo(({ project, active, index }) => {
                     <div className="flex flex-wrap items-center gap-6">
                         <button 
                             onClick={() => window.open(project.link, '_blank')}
-                            className="group relative px-10 py-5 bg-white text-black rounded-full font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] overflow-hidden"
+                            className="group relative px-10 py-5 bg-white text-black rounded-xl font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] overflow-hidden"
                         >
                             <span className="relative z-10 flex items-center gap-3">
                                 Launch Core System
                                 <ExternalLink className="w-4 h-4 group-hover:rotate-45 transition-transform" />
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:animate-scan pointer-events-none" />
+                        </button>
+
+                        <button 
+                            onClick={() => window.open(project.github || '#', '_blank')}
+                            className="group relative px-8 py-5 bg-transparent border border-white/10 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:bg-white/5 active:scale-95 overflow-hidden"
+                        >
+                            <span className="relative z-10 flex items-center gap-3">
+                                <Code2 className="w-4 h-4" />
+                                Source_Code
+                            </span>
                         </button>
                         
                         <div className="flex gap-2">
@@ -169,27 +180,45 @@ const ProjectSlide = memo(({ project, active, index }) => {
       </motion.div>
     </div>
   );
-});
+});const SectionHeader = ({ label, title, status, location }) => (
+    <motion.div variants={fadeIn} className="relative mb-24 w-full group/header">
+        {/* The Frame Background */}
+        <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl md:rounded-[2.5rem] -m-4 md:-m-8 pointer-events-none" />
+        
+        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="flex flex-col gap-4">
+                {/* Module Label Tag */}
+                <div className="flex items-center gap-3">
+                    <span className="bg-purple-600 text-white font-mono text-[8px] font-black tracking-[0.3em] uppercase px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                        {label}
+                    </span>
+                    <div className="h-[1px] w-24 bg-gradient-to-r from-purple-500 to-transparent opacity-30" />
+                </div>
+                
+                {/* Main High-Contrast Title */}
+                <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter uppercase leading-none">
+                    {title.split(' ')[0]} 
+                    <span className="text-purple-500 ml-4 group-hover/header:ml-8 transition-all duration-700">
+                        {title.split(' ').slice(1).join(' ')}
+                    </span>
+                </h2>
+            </div>
 
-const SectionHeader = ({ label, title, status, location }) => (
-    <motion.div variants={fadeIn} className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 border-b border-white/5 pb-8 w-full">
-        <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-                <div className="w-8 h-[1px] bg-purple-500 shadow-[0_0_10px_#a855f7]" />
-                <span className="text-purple-400 font-mono text-[9px] font-black tracking-[0.4em] uppercase">{label}</span>
+            {/* Diagnostic Data Block */}
+            <div className="flex flex-col items-start md:items-end gap-3 font-mono">
+                <div className="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-lg">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                    <span className="text-[10px] text-slate-300 font-bold tracking-widest uppercase">{status || 'SYSTEM_READY'}</span>
+                </div>
+                <div className="text-[10px] text-slate-500 tracking-[0.4em] uppercase font-black pl-2">
+                    {location || 'IN // BHOPAL_HUB'}
+                </div>
             </div>
-            <h2 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-none uppercase">
-                {title.split(' ')[0]} <span className="text-white/20 italic">{title.split(' ').slice(1).join(' ')}</span>
-                <span className="text-purple-500 italic">.</span>
-            </h2>
         </div>
-        <div className="flex flex-col items-end gap-2 mb-1">
-            <div className="px-4 py-1.5 bg-[#0a0a0a] border border-white/10 rounded-sm flex items-center gap-2 shadow-2xl relative overflow-hidden group">
-                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
-                <span className="text-[9px] font-mono text-slate-300 font-black tracking-[0.2em] uppercase">{status || 'SYSTEM_SYNC: ACTIVE'}</span>
-            </div>
-            <span className="text-[9px] font-mono text-slate-600 uppercase tracking-[0.3em] font-black">{location || 'BHOPAL // INDIA_REGION'}</span>
-        </div>
+
+        {/* Decorative Corner Markers */}
+        <div className="absolute -top-4 -left-4 md:-top-8 md:-left-8 w-12 h-12 border-t-2 border-l-2 border-purple-500/30 rounded-tl-2xl pointer-events-none" />
+        <div className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-12 h-12 border-b-2 border-r-2 border-purple-500/30 rounded-br-2xl pointer-events-none" />
     </motion.div>
 );
 
@@ -235,16 +264,17 @@ const Projects = () => {
             </button>
         </div>
 
-        <div className="w-full relative py-4 overflow-x-hidden min-h-[600px]">
+        <div className="w-full relative py-4 overflow-hidden min-h-[600px] touch-pan-y">
             <motion.div
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
                 onDragEnd={handleDragEnd}
-                className="w-full"
+                className="w-full cursor-grab active:cursor-grabbing"
             >
                 <motion.div 
                     animate={{ x: `-${index * 100}vw` }}
-                    transition={{ type: "spring", stiffness: 180, damping: 25 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 30 }}
                     className="flex items-center flex-nowrap w-full"
                 >
                     {projects.map((project, i) => (

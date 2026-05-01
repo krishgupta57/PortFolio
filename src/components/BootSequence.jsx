@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 const BootSequence = ({ onComplete }) => {
     const [logs, setLogs] = useState([]);
     const [isDone, setIsDone] = useState(false);
+    const [progress, setProgress] = useState(0);
     const scrollRef = useRef(null);
 
     const bootLogs = [
@@ -13,73 +14,22 @@ const BootSequence = ({ onComplete }) => {
         "ESTABLISHING_SECURE_CONNECTION...",
         "UPLINK_STATUS: BHOPAL_IN_77.41E [ CONNECTED ]",
         "HANDSHAKE_PROTOCOL: TLS_1.3 [ VERIFIED ]",
-        "NEURAL_DRIVERS: v3.2.0_ELITE [ LOADED ]",
-        "ENCRYPT_LAYER: SHA-512_RSA_2048 [ ACTIVE ]",
-        "DECRYPTING_USER_PAYLOAD...",
+        "NEURAL_DRIVERS: v4.0.0_CYBER [ LOADED ]",
+        "ENCRYPT_LAYER: SHA-512_RSA_4096 [ ACTIVE ]",
+        "DECRYPTING_USER_PAYLOAD: KRISH_GUPTA",
         "PAYLOAD_DECRYPT: [ SUCCESS ]",
-        "GFX_ENGINE: RAY_TRACE_PIPELINE [ ENABLED ]",
-        "INITIALIZING_WEBGL_CONTEXT...",
+        "GFX_ENGINE: HOLOGRAPHIC_PIPELINE [ ENABLED ]",
+        "INITIALIZING_QUANTUM_CONTEXT...",
         "SHADER_COMPILATION: [ OK ]",
-        "MEMORY_CHECK: 64.0 TB [ VIRTUAL ]",
-        "ESTHETHICS_CORE: CINEMATIC_V6 [ SYNCED ]",
-        "MOUNT_POINTS: /dev/root -> node_01 [ OK ]",
+        "MEMORY_CHECK: 128.0 PB [ VIRTUAL ]",
+        "ESTHETHICS_CORE: KINETIC_V4 [ SYNCED ]",
+        "MOUNT_POINTS: /dev/core -> node_01 [ OK ]",
         "SCANNING_HARDWARE_INTEGRITY...",
-        "CPU_THREADS: 128 [ ALLOCATED ]",
+        "CPU_CORES: 256 [ ALLOCATED ]",
         "I/O_OPTIMIZATION_COMPLETE",
+        "STARTING_GUI_SUBSYSTEM...",
         "LOADING_PORTFOLIO_MODULES...",
         "INITIALIZING_ANIMATION_ENGINE... [ OK ]",
-        "CACHING_ASSETS_IN_VRAM... [ OK ]",
-        "MOUNTING_VIRTUAL_DOM... [ OK ]",
-        "ESTABLISHING_WSS_CONNECTION... [ OK ]",
-        "APPLYING_THEME_VARIABLES... [ OK ]",
-        "STARTING_BACKGROUND_WORKERS... [ OK ]",
-        "VALIDATING_SESSION_STATE... [ OK ]",
-        "LOADING_CUSTOM_FONTS... [ OK ]",
-        "INITIALIZING_ROUTER... [ OK ]",
-        "FETCHING_API_ENDPOINTS... [ OK ]",
-        "RESOLVING_DEPENDENCIES... [ OK ]",
-        "INJECTING_SCRIPTS... [ OK ]",
-        "STARTING_TELEMETRY_SERVICE... [ OK ]",
-        "SECURING_COMMUNICATION_CHANNELS... [ OK ]",
-        "OPTIMIZING_RENDER_TREE... [ OK ]",
-        "LOADING_STATE_MANAGEMENT... [ OK ]",
-        "INITIALIZING_LOCAL_STORAGE... [ OK ]",
-        "SYNCING_OFFLINE_DATA... [ OK ]",
-        "CALCULATING_LAYOUT_METRICS... [ OK ]",
-        "BINDING_EVENT_LISTENERS... [ OK ]",
-        "WARMING_UP_CACHE... [ OK ]",
-        "CHECKING_SYSTEM_REQUIREMENTS... [ OK ]",
-        "LOADING_ANALYTICS_MODULE... [ OK ]",
-        "INITIALIZING_ERROR_TRACKING... [ OK ]",
-        "STARTING_PERFORMANCE_PROFILER... [ OK ]",
-        "LOADING_ACCESSIBILITY_FEATURES... [ OK ]",
-        "INITIALIZING_I18N_MODULE... [ OK ]",
-        "SYNCING_USER_PROFILE... [ OK ]",
-        "LOADING_NOTIFICATIONS_SERVICE... [ OK ]",
-        "INITIALIZING_WEB_WORKERS... [ OK ]",
-        "PARSING_USER_PREFERENCES... [ OK ]",
-        "COMPILING_TAILWIND_CLASSES... [ OK ]",
-        "PRELOADING_IMAGES... [ OK ]",
-        "CHECKING_AUTHENTICATION_TOKENS... [ OK ]",
-        "RESOLVING_DNS_ROUTES... [ OK ]",
-        "CALIBRATING_QUANTUM_PROCESSOR... [ OK ]",
-        "LOADING_FRONTEND_COMPONENTS... [ OK ]",
-        "SYNCING_DATABASE_STATE... [ OK ]",
-        "CHECKING_NETWORK_LATENCY... [ OK ]",
-        "LOADING_MODULE_AI_CORE... [ OK ]",
-        "EXECUTING_STARTUP_SCRIPTS... [ OK ]",
-        "VERIFYING_COMPONENT_INTEGRITY... [ OK ]",
-        "INITIALIZING_STATE_MACHINE... [ OK ]",
-        "LOADING_PLUGINS... [ OK ]",
-        "CONFIGURING_ENVIRONMENT_VARIABLES... [ OK ]",
-
-        "FETCHING_PROJECT_DATA... [ OK ]",
-        "COMPILING_REACT_TREE...",
-        "VERIFYING_DYNAMICS: [ OPTIMAL ]",
-        "PREPARING_UI_WORKSPACE...",
-        "INJECTING_CUSTOM_CSS_VARS...",
-        "AUTHENTICATING_USER: KRISH_GUPTA...",
-        "ACCESS_GRANTED: ELITE_ARCHITECT_LEVEL",
         "BYPASSING_FIREWALL... [ OVERRIDDEN ]",
         "------------------------------------",
         "SYSTEM_BOOT_COMPLETE",
@@ -88,30 +38,60 @@ const BootSequence = ({ onComplete }) => {
     useEffect(() => {
         let currentIdx = 0;
         let timeoutId;
-        const themeColors = ['text-pink-500', 'text-blue-400', 'text-purple-400', 'text-cyan-400', 'text-slate-300', 'text-indigo-400'];
+        const totalLogs = bootLogs.length;
 
         const processNextLog = () => {
-            if (currentIdx < bootLogs.length) {
-                const nextLog = bootLogs[currentIdx];
-                if (nextLog) {
-                    // Assign a stable random color from the theme palette
-                    const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
-                    setLogs(prev => [...prev.slice(-15), { text: nextLog, color: randomColor }]);
-                }
-                currentIdx++;
+            if (currentIdx < totalLogs) {
+                const burstSize = Math.floor(Math.random() * 3) + 1;
+                const nextLogs = bootLogs.slice(currentIdx, currentIdx + burstSize);
                 
-                // Realistic dynamic delay: 90% fast, 10% slightly slower pause
-                const isSlow = Math.random() > 0.9;
-                const delay = isSlow ? Math.random() * 150 + 100 : 25;
-                timeoutId = setTimeout(processNextLog, delay);
+                setLogs(prev => [
+                    ...prev.slice(-(12 - nextLogs.length)), 
+                    ...nextLogs.map(text => ({ text, color: 'text-purple-400' }))
+                ]);
+                
+                currentIdx += nextLogs.length;
+                // Cap linear progress at 98% to allow "bleeding" the last 2%
+                setProgress(Math.min((currentIdx / totalLogs) * 98, 98));
+                
+                timeoutId = setTimeout(processNextLog, 15);
             } else {
-                setTimeout(() => setIsDone(true), 400); // stops blinking cursor
-                setTimeout(onComplete, 1000); // 1-second pause before proceeding
+                // Final Phase: Keep the system "moving" with ambient telemetry
+                let finalPhaseIdx = 0;
+                const finalChecks = [
+                    "VERIFYING_SECURE_ENCLAVE... [ OK ]",
+                    "OPTIMIZING_NEURAL_UPLINK... [ OK ]",
+                    "ESTABLISHING_ENVIRONMENT... [ READY ]"
+                ];
+
+                const runFinalPhase = () => {
+                    if (finalPhaseIdx < finalChecks.length) {
+                        setLogs(prev => [...prev.slice(-11), { text: finalChecks[finalPhaseIdx], color: 'text-emerald-400' }]);
+                        setProgress(prev => Math.min(prev + 0.6, 100));
+                        finalPhaseIdx++;
+                        setTimeout(runFinalPhase, 400); // Faster checks
+                    } else {
+                        const ambientInterval = setInterval(() => {
+                            setLogs(prev => [...prev.slice(-11), { 
+                                text: `SYNC_CORE_0x${Math.floor(Math.random()*16).toString(16).toUpperCase()}${Math.floor(Math.random()*16).toString(16).toUpperCase()}... [ ACTIVE ]`, 
+                                color: 'text-slate-600' 
+                            }]);
+                        }, 150);
+
+                        setTimeout(() => {
+                            clearInterval(ambientInterval);
+                            setProgress(100); // Force absolute 100%
+                            setIsDone(true);
+                            onComplete();
+                        }, 600); // Shorter final hold
+                    }
+                };
+
+                runFinalPhase();
             }
         };
 
         processNextLog();
-
         return () => clearTimeout(timeoutId);
     }, [onComplete]);
 
@@ -126,105 +106,144 @@ const BootSequence = ({ onComplete }) => {
             initial={{ opacity: 1 }}
             exit={{
                 opacity: 0,
-                scale: 1.5,
-                filter: 'brightness(2) blur(20px)',
-                transition: { duration: 1.2, ease: "circIn" }
+                scale: 2,
+                filter: 'brightness(5) blur(40px)',
+                transition: { duration: 1.5, ease: "circIn" }
             }}
-            className="fixed inset-0 z-[999] bg-[#020617] flex flex-col items-center justify-center font-mono overflow-hidden"
+            className="fixed inset-0 z-[999] bg-[#010409] flex flex-col items-center justify-center font-mono overflow-hidden"
         >
-            {/* CRT Flicker Effect Overlay */}
-            <div className="absolute inset-0 pointer-events-none z-50 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
+            {/* Ambient Scanning Grid */}
+            <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.05),transparent_70%)]" />
 
-            <div className="relative w-full max-w-2xl px-6 py-12">
-                {/* Header Info */}
-                <div className="flex justify-between items-start mb-12 border-b border-white/10 pb-4 text-blue-500/60 text-[10px] tracking-widest uppercase">
-                    <div>
-                        <p>KRISH_OS v3.2.0</p>
-                        <p>CODENAME: ELITE_ARCHITECT</p>
+            <div className="relative w-full max-w-6xl px-12 flex flex-col items-center">
+                
+                {/* Header HUD Bar */}
+                <div className="w-full flex justify-between items-center mb-24 border-b border-white/5 pb-6">
+                    <div className="flex items-center gap-4">
+                        <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping" />
+                        <span className="text-[10px] text-purple-400 font-black tracking-[0.5em] uppercase">Krish_OS // BIOS_v4.0.1</span>
                     </div>
-                    <div className="text-right">
-                        <p>BIOS_VER: 0x7FF_2024</p>
-                        <p>OWNER: KRISH_GUPTA</p>
+                    <div className="flex gap-12">
+                        <div className="flex flex-col items-end">
+                            <span className="text-[7px] text-slate-500 font-black uppercase">Core_Temp</span>
+                            <span className="text-[10px] text-emerald-500 font-black italic">32°C // STABLE</span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                            <span className="text-[7px] text-slate-500 font-black uppercase">Uplink_Freq</span>
+                            <span className="text-[10px] text-blue-400 font-black italic">5.2 GHz</span>
+                        </div>
                     </div>
                 </div>
 
-                {/* Main Content Area */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {/* Left: ASCII / System Data */}
-                    <div className="space-y-6">
-                        <div className="text-pink-500 font-bold text-lg leading-none">
-                            <pre className="inline-block text-xl">
-                                {`
-    __ __ ______
-   / //_// ____/
-  / ,<  / / __  
- / /| |/ /_/ /  
-/_/ |_|\\____/   
-                                `}
-                            </pre>
-                            <div className="mt-2 text-[8px] opacity-50 uppercase tracking-[0.5em]">Neural Uplink v3.2</div>
-                        </div>
-
-                        <div className="space-y-2">
-                            {[1, 2, 3, 4].map(i => (
-                                <div key={i} className="flex gap-2">
-                                    <div className="h-1 flex-1 bg-white/5 relative overflow-hidden">
-                                        <motion.div
-                                            animate={{ x: ["-100%", "100%"] }}
-                                            transition={{ duration: Math.random() * 1 + 0.5, repeat: Infinity, ease: "linear" }}
-                                            className="absolute inset-0 bg-blue-500/20"
-                                        />
-                                    </div>
+                {/* Central Holographic Hub */}
+                <div className="relative w-full grid grid-cols-1 lg:grid-cols-3 gap-24 items-center">
+                    
+                    {/* Left: System Stats */}
+                    <div className="hidden lg:flex flex-col gap-8 opacity-40">
+                        {[...Array(4)].map((_, i) => (
+                            <div key={i} className="space-y-2">
+                                <div className="flex justify-between text-[8px] font-black text-slate-400">
+                                    <span>DATA_STREAM_0{i}</span>
+                                    <span>{Math.floor(Math.random() * 100)}%</span>
                                 </div>
-                            ))}
+                                <div className="h-[2px] bg-white/5 relative overflow-hidden">
+                                    <motion.div 
+                                        animate={{ width: ["0%", "100%", "0%"] }}
+                                        transition={{ duration: 2 + i, repeat: Infinity }}
+                                        className="h-full bg-purple-500/30"
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Center: The Core Projector */}
+                    <div className="relative flex flex-col items-center">
+                        {/* Circular HUD Loader */}
+                        <div className="relative w-64 h-64 flex items-center justify-center">
+                            <svg className="absolute inset-0 w-full h-full -rotate-90">
+                                <circle cx="128" cy="128" r="120" fill="transparent" stroke="rgba(168,85,247,0.05)" strokeWidth="2" />
+                                <motion.circle
+                                    cx="128" cy="128" r="120"
+                                    fill="transparent"
+                                    stroke="#a855f7"
+                                    strokeWidth="4"
+                                    strokeDasharray={2 * Math.PI * 120}
+                                    initial={{ strokeDashoffset: 2 * Math.PI * 120 }}
+                                    animate={{ strokeDashoffset: 2 * Math.PI * 120 * (1 - progress / 100) }}
+                                    className="drop-shadow-[0_0_15px_#a855f7]"
+                                />
+                            </svg>
+                            
+                            {/* Rotating Inner Rings */}
+                            <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="absolute w-48 h-48 border border-dashed border-white/10 rounded-full" />
+                            <motion.div animate={{ rotate: -360 }} transition={{ duration: 5, repeat: Infinity, ease: "linear" }} className="absolute w-56 h-56 border border-white/5 rounded-full" />
+
+                            {/* Center Logo/ID */}
+                            <div className="relative z-10 flex flex-col items-center">
+                                <motion.span 
+                                    animate={{ opacity: [0.5, 1, 0.5] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                    className="text-6xl font-black text-white italic tracking-tighter"
+                                >
+                                    KG
+                                </motion.span>
+                                <span className="text-[8px] font-black text-purple-500 tracking-[0.4em] uppercase mt-2">Initialize</span>
+                            </div>
+                        </div>
+                        
+                        {/* Numerical Progress */}
+                        <div className="mt-12 flex flex-col items-center gap-1">
+                            <span className="text-4xl font-black text-white italic tracking-tighter">
+                                {Math.floor(progress)}<span className="text-purple-500">%</span>
+                            </span>
+                            <span className="text-[7px] text-slate-500 font-black uppercase tracking-[0.6em]">System_Syncing</span>
                         </div>
                     </div>
 
-                    {/* Right: The Terminal Log */}
-                    <div className="bg-black/40 border border-white/5 p-4 h-64 flex flex-col shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
-                        <div className="flex-1 overflow-hidden" ref={scrollRef}>
+                    {/* Right: The Holographic Terminal */}
+                    <div className="bg-[#050505] border border-white/10 p-6 h-80 rounded-2xl relative overflow-hidden shadow-2xl backdrop-blur-xl">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
+                        <div className="flex-1 h-full overflow-hidden flex flex-col" ref={scrollRef}>
+                            <div className="mb-4 text-[8px] text-slate-600 font-black uppercase tracking-widest border-b border-white/5 pb-2">
+                                Diagnostic_Log_v4.0
+                            </div>
                             {logs.map((logObj, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    className={`text-[11px] mb-1 tracking-tight ${logObj.color}`}
+                                    className="text-[10px] mb-2 tracking-tight text-purple-300 font-mono flex items-start gap-3"
                                 >
-                                    <span className="opacity-30 mr-2">{'>'}</span>
-                                    {logObj.text}
+                                    <span className="text-purple-600 opacity-50 shrink-0">{i.toString().padStart(2, '0')}</span>
+                                    <span>{logObj.text}</span>
                                 </motion.div>
                             ))}
                             {!isDone && (
                                 <motion.div
                                     animate={{ opacity: [0, 1] }}
-                                    transition={{ repeat: Infinity, duration: 0.8 }}
-                                    className="w-2 h-4 bg-blue-500/50 inline-block align-middle ml-2"
+                                    transition={{ repeat: Infinity, duration: 0.6 }}
+                                    className="w-1.5 h-3 bg-purple-500/50 ml-6"
                                 />
                             )}
                         </div>
+                        
+                        {/* Corner Accents */}
+                        <div className="absolute top-2 right-2 w-1 h-1 bg-purple-500 rounded-full animate-pulse" />
                     </div>
                 </div>
 
-                {/* Footer Telemetry */}
-                <div className="mt-12 flex justify-center">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-[9px] text-white/20 tracking-[0.6em] uppercase"
-                    >
-                        Synchronizing Environmental Workspace...
-                    </motion.div>
+                {/* Footer Disclaimer */}
+                <div className="mt-32 opacity-20 flex items-center gap-6">
+                    <div className="h-[1px] w-24 bg-white/20" />
+                    <span className="text-[7px] text-white font-black uppercase tracking-[0.8em]">Neural_Link_Established // v4.0.1</span>
+                    <div className="h-[1px] w-24 bg-white/20" />
                 </div>
             </div>
 
-            {/* Scanning Grid Background */}
-            <div
-                className="absolute inset-0 -z-10 opacity-[0.03]"
-                style={{
-                    backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-                    backgroundSize: "40px 40px"
-                }}
-            />
+            {/* Cinematic Glitch Overlay */}
+            <div className="absolute inset-0 pointer-events-none z-50 mix-blend-overlay opacity-30 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
         </motion.div>
     );
 };

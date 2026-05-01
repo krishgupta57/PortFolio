@@ -11,8 +11,23 @@ html {
   }
 }
 
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 15s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-slow {
+  animation: marquee 35s linear infinite;
   will-change: transform;
 }
 
@@ -180,3 +195,17 @@ html {
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
 }
 
+@keyframes dataFlow {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes spin-linear {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-dataFlow {
+  animation: dataFlow 3s linear infinite;
+  will-change: transform;
+}

@@ -17,17 +17,17 @@ const duplicatedTechnologies = [...technologies, ...technologies, ...technologie
 
 const TechMarquee = () => {
   return (
-    <div className="w-full overflow-hidden bg-[#010409] border-y border-white/5 py-12 relative flex">
+    <div className="w-full overflow-hidden bg-[#010409] border-y border-white/5 py-8 md:py-12 relative flex">
       {/* Invisible gradients masking the edges */}
-      <div className="absolute top-0 left-0 w-48 h-full bg-gradient-to-r from-[#010409] to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-48 h-full bg-gradient-to-l from-[#010409] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-24 md:w-48 h-full bg-gradient-to-r from-[#010409] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-24 md:w-48 h-full bg-gradient-to-l from-[#010409] to-transparent z-10 pointer-events-none"></div>
       
       {/* The scrolling container */}
-      <div className="flex animate-marquee min-w-[200%] items-center">
+      <div className="flex animate-marquee md:animate-marquee-slow min-w-[200%] items-center">
         {duplicatedTechnologies.map((tech, index) => (
           <div 
             key={index} 
-            className="flex items-center space-x-4 mx-12 md:mx-16 shrink-0 group hover:opacity-100 opacity-40 transition-all duration-500"
+            className="flex items-center space-x-3 md:space-x-4 mx-6 md:mx-16 shrink-0 group hover:opacity-100 opacity-40 transition-all duration-500"
           >
             <div className="p-2 bg-white/5 rounded-lg border border-white/5 group-hover:border-purple-500/30 transition-colors">
                 {tech.icon}

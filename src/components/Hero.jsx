@@ -61,7 +61,7 @@ const Hero = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex flex-col items-start"
+            className="flex flex-col items-start relative"
           >
             {/* Status Pill */}
             <div className="flex items-center gap-3 bg-[#111111]/80 border border-white/10 px-4 py-2 rounded-full mb-4 backdrop-blur-xl">
@@ -73,12 +73,12 @@ const Hero = () => {
 
             {/* Headline */}
             <div className="relative group">
-               <h1 className="text-5xl md:text-[6rem] font-black text-white leading-[0.9] tracking-tighter mb-6 select-none">
+               <h1 className="text-4xl sm:text-5xl md:text-[6rem] font-black text-white leading-[0.9] tracking-tighter mb-6 select-none">
                 CRAFTING <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-yellow-500">DIGITAL ARC</span>
               </h1>
               {/* Subtle background text glitch effect */}
-              <div className="absolute -top-4 -left-4 text-white/5 text-9xl font-black -z-10 select-none pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity">
+              <div className="absolute -top-4 -left-4 text-white/5 text-7xl md:text-9xl font-black -z-10 select-none pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity">
                 FUTURE
               </div>
             </div>
@@ -102,10 +102,10 @@ const Hero = () => {
             </div>
 
             {/* CTA Actions */}
-            <div className="flex flex-wrap items-center gap-8">
+            <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 w-full sm:w-auto">
               <button
                 onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
-                className="group relative px-12 py-5 bg-white text-black rounded-full font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] cursor-none overflow-hidden"
+                className="w-full sm:w-auto group relative px-10 sm:px-12 py-5 bg-white text-black rounded-xl font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] cursor-none overflow-hidden"
               >
                 <span className="relative z-10">View Projects →</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:animate-scan pointer-events-none" />
@@ -113,7 +113,7 @@ const Hero = () => {
               
               <button
                 onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-                className="px-12 py-5 bg-transparent border border-white/10 text-white rounded-full font-black uppercase tracking-[0.2em] text-[10px] hover:bg-white/5 hover:border-white/20 transition-all cursor-none shadow-xl"
+                className="w-full sm:w-auto px-10 sm:px-12 py-5 bg-transparent border border-white/10 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-white/5 hover:border-white/20 transition-all cursor-none shadow-xl"
               >
                 Contact Me
               </button>
@@ -128,7 +128,7 @@ const Hero = () => {
             className="relative"
           >
             {/* The Frame */}
-            <div className="relative z-10 aspect-[4/5] rounded-[2.5rem] overflow-hidden border-2 border-white/5 p-4 bg-[#111111]/30 backdrop-blur-3xl group">
+            <div className="relative z-10 aspect-[4/5] rounded-[2.5rem] overflow-hidden border-2 border-white/5 p-4 bg-[#111111]/30 backdrop-blur-lg group will-change-transform">
                 {/* Neon Corners */}
                 <div className="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-purple-500 rounded-tl-[2.5rem] z-20 opacity-40" />
                 <div className="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-purple-500 rounded-br-[2.5rem] z-20 opacity-40" />
@@ -138,13 +138,13 @@ const Hero = () => {
                     <img
                         src="/photo.jpg"
                         alt="Krish Gupta"
-                        className="w-full h-full object-cover grayscale-[0.2] contrast-[1.1] transition-transform duration-1000 group-hover:scale-110"
+                        className="w-full h-full object-cover grayscale-[0.2] contrast-[1.1] transition-transform duration-1000 group-hover:scale-110 will-change-transform"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 </div>
 
                 {/* Authentication Card Overlay */}
-                <div className="absolute bottom-8 left-8 right-8 bg-black/60 backdrop-blur-2xl border border-white/10 p-6 rounded-2xl flex items-center justify-between shadow-2xl">
+                <div className="absolute bottom-8 left-8 right-8 bg-black/60 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex items-center justify-between shadow-2xl">
                     <div className="space-y-1">
                         <p className="text-[9px] font-mono text-slate-500 uppercase tracking-[0.4em] font-bold">Authenticated User</p>
                         <p className="text-xl font-black text-white uppercase tracking-tighter">Krish Gupta</p>
@@ -157,9 +157,9 @@ const Hero = () => {
                 </div>
             </div>
 
-            {/* Background Glows */}
-            <div className="absolute -top-20 -right-20 w-64 h-64 bg-purple-600/20 blur-[100px] -z-10 rounded-full animate-pulse" />
-            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-600/20 blur-[100px] -z-10 rounded-full animate-pulse" />
+            {/* Background Glows (Reduced blur for perf) */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-purple-600/10 blur-[60px] -z-10 rounded-full animate-pulse will-change-[opacity,transform]" />
+            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-600/10 blur-[60px] -z-10 rounded-full animate-pulse will-change-[opacity,transform]" />
           </motion.div>
 
         </div>

@@ -139,7 +139,6 @@ function App() {
 
   return (
     <motion.div 
-      layout
       initial={false}
       className="min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden relative" 
       style={{ backgroundColor: '#010409' }}
