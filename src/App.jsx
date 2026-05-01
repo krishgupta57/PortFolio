@@ -14,46 +14,24 @@ import SystemTelemetry from './components/SystemTelemetry';
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
-  const [binary, setBinary] = useState("1");
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
-  const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
+  const springConfig = { damping: 30, stiffness: 500, mass: 0.5 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
-  
-  const dotSpringConfig = { damping: 25, stiffness: 700, mass: 0.2 };
-  const dotXSpring = useSpring(cursorX, dotSpringConfig);
-  const dotYSpring = useSpring(cursorY, dotSpringConfig);
-
-  // Trail spring with more delay
-  const trailSpringConfig = { damping: 30, stiffness: 150, mass: 1 };
-  const trailXSpring = useSpring(cursorX, trailSpringConfig);
-  const trailYSpring = useSpring(cursorY, trailSpringConfig);
-
-  useEffect(() => {
-    const timer = setInterval(() => setBinary(Math.random() > 0.5 ? "1" : "0"), 100);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const moveCursor = (e) => {
-      cursorX.set(e.clientX - 16);
-      cursorY.set(e.clientY - 16);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const handleMouseOver = (e) => {
-      if (
-        e.target.tagName === 'A' || 
-        e.target.tagName === 'BUTTON' || 
-        e.target.closest('a') || 
-        e.target.closest('button') ||
-        e.target.closest('.group')
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
+      const target = e.target;
+      setIsHovering(window.getComputedStyle(target).cursor === 'pointer' || 
+                    target.closest('button') || 
+                    target.closest('a'));
     };
 
     window.addEventListener('mousemove', moveCursor);
@@ -66,47 +44,51 @@ const CustomCursor = () => {
   }, [cursorX, cursorY]);
 
   return (
-    <motion.div 
-      initial={false}
-      className="fixed inset-0 pointer-events-none z-[100] hidden md:block"
-    >
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-pink-500/50"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-        }}
-        animate={{
-          scale: isHovering ? 1.8 : 1,
-          borderColor: isHovering ? "#ec4899" : "#3b82f6",
-          backgroundColor: isHovering ? "rgba(236, 72, 153, 0.15)" : "transparent"
-        }}
-        transition={{ duration: 0.2 }}
-      />
-      
-      <motion.div 
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-pink-500"
-        style={{
-          x: dotXSpring,
-          y: dotYSpring,
-          translateX: "12px", 
-          translateY: "12px"
-        }}
-      />
+    <div className="fixed inset-0 pointer-events-none z-[9999] hidden md:block">
+        <motion.div
+            style={{ x: cursorXSpring, y: cursorYSpring }}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+        >
+            {/* Professional Command Ring - Visible on Hover */}
+            <motion.div
+                initial={false}
+                animate={{ 
+                    scale: isHovering ? 1.5 : 0.8,
+                    opacity: isHovering ? 1 : 0.2,
+                    borderColor: isHovering ? '#a855f7' : 'rgba(255, 255, 255, 0.4)'
+                }}
+                className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center transition-colors duration-500"
+            >
+                {/* Precision Crosshair (+) */}
+                <motion.div 
+                    animate={{ opacity: isHovering ? 1 : 0 }}
+                    className="relative w-full h-full"
+                >
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-[1px] bg-purple-500" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-[1px] bg-purple-500" />
+                </motion.div>
+            </motion.div>
 
-      {/* Cybernetic Data Node Trail */}
-      <motion.div
-        className="fixed top-0 left-0 text-[10px] font-mono text-blue-500/50 font-bold"
-        style={{
-          x: trailXSpring,
-          y: trailYSpring,
-          translateX: "24px",
-          translateY: "24px"
-        }}
-      >
-        {binary}
-      </motion.div>
-    </motion.div>
+            {/* Central Precision Point */}
+            <motion.div 
+                animate={{ 
+                    scale: isHovering ? 0.8 : 1,
+                    backgroundColor: isHovering ? '#a855f7' : '#ffffff'
+                }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full z-10 shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+            />
+
+            {/* Discreet Metadata */}
+            <motion.div
+               animate={{ opacity: isHovering ? 1 : 0, y: isHovering ? 0 : 5 }}
+               className="absolute top-6 left-1/2 -translate-x-1/2"
+            >
+               <span className="text-[7px] font-mono font-black text-purple-400 uppercase tracking-[0.3em] bg-black/80 px-2 py-0.5 border border-white/10 rounded-sm">
+                 CMD
+               </span>
+            </motion.div>
+        </motion.div>
+    </div>
   );
 };
 

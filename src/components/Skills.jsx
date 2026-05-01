@@ -189,44 +189,44 @@ const SkillCard = ({ skill, index }) => {
 };
 
 const SectionHeader = ({ label, title, status, location }) => (
-    <motion.div variants={fadeIn} className="relative mb-24 w-full group/header">
-        {/* The Frame Background */}
-        <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl md:rounded-[2.5rem] -m-4 md:-m-8 pointer-events-none" />
+    <motion.div variants={fadeIn} className="relative mb-16 md:mb-24 w-full group/header px-4 md:px-0">
+        {/* The Frame Background - Adjusted for mobile */}
+        <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl md:rounded-[2.5rem] -mx-2 md:-mx-8 -my-4 md:-my-8 pointer-events-none" />
         
-        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
-            <div className="flex flex-col gap-4">
+        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8">
+            <div className="flex flex-col gap-3 md:gap-4">
                 {/* Module Label Tag */}
                 <div className="flex items-center gap-3">
-                    <span className="bg-purple-600 text-white font-mono text-[8px] font-black tracking-[0.3em] uppercase px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                    <span className="bg-purple-600 text-white font-mono text-[7px] md:text-[8px] font-black tracking-[0.3em] uppercase px-2 md:px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.4)]">
                         {label}
                     </span>
-                    <div className="h-[1px] w-24 bg-gradient-to-r from-purple-500 to-transparent opacity-30" />
+                    <div className="h-[1px] w-12 md:w-24 bg-gradient-to-r from-purple-500 to-transparent opacity-30" />
                 </div>
                 
-                {/* Main High-Contrast Title */}
-                <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter uppercase leading-none">
+                {/* Main High-Contrast Title - Granular scaling */}
+                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white italic tracking-tighter uppercase leading-[0.9] md:leading-none flex flex-wrap items-baseline">
                     {title.split(' ')[0]} 
-                    <span className="text-purple-500 ml-4 group-hover/header:ml-8 transition-all duration-700">
+                    <span className="text-purple-500 ml-2 md:ml-4 group-hover/header:ml-4 md:group-hover/header:ml-8 transition-all duration-700 whitespace-nowrap">
                         {title.split(' ').slice(1).join(' ')}
                     </span>
                 </h2>
             </div>
 
             {/* Diagnostic Data Block */}
-            <div className="flex flex-col items-start md:items-end gap-3 font-mono">
-                <div className="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-lg">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
-                    <span className="text-[10px] text-slate-300 font-bold tracking-widest uppercase">{status || 'SYSTEM_READY'}</span>
+            <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-start gap-3 font-mono w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/5">
+                <div className="flex items-center gap-3 px-3 md:px-4 py-1.5 md:py-2 bg-white/5 border border-white/10 rounded-lg">
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                    <span className="text-[8px] md:text-[10px] text-slate-300 font-bold tracking-widest uppercase">{status || 'SYSTEM_READY'}</span>
                 </div>
-                <div className="text-[10px] text-slate-500 tracking-[0.4em] uppercase font-black pl-2">
+                <div className="text-[8px] md:text-[10px] text-slate-500 tracking-[0.2em] md:tracking-[0.4em] uppercase font-black">
                     {location || 'IN // BHOPAL_HUB'}
                 </div>
             </div>
         </div>
 
-        {/* Decorative Corner Markers */}
-        <div className="absolute -top-4 -left-4 md:-top-8 md:-left-8 w-12 h-12 border-t-2 border-l-2 border-purple-500/30 rounded-tl-2xl pointer-events-none" />
-        <div className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-12 h-12 border-b-2 border-r-2 border-purple-500/30 rounded-br-2xl pointer-events-none" />
+        {/* Decorative Corner Markers - Hidden on mobile for cleaner look */}
+        <div className="absolute -top-4 -left-2 md:-top-8 md:-left-8 w-8 md:w-12 h-8 md:h-12 border-t-2 border-l-2 border-purple-500/30 rounded-tl-xl md:rounded-tl-2xl pointer-events-none" />
+        <div className="absolute -bottom-4 -right-2 md:-bottom-8 md:-right-8 w-8 md:w-12 h-8 md:h-12 border-b-2 border-r-2 border-purple-500/30 rounded-br-xl md:rounded-br-2xl pointer-events-none" />
     </motion.div>
 );
 

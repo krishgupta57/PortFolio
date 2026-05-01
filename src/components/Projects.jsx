@@ -108,61 +108,65 @@ const ProjectSlide = memo(({ project, active, index }) => {
             </div>
 
             {/* Content Section */}
-            <div className="w-full md:w-1/2 h-1/2 md:h-full p-8 md:p-16 flex flex-col justify-center relative z-10">
+            <div className="w-full md:w-1/2 h-1/2 md:h-full p-6 sm:p-8 md:p-16 flex flex-col justify-center relative z-10 overflow-hidden">
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={active ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="relative"
+                    className="relative flex flex-col h-full md:h-auto"
                 >
-                    <div className="flex items-center gap-4 mb-6">
-                        <span className="text-purple-500 font-mono text-sm font-black tracking-widest">/0{index + 1}</span>
-                        <div className="h-[1px] w-12 bg-purple-500/30" />
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.4em]">MODULE_v4.2</span>
+                    <div className="flex items-center gap-4 mb-4 md:mb-6">
+                        <span className="text-purple-500 font-mono text-xs md:text-sm font-black tracking-widest">/0{index + 1}</span>
+                        <div className="h-[1px] w-8 md:w-12 bg-purple-500/30" />
+                        <span className="text-[8px] md:text-[10px] font-mono text-slate-500 uppercase tracking-[0.4em]">MODULE_v4.2</span>
                     </div>
 
-                    <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6 leading-none uppercase">
+                    <h3 className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 md:mb-6 leading-none uppercase">
                         {project.title}
                     </h3>
 
-                    <p className="text-slate-400 text-base md:text-lg font-medium mb-8 leading-relaxed border-l-2 border-purple-500/20 pl-6 line-clamp-3 md:line-clamp-none">
+                    <p className="text-slate-400 text-sm md:text-lg font-medium mb-6 md:mb-8 leading-relaxed border-l-2 border-purple-500/20 pl-4 md:pl-6 line-clamp-2 md:line-clamp-none">
                         {project.description}
                     </p>
 
-                    {/* Spec Grid */}
-                    <div className="grid grid-cols-2 gap-6 mb-10">
+                    {/* Spec Grid - Responsive gap and text */}
+                    <div className="grid grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-10">
                         {project.specs.slice(0, 4).map((spec, i) => (
-                            <div key={i} className="flex flex-col gap-1">
-                                <span className="text-[8px] font-mono text-purple-400/50 uppercase tracking-widest">Diag_Ref_{i}</span>
-                                <span className="text-[11px] font-black text-white uppercase tracking-widest">{spec}</span>
+                            <div key={i} className="flex flex-col gap-0.5 md:gap-1">
+                                <span className="text-[7px] md:text-[8px] font-mono text-purple-400/50 uppercase tracking-widest">Diag_Ref_{i}</span>
+                                <span className="text-[9px] md:text-[11px] font-black text-white uppercase tracking-widest line-clamp-1">{spec}</span>
                             </div>
                         ))}
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-6">
-                        <button 
-                            onClick={() => window.open(project.link, '_blank')}
-                            className="group relative px-10 py-5 bg-white text-black rounded-xl font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] overflow-hidden"
-                        >
-                            <span className="relative z-10 flex items-center gap-3">
-                                Launch Core System
-                                <ExternalLink className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-                            </span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:animate-scan pointer-events-none" />
-                        </button>
+                    {/* Button & Tag Group - Responsive Flow */}
+                    <div className="flex flex-col gap-6 mt-auto md:mt-0">
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
+                            <button 
+                                onClick={() => window.open(project.link, '_blank')}
+                                className="group relative px-6 md:px-10 py-4 md:py-5 bg-white text-black rounded-xl font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.1)] overflow-hidden flex justify-center items-center"
+                            >
+                                <span className="relative z-10 flex items-center gap-3">
+                                    Launch Core
+                                    <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:rotate-45 transition-transform" />
+                                </span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:animate-scan pointer-events-none" />
+                            </button>
 
-                        <button 
-                            onClick={() => window.open(project.github || '#', '_blank')}
-                            className="group relative px-8 py-5 bg-transparent border border-white/10 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:bg-white/5 active:scale-95 overflow-hidden"
-                        >
-                            <span className="relative z-10 flex items-center gap-3">
-                                <Code2 className="w-4 h-4" />
-                                Source_Code
-                            </span>
-                        </button>
+                            <button 
+                                onClick={() => window.open(project.github || '#', '_blank')}
+                                className="group relative px-6 md:px-8 py-4 md:py-5 bg-transparent border border-white/10 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all hover:bg-white/5 active:scale-95 overflow-hidden flex justify-center items-center"
+                            >
+                                <span className="relative z-10 flex items-center gap-3">
+                                    <Code2 className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                                    Source_Code
+                                </span>
+                            </button>
+                        </div>
                         
-                        <div className="flex gap-2">
-                             {project.tags.map((tag, i) => (
+                        {/* Tags - Hidden on tiny screens to save space */}
+                        <div className="hidden sm:flex flex-wrap gap-2">
+                             {project.tags.map((tag) => (
                                 <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 text-[8px] font-mono text-slate-500 uppercase rounded-full">
                                     {tag}
                                 </span>
@@ -181,44 +185,44 @@ const ProjectSlide = memo(({ project, active, index }) => {
     </div>
   );
 });const SectionHeader = ({ label, title, status, location }) => (
-    <motion.div variants={fadeIn} className="relative mb-24 w-full group/header">
-        {/* The Frame Background */}
-        <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl md:rounded-[2.5rem] -m-4 md:-m-8 pointer-events-none" />
+    <motion.div variants={fadeIn} className="relative mb-16 md:mb-24 w-full group/header px-4 md:px-0">
+        {/* The Frame Background - Adjusted for mobile */}
+        <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl md:rounded-[2.5rem] -mx-2 md:-mx-8 -my-4 md:-my-8 pointer-events-none" />
         
-        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
-            <div className="flex flex-col gap-4">
+        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8">
+            <div className="flex flex-col gap-3 md:gap-4">
                 {/* Module Label Tag */}
                 <div className="flex items-center gap-3">
-                    <span className="bg-purple-600 text-white font-mono text-[8px] font-black tracking-[0.3em] uppercase px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                    <span className="bg-purple-600 text-white font-mono text-[7px] md:text-[8px] font-black tracking-[0.3em] uppercase px-2 md:px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.4)]">
                         {label}
                     </span>
-                    <div className="h-[1px] w-24 bg-gradient-to-r from-purple-500 to-transparent opacity-30" />
+                    <div className="h-[1px] w-12 md:w-24 bg-gradient-to-r from-purple-500 to-transparent opacity-30" />
                 </div>
                 
-                {/* Main High-Contrast Title */}
-                <h2 className="text-5xl md:text-8xl font-black text-white italic tracking-tighter uppercase leading-none">
+                {/* Main High-Contrast Title - Granular scaling */}
+                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white italic tracking-tighter uppercase leading-[0.9] md:leading-none flex flex-wrap items-baseline">
                     {title.split(' ')[0]} 
-                    <span className="text-purple-500 ml-4 group-hover/header:ml-8 transition-all duration-700">
+                    <span className="text-purple-500 ml-2 md:ml-4 group-hover/header:ml-4 md:group-hover/header:ml-8 transition-all duration-700 whitespace-nowrap">
                         {title.split(' ').slice(1).join(' ')}
                     </span>
                 </h2>
             </div>
 
             {/* Diagnostic Data Block */}
-            <div className="flex flex-col items-start md:items-end gap-3 font-mono">
-                <div className="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-lg">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
-                    <span className="text-[10px] text-slate-300 font-bold tracking-widest uppercase">{status || 'SYSTEM_READY'}</span>
+            <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-start gap-3 font-mono w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/5">
+                <div className="flex items-center gap-3 px-3 md:px-4 py-1.5 md:py-2 bg-white/5 border border-white/10 rounded-lg">
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                    <span className="text-[8px] md:text-[10px] text-slate-300 font-bold tracking-widest uppercase">{status || 'SYSTEM_READY'}</span>
                 </div>
-                <div className="text-[10px] text-slate-500 tracking-[0.4em] uppercase font-black pl-2">
+                <div className="text-[8px] md:text-[10px] text-slate-500 tracking-[0.2em] md:tracking-[0.4em] uppercase font-black">
                     {location || 'IN // BHOPAL_HUB'}
                 </div>
             </div>
         </div>
 
-        {/* Decorative Corner Markers */}
-        <div className="absolute -top-4 -left-4 md:-top-8 md:-left-8 w-12 h-12 border-t-2 border-l-2 border-purple-500/30 rounded-tl-2xl pointer-events-none" />
-        <div className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-12 h-12 border-b-2 border-r-2 border-purple-500/30 rounded-br-2xl pointer-events-none" />
+        {/* Decorative Corner Markers - Hidden on mobile for cleaner look */}
+        <div className="absolute -top-4 -left-2 md:-top-8 md:-left-8 w-8 md:w-12 h-8 md:h-12 border-t-2 border-l-2 border-purple-500/30 rounded-tl-xl md:rounded-tl-2xl pointer-events-none" />
+        <div className="absolute -bottom-4 -right-2 md:-bottom-8 md:-right-8 w-8 md:w-12 h-8 md:h-12 border-b-2 border-r-2 border-purple-500/30 rounded-br-xl md:rounded-br-2xl pointer-events-none" />
     </motion.div>
 );
 
