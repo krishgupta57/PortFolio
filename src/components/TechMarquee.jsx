@@ -17,25 +17,30 @@ const duplicatedTechnologies = [...technologies, ...technologies, ...technologie
 
 const TechMarquee = () => {
   return (
-    <div className="w-full overflow-hidden bg-black border-y border-slate-800/50 py-8 relative flex shadow-[inset_0_0_50px_rgba(0,0,0,1)]">
-      {/* Invisible gradients masking the edges to create a fade-in/out effect */}
-      <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+    <div className="w-full overflow-hidden bg-[#010409] border-y border-white/5 py-12 relative flex">
+      {/* Invisible gradients masking the edges */}
+      <div className="absolute top-0 left-0 w-48 h-full bg-gradient-to-r from-[#010409] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-48 h-full bg-gradient-to-l from-[#010409] to-transparent z-10 pointer-events-none"></div>
       
       {/* The scrolling container */}
-      <div className="flex animate-marquee min-w-[200%]">
+      <div className="flex animate-marquee min-w-[200%] items-center">
         {duplicatedTechnologies.map((tech, index) => (
           <div 
             key={index} 
-            className="flex items-center space-x-3 mx-8 md:mx-12 shrink-0 group hover:opacity-100 opacity-70 transition-opacity duration-300 cursor-none"
+            className="flex items-center space-x-4 mx-12 md:mx-16 shrink-0 group hover:opacity-100 opacity-40 transition-all duration-500"
           >
-            {tech.icon}
-            <span className="text-xl md:text-2xl font-black tracking-tight text-white uppercase group-hover:text-blue-400 transition-colors">
+            <div className="p-2 bg-white/5 rounded-lg border border-white/5 group-hover:border-purple-500/30 transition-colors">
+                {tech.icon}
+            </div>
+            <span className="text-2xl md:text-4xl font-black tracking-tighter text-white uppercase group-hover:text-purple-400 transition-colors">
               {tech.name}
             </span>
           </div>
         ))}
       </div>
+      
+      {/* Scan line effect on marquee */}
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,transparent_0%,rgba(168,85,247,0.02)_50%,transparent_100%)] bg-[size:100%_4px]" />
     </div>
   );
 };

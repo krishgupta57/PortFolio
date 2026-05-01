@@ -161,28 +161,25 @@ function App() {
             <SystemTelemetry />
 
             <main className="relative w-full">
-                <div id="hero" className="max-w-6xl mx-auto px-6 text-center pt-10 relative">
+                <div id="hero" className="w-full relative">
                     <Hero />
                 </div>
       
                 <TechMarquee />
 
-                <div className="max-w-6xl mx-auto px-6 space-y-16 md:space-y-24 relative">
-
-                    <div id="about">
-                        <About />
-                    </div>
+                <div id="about" className="w-full relative">
+                    <About />
                 </div>
       
-                <div id="skills" className="relative">
+                <div id="skills" className="w-full relative">
                     <Skills />
                 </div>
                 
-                <div id="projects" className="relative">
+                <div id="projects" className="w-full relative">
                     <Projects />
                 </div>
 
-                <div id="contact" className="max-w-6xl mx-auto px-6 pt-16 pb-24 text-center relative">
+                <div id="contact" className="w-full relative">
                     <Contact />
                 </div>
             </main>

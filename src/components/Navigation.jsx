@@ -108,108 +108,108 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:p-8 pointer-events-none">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12 pointer-events-none">
+      {/* Logo - Left Side */}
+      <motion.button 
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ opacity: 1, x: 0 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="flex items-center gap-3 group/logo cursor-none pointer-events-auto"
+      >
+        <div className="w-10 h-10 bg-white text-black flex items-center justify-center font-black text-xl rounded-xl rotate-3 group-hover/logo:rotate-0 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          K.
+        </div>
+        <div className="flex flex-col -space-y-1">
+          <span className="text-sm font-black tracking-tighter text-white uppercase">
+            Krish
+          </span>
+          <span className="text-[10px] font-mono text-slate-500 font-bold">GUPTA.</span>
+        </div>
+      </motion.button>
+
+      {/* Desktop Nav Items - Centered Pill */}
       <motion.div 
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -20, opacity: 0 }}
         animate={{ 
-          y: isHidden && !isOpen ? -120 : 0, 
+          y: isHidden && !isOpen ? -100 : 0, 
           opacity: 1,
-          borderColor: isHidden ? 'rgba(255,255,255,0.05)' : 'rgba(59,130,246,0.2)'
         }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="flex items-center gap-2 bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-full px-4 py-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto relative max-w-full group/nav"
+        className="hidden md:flex items-center bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl px-2 py-2 pointer-events-auto shadow-2xl"
       >
-        {/* Progress Ring Logo */}
-        <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="relative w-10 h-10 flex items-center justify-center mr-2 cursor-none group/logo"
-        >
-          <svg className="absolute inset-0 w-full h-full -rotate-90">
-            <circle cx="20" cy="20" r="18" fill="transparent" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
-            <motion.circle 
-              cx="20" cy="20" r="18" fill="transparent" 
-              stroke="#ec4899" strokeWidth="2" strokeLinecap="round"
-              style={{ strokeDasharray: circumference, strokeDashoffset }}
-            />
-          </svg>
-          <span className="text-[10px] font-black tracking-tighter bg-gradient-to-r from-pink-400 to-blue-500 bg-clip-text text-transparent transform group-hover/logo:scale-110 transition-transform">
-            KG.
-          </span>
-        </button>
-
-        {/* System Status Telemetry */}
-        <div className="hidden lg:flex items-center gap-3 px-3 py-1 border-l border-white/10 mr-2 opacity-60">
-            <div className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse shadow-[0_0_8px_#ec4899]" />
-            <span className="text-[8px] font-mono tracking-widest text-pink-400 whitespace-nowrap uppercase">V3.2.0 // SYSTEM_OPTIMAL</span>
-        </div>
-
-        {/* Desktop Nav Items */}
-        <ul className="hidden md:flex items-center gap-1 relative">
-          <AnimatePresence>
-            {activeSection && (
-              <motion.div
-                layoutId="nav-active-pill"
-                className="absolute inset-0 bg-pink-500/10 border border-pink-500/20 rounded-full z-0"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
-            )}
-          </AnimatePresence>
-
-          {navItems.map((item) => (
-            <li key={item} className="relative z-10">
-              <MagneticButton
-                isActive={activeSection === item}
+        <ul className="flex items-center gap-1">
+          {navItems.map((item, index) => (
+            <li key={item} className="relative">
+              <button
                 onClick={() => scrollToSection(item)}
+                className={`px-6 py-3 text-[10px] font-bold tracking-widest uppercase transition-all flex items-center gap-2 group cursor-none relative z-10 ${
+                  activeSection === item ? 'text-white' : 'text-slate-500 hover:text-white'
+                }`}
               >
+                <span className="text-[8px] opacity-40 font-mono">0{index + 1}</span>
                 {item}
-              </MagneticButton>
+                {activeSection === item && (
+                  <motion.div 
+                    layoutId="nav-active" 
+                    className="absolute inset-0 bg-white/10 rounded-xl -z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </button>
             </li>
           ))}
         </ul>
+      </motion.div>
 
-        <div className="h-4 w-[1px] bg-white/10 mx-2 hidden md:block"></div>
-
-        {/* Drop Mail Button */}
-        <button 
+      {/* Right Action */}
+      <div className="flex items-center gap-4 pointer-events-auto">
+        <motion.button 
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ opacity: 1, x: 0 }}
           onClick={() => scrollToSection('Contact')}
-          className="hidden md:flex items-center gap-2 bg-gradient-to-r from-pink-600 to-blue-600 hover:from-pink-500 hover:to-blue-500 text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] hover:scale-105 active:scale-95 group cursor-none"
+          className="hidden md:flex items-center gap-3 bg-[#111111] hover:bg-[#1a1a1a] text-white text-[10px] font-black uppercase tracking-[0.2em] px-8 py-4 rounded-full border border-white/10 transition-all duration-300 shadow-2xl hover:scale-105 active:scale-95 group cursor-none relative overflow-hidden"
         >
-          Hire Me
-          <Send className="w-3 h-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-        </button>
+          <span className="relative z-10">Drop Mail</span>
+          <div className="w-2 h-2 bg-white rounded-full animate-pulse relative z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-scan pointer-events-none" />
+        </motion.button>
 
         {/* Mobile Toggle */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-slate-300 hover:text-white transition-colors relative z-50 cursor-none"
+          className="md:hidden p-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-white transition-colors relative z-50 cursor-none"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
-      </motion.div>
+      </div>
 
       {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="md:hidden absolute top-24 left-4 right-4 bg-slate-900/90 backdrop-blur-2xl border border-white/5 rounded-3xl p-4 shadow-2xl z-40 flex flex-col gap-2 pointer-events-auto"
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            className="md:hidden absolute top-20 left-4 right-4 bg-slate-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl z-40 flex flex-col gap-2 pointer-events-auto"
           >
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className={`w-full text-left px-6 py-4 rounded-2xl transition-all text-lg font-bold ${
-                    activeSection === item ? 'bg-blue-500/10 text-blue-400' : 'text-slate-300 hover:bg-white/5'
+                className={`w-full text-left px-6 py-4 rounded-xl transition-all text-sm font-black tracking-widest uppercase flex items-center justify-between ${
+                    activeSection === item ? 'bg-white/10 text-white' : 'text-slate-400 hover:bg-white/5'
                 }`}
               >
-                {item}
+                <span className="flex items-center gap-4">
+                  <span className="text-[10px] opacity-40">0{index + 1}</span>
+                  {item}
+                </span>
+                {activeSection === item && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
               </button>
             ))}
             <button 
               onClick={() => scrollToSection('Contact')}
-              className="mt-4 w-full bg-gradient-to-r from-blue-600 to-indigo-600 p-5 rounded-2xl flex items-center justify-between text-white font-black uppercase tracking-widest text-sm shadow-xl"
+              className="mt-4 w-full bg-white p-5 rounded-xl flex items-center justify-center gap-3 text-black font-black uppercase tracking-[0.2em] text-xs shadow-xl"
             >
               Drop Mail
               <Send className="w-4 h-4" />

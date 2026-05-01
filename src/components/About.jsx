@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { education } from '../data/portfolioData';
 import { fadeIn, staggerContainer } from '../utils/animations';
 import profilePic from '../assets/front.jpg';
@@ -19,44 +19,54 @@ const EducationCard = ({ item, index }) => {
   const isEven = index % 2 === 0;
 
   return (
-    <div className={`relative flex items-center justify-between w-full mb-20 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} flex-row`}>
+    <div className={`relative flex items-center justify-between w-full mb-16 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} flex-row`}>
       {/* Schematic Node */}
-      <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 md:-translate-x-1/2 w-12 h-12 bg-slate-950 border border-blue-500/20 flex items-center justify-center z-20 overflow-hidden">
-        <div className="absolute inset-0 bg-blue-500/5 animate-pulse" />
-        <div className="relative z-10 text-blue-500 font-mono text-[10px]">0{index + 1}</div>
-        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-blue-500" />
+      <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 md:-translate-x-1/2 w-12 h-12 bg-[#010409] border-2 border-purple-500/30 flex items-center justify-center z-20 rounded-xl shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+        <div className="absolute inset-0 bg-purple-500/5 animate-pulse rounded-xl" />
+        <div className="relative z-10 text-purple-400 font-mono text-xs font-black">0{index + 1}</div>
+        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]" />
       </div>
 
       {/* Blueprint Content Card */}
       <motion.div 
-        initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+        initial={{ opacity: 0, x: isEven ? -30 : 30 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className={`relative w-[calc(100%-40px)] md:w-[42%] p-8 bg-slate-900/40 backdrop-blur-xl border border-blue-500/10 rounded-sm hover:border-blue-500/30 transition-all group ml-auto md:ml-0`}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
+        className={`relative w-[calc(100%-48px)] md:w-[45%] p-10 bg-[#111111]/60 backdrop-blur-3xl border border-white/5 rounded-[2.5rem] hover:border-purple-500/40 transition-all group ml-auto md:ml-0 shadow-2xl overflow-hidden`}
       >
-        <CornerFrame />
-        
-          <div className="flex flex-col gap-3">
+          {/* Subtle grid in background of card */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:25px_25px] pointer-events-none" />
+          
+          <div className="flex flex-col gap-5 relative z-10">
           <div className="flex justify-between items-baseline mb-2">
-            <span className="font-mono text-xs font-bold tracking-[0.2em] text-blue-500 uppercase">
-                LOG_YEAR: {item.year}
-            </span>
-            <span className="font-mono text-xs text-slate-500 uppercase">REF: {item.id}</span>
+            <div className="flex items-center gap-3">
+                <span className="font-mono text-[10px] font-black tracking-[0.3em] text-purple-400 uppercase bg-purple-500/10 px-3 py-1 rounded-sm border border-purple-500/10">
+                    LOG_YEAR: {item.year}
+                </span>
+                <div className="flex items-center gap-2 bg-emerald-500/5 px-2 py-1 rounded-sm border border-emerald-500/10">
+                    <div className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse" />
+                    <span className="font-mono text-[8px] font-black tracking-[0.2em] text-emerald-400 uppercase">VERIFIED</span>
+                </div>
+            </div>
+            <span className="font-mono text-[9px] text-slate-600 uppercase tracking-widest font-black opacity-50">REF: {item.id}</span>
           </div>
           
-          <h3 className="text-2xl md:text-3xl font-black text-white tracking-widest uppercase">{item.title}</h3>
-          <p className="text-blue-400 font-mono text-xs tracking-widest uppercase mb-4 opacity-70 italic">{item.institution}</p>
+          <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase leading-none">{item.title}</h3>
+          <p className="text-purple-400 font-mono text-[11px] tracking-[0.3em] uppercase mb-2 font-black">{item.institution}</p>
           
-          <div className="w-full h-[1px] bg-blue-500/10 mb-4" />
+          <div className="w-full h-[1px] bg-gradient-to-r from-purple-500/30 via-transparent to-transparent mb-2" />
 
           <p className="text-slate-400 text-base leading-relaxed font-medium">
             {item.description}
           </p>
 
-          <div className="mt-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
-            <span className="text-xs font-mono text-slate-500 uppercase">GRADE_POINT: {item.grade}</span>
+          <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-6">
+            <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 bg-purple-500 rounded-full shadow-[0_0_8px_#a855f7]" />
+                <span className="text-[10px] font-mono text-slate-500 uppercase font-black tracking-[0.4em]">GRADE: {item.grade}</span>
+            </div>
+            <div className="font-mono text-[9px] text-purple-500/20 uppercase font-black tracking-[0.3em]">AUTH_ENCRYPTED</div>
           </div>
         </div>
       </motion.div>
@@ -64,196 +74,320 @@ const EducationCard = ({ item, index }) => {
   );
 };
 
+const BentoCard = ({ children, className, title, subtitle }) => (
+  <motion.div
+    variants={fadeIn}
+    className={`relative group bg-[#111111]/40 backdrop-blur-3xl border border-white/5 rounded-[2.5rem] p-8 overflow-hidden shadow-2xl hover:border-purple-500/20 transition-all duration-700 ${className}`}
+  >
+    {/* Neon Corners */}
+    <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-purple-500/20 rounded-tl-[2.5rem] z-20 group-hover:border-purple-500/50 transition-colors" />
+    <div className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-purple-500/20 rounded-br-[2.5rem] z-20 group-hover:border-purple-500/50 transition-colors" />
+
+    {title && (
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <h4 className="text-white font-black text-sm uppercase tracking-widest">{title}</h4>
+          {subtitle && <p className="text-[9px] font-mono text-purple-500/50 uppercase tracking-[0.3em] font-black mt-1">{subtitle}</p>}
+        </div>
+        <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse shadow-[0_0_8px_#a855f7]" />
+      </div>
+    )}
+
+    <div className="relative z-10 h-full">{children}</div>
+
+    {/* Aesthetic grid */}
+    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none opacity-50" />
+  </motion.div>
+);
+
+const SectionHeader = ({ label, title, status, location }) => (
+    <motion.div variants={fadeIn} className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 border-b border-white/5 pb-8 w-full">
+        <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+                <div className="w-8 h-[1px] bg-purple-500 shadow-[0_0_10px_#a855f7]" />
+                <span className="text-purple-400 font-mono text-[9px] font-black tracking-[0.4em] uppercase">{label}</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-none uppercase">
+                {title.split(' ')[0]} <span className="text-white/20 italic">{title.split(' ').slice(1).join(' ')}</span>
+                <span className="text-purple-500 italic">.</span>
+            </h2>
+        </div>
+        <div className="flex flex-col items-end gap-2 mb-1">
+            <div className="px-4 py-1.5 bg-[#0a0a0a] border border-white/10 rounded-sm flex items-center gap-2 shadow-2xl relative overflow-hidden group">
+                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                <span className="text-[9px] font-mono text-slate-300 font-black tracking-[0.2em] uppercase">{status || 'SYSTEM_SYNC: ACTIVE'}</span>
+            </div>
+            <span className="text-[9px] font-mono text-slate-600 uppercase tracking-[0.3em] font-black">{location || 'BHOPAL // INDIA_REGION'}</span>
+        </div>
+    </motion.div>
+);
+
 const About = () => {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseXSpring = useSpring(x);
-    const mouseYSpring = useSpring(y);
-
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-    // Parallax orbs (move slower than the card)
-    const orbX = useTransform(mouseXSpring, [-0.5, 0.5], ["-20px", "20px"]);
-    const orbY = useTransform(mouseYSpring, [-0.5, 0.5], ["-20px", "20px"]);
-
-    const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
-        x.set(xPct);
-        y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
+  const [isResumeOpen, setIsResumeOpen] = React.useState(false);
 
   return (
     <motion.section 
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true }}
       id="about" 
-      initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-      variants={staggerContainer}
-      className="relative py-32 overflow-hidden"
+      className="py-20 relative bg-[#010409] min-h-screen overflow-hidden"
     >
-      {/* No local background - handled globally for performance */}
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <motion.div variants={fadeIn} className="flex items-center gap-6 mb-16">
-            <div className="p-3 bg-pink-500/10 border border-pink-500/20">
-                <Compass className="text-pink-500 w-6 h-6" />
-            </div>
-            <div>
-                <span className="text-pink-500 font-mono text-[10px] tracking-widest uppercase block mb-1">01. Biographical Schematic</span>
-                <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none">
-                    About <span className="text-pink-blue">Background</span>
-                </h2>
-            </div>
-        </motion.div>
-        
-        {/* Top Section: Text & Schematic Image */}
-        <div className="grid lg:grid-cols-2 gap-20 items-center mb-40">
-          <motion.div variants={fadeIn} className="space-y-8 order-2 lg:order-1">
-            <BorderConduit duration={6}>
-              <div className="relative p-8 bg-slate-900/20 font-medium border border-white/5 backdrop-blur-sm">
-                  <div className="absolute top-4 right-4 font-mono text-[10px] text-blue-500/30 tracking-[0.3em]">REF_LOG // V3.2</div>
-                  <div className="space-y-6">
-                    <p className="text-slate-200 text-lg md:text-xl leading-relaxed italic">
-                    "As a passionate Full-Stack Developer, I thrive on building end-to-end applications that solve real-world problems. With 3+ major projects featuring completely integrated authentication systems and REST APIs, I am heavily focused on scalable backend logic and smooth frontend experiences."
-                    </p>
-                    <p className="text-slate-300 text-base md:text-lg leading-relaxed">
-                    My fundamental strengths lie in system design basics, Object-Oriented Programming (OOP), and optimizing database queries perfectly for production environments.
-                    </p>
-                  </div>
-              </div>
-            </BorderConduit>
-            
-            <div className="grid grid-cols-1 gap-8 group">
-                {[
-                    { label: 'End-to-End Architecture', desc: 'Deeply comfortable stitching scalable relational database models (MySQL) to snappy React.js frontend interfaces.' },
-                    { label: 'Agile Problem Solving', desc: 'Quick to adapt, rapidly distilling highly complex workflows into perfectly maintainable, clean code architectures.' },
-                    { label: 'User-Centric Design', desc: 'Obsessed with crafting UI/UX interactivity that feels butter-smooth, engaging, and premium for the end user.' }
-                ].map((item, i) => (
-                    <motion.div 
-                        key={i} 
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.2 }}
-                        className="space-y-3 p-4 bg-white/5 border border-white/5 rounded-sm hover:border-pink-500/20 transition-all hover:translate-x-2"
-                    >
-                        <div className="flex items-center gap-2">
-                            <span className="text-pink-500 font-mono text-sm font-black">[{i + 1}]</span>
-                            <span className="text-sm font-black text-white uppercase tracking-widest">{item.label}</span>
-                        </div>
-                        <p className="text-slate-400 text-sm leading-relaxed border-l border-white/5 pl-4">{item.desc}</p>
-                    </motion.div>
-                ))}
-            </div>
-          </motion.div>
-          
-          <motion.div 
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            variants={fadeIn} 
-            className="relative group mx-auto w-full max-w-sm order-1 lg:order-2 transition-all duration-200"
-          >
-            {/* AMBIENT BREATHING GLOW (The Backdrop) */}
+      {/* Modal - Kept for High Interactivity */}
+      <AnimatePresence>
+        {isResumeOpen && (
             <motion.div 
-                animate={{ 
-                    boxShadow: [
-                        "0 0 40px rgba(236,72,153,0.1)",
-                        "0 0 80px rgba(59,130,246,0.15)",
-                        "0 0 40px rgba(236,72,153,0.1)"
-                    ] 
-                }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 rounded-sm -z-10"
-            />
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsResumeOpen(false)}
+                className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+            >
+                <motion.div 
+                    initial={{ scale: 0.95, y: 30 }}
+                    animate={{ scale: 1, y: 0 }}
+                    exit={{ scale: 0.95, y: 30 }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="relative w-full max-w-[90vw] h-[92vh] bg-white rounded-xl overflow-hidden shadow-[0_0_100px_rgba(168,85,247,0.3)] border border-white/10"
+                >
+                    <div className="absolute top-4 right-6 z-50">
+                        <button 
+                            onClick={() => setIsResumeOpen(false)}
+                            className="p-4 bg-black/5 hover:bg-black/10 rounded-full transition-all group active:scale-95"
+                        >
+                            <Shield className="w-8 h-8 text-slate-400 group-hover:text-purple-600 rotate-45 transition-colors" />
+                        </button>
+                    </div>
+                    <iframe 
+                        src="/Krish_Resume.pdf#view=FitH&toolbar=1" 
+                        className="w-full h-full border-none"
+                        title="Full Resume View"
+                    />
+                </motion.div>
+            </motion.div>
+        )}
+      </AnimatePresence>
 
-            {/* CINEMATIC FRAME WITH CIRCULATING BORDER */}
-            <BorderConduit duration={5} className="overflow-hidden shadow-2xl">
-              <div className="relative bg-slate-900 border border-white/10 rounded-sm p-[2px] transition-all duration-700">
-                  
-                  {/* HIGH-VISIBILITY GLASS BADGES */}
-                  <div className="absolute top-6 right-6 z-50 flex flex-col items-end gap-2">
-                      <div className="bg-black/80 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-2xl">
-                          <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]" />
-                          <span className="font-mono text-[8px] font-bold text-white tracking-[0.2em] uppercase">STATUS: OPTIMAL</span>
-                      </div>
-                  </div>
+      {/* Background Atmosphere - Optimized */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,#1a1b1e,transparent)] opacity-40" />
+          
+          {/* Animated Glows - Reduced Blur for Performance */}
+          <div className="absolute top-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/5 blur-[80px] animate-breathing will-change-transform" />
+          <div className="absolute bottom-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/5 blur-[80px] animate-breathing will-change-transform" style={{ animationDelay: '-5s' }} />
+      </div>
 
-                  <div className="absolute bottom-6 left-6 z-50">
-                      <div className="bg-black/80 backdrop-blur-md border border-pink-500/20 px-3 py-1.5 rounded-full shadow-2xl">
-                          <span className="font-mono text-[8px] font-bold text-pink-400 tracking-[0.2em] uppercase">SYSTEM_v3.2.0</span>
-                      </div>
-                  </div>
-
-                  <div className="relative overflow-hidden">
-                      <motion.img 
-                          initial={{ opacity: 0, filter: "hue-rotate(90deg) blur(10px)", scale: 1.1 }}
-                          whileInView={{ 
-                              opacity: [0, 1, 0.5, 1],
-                              filter: [
-                                  "hue-rotate(90deg) blur(10px)",
-                                  "hue-rotate(-90deg) blur(5px)",
-                                  "hue-rotate(45deg) blur(2px)",
-                                  "hue-rotate(0deg) blur(0px)"
-                              ],
-                              scale: [1.1, 1.05, 1.02, 1],
-                              x: [-10, 10, -5, 0]
-                          }}
-                          transition={{ duration: 0.8, ease: "easeInOut", times: [0, 0.2, 0.5, 1] }}
-                          viewport={{ once: true }}
-                          src={profilePic} 
-                          alt="Krish Gupta" 
-                          className="w-full h-auto aspect-[3/4] object-cover" 
-                      />
-                      {/* Subtle Material Vignette */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
-                  </div>
-                  
-                  {/* Clean Identity HUD */}
-                  <div className="absolute bottom-6 right-6 z-50">
-                      <span className="font-mono text-[8px] text-white/40 tracking-[0.4em] uppercase">
-                          [ ID // KRISH_GUPTA ]
-                      </span>
-                  </div>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <SectionHeader 
+            label="01. Biographical Schematic" 
+            title="About Background" 
+            status="PERSONA_ARCHIVE: SYNCED"
+        />
+        
+        {/* Top Section: BENTO BOX GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+          
+          {/* Bio Card - Large */}
+          <BentoCard 
+            title="Persona Archive" 
+            subtitle="Core_Identity // V4.0"
+            className="md:col-span-2 md:row-span-2"
+          >
+            <div className="space-y-8 mt-4">
+              <p className="text-slate-100 text-2xl md:text-5xl font-black leading-tight tracking-tight">
+                "Bridging <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Stunning Design</span> with Iron-Clad Backend Logic."
+              </p>
+              <p className="text-slate-400 text-lg md:text-xl leading-relaxed font-medium border-l-4 border-purple-500/20 pl-8 max-w-2xl">
+                I thrive on building end-to-end applications that solve real-world problems. My strength lies in distilling complex workflows into maintainable architectures.
+              </p>
+              <div className="flex flex-wrap gap-4 pt-4">
+                  {['System Design', 'OOP', 'Query Optimization', 'Clean Code'].map(tag => (
+                    <span key={tag} className="px-4 py-2 bg-white/5 border border-white/5 rounded-full text-[10px] font-mono text-slate-500 uppercase tracking-widest font-black">
+                        {tag}
+                    </span>
+                  ))}
               </div>
-            </BorderConduit>
+            </div>
+          </BentoCard>
 
-            {/* Heavy Depth Shadow */}
-            <div className="absolute -bottom-10 left-10 right-10 h-10 bg-black/60 blur-3xl -z-10" />
-          </motion.div>
+          {/* Status Card */}
+          <BentoCard 
+            title="System Status" 
+            subtitle="Uptime: 99.9%"
+            className="md:col-span-1"
+          >
+            <div className="flex flex-col items-center justify-center h-full py-4 text-center">
+                <div className="w-20 h-20 rounded-full border-2 border-purple-500/20 flex items-center justify-center relative mb-4">
+                    <div className="absolute inset-0 bg-purple-500/5 rounded-full animate-ping" />
+                    <div className="w-8 h-8 bg-purple-500 rounded-full shadow-[0_0_20px_#a855f7] animate-pulse" />
+                </div>
+                <p className="text-emerald-400 font-mono text-[10px] font-black tracking-[0.4em] uppercase">STATUS: OPTIMAL</p>
+                <p className="text-slate-500 text-[9px] font-mono uppercase mt-2 tracking-widest">Protocol Standing By</p>
+            </div>
+          </BentoCard>
+
+          {/* Location Card */}
+          <BentoCard 
+            title="Loc_Coord" 
+            subtitle="Node_Bhopal"
+            className="md:col-span-1"
+          >
+            <div className="flex flex-col gap-4 mt-2">
+                <div className="space-y-1">
+                    <p className="text-white font-black text-2xl tracking-tighter">Bhopal, India</p>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">23.2599° N // 77.4126° E</p>
+                </div>
+                <div className="h-20 w-full bg-white/5 rounded-2xl relative overflow-hidden border border-white/5">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#a855f720,transparent)]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]" />
+                </div>
+            </div>
+          </BentoCard>
+
+          {/* Specialization Cards */}
+          <BentoCard title="Architecture" subtitle="Diag_01" className="md:col-span-1">
+            <p className="text-slate-400 text-sm leading-relaxed mt-2">
+                Deeply comfortable stitching scalable relational models (MySQL) to React.js interfaces.
+            </p>
+          </BentoCard>
+
+          <BentoCard title="Optimization" subtitle="Diag_02" className="md:col-span-1">
+            <p className="text-slate-400 text-sm leading-relaxed mt-2">
+                 Distilling highly complex workflows into maintainable, high-performance code architectures.
+            </p>
+          </BentoCard>
+
+          <BentoCard title="UX/UI" subtitle="Diag_03" className="md:col-span-1">
+            <p className="text-slate-400 text-sm leading-relaxed mt-2">
+                Obsessed with crafting Butter-smooth, engaging, and premium interactivity.
+            </p>
+          </BentoCard>
+
         </div>
+        
+        {/* Credentials Section: RESUME */}
+        <motion.div variants={fadeIn} className="mb-32">
+          <SectionHeader 
+            label="CREDENTIALS" 
+            title="Resume" 
+            status="STATUS: VERIFIED"
+            location="LAST_UPDATED: FEB 2026"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+            {/* Main Resume Window Card */}
+            <div className="md:col-span-3">
+                <BentoCard 
+                    title="Doc_Viewer" 
+                    subtitle="Krish_Resume.pdf"
+                    className="p-0 h-full overflow-hidden"
+                >
+                    <div 
+                        onClick={() => setIsResumeOpen(true)}
+                        className="group cursor-zoom-in relative h-full"
+                    >
+                        {/* OS Header - Embedded in Bento Style */}
+                        <div className="bg-white/5 px-6 py-4 flex items-center justify-between border-b border-white/5">
+                            <div className="flex gap-2">
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                            </div>
+                            <span className="text-[9px] font-mono text-slate-500 font-black tracking-widest uppercase">System_Preview</span>
+                        </div>
+
+                        {/* Document Content */}
+                        <div className="h-[480px] overflow-hidden relative bg-black flex justify-center items-start">
+                            <div className="w-full h-full bg-white relative overflow-hidden">
+                                <iframe 
+                                    src="/Krish_Resume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" 
+                                    className="w-full h-[110%] border-none pointer-events-none select-none"
+                                    title="Resume Preview"
+                                    scrolling="no"
+                                    loading="lazy"
+                                />
+                            </div>
+                            
+                            {/* Overlays */}
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+                                <span className="text-4xl md:text-7xl font-black text-slate-900/5 rotate-[-30deg] tracking-tighter select-none uppercase group-hover:text-slate-900/10 transition-all duration-700 text-center px-10">
+                                    CLICK TO ZOOM
+                                </span>
+                            </div>
+                            
+                            <div className="absolute inset-0 pointer-events-none z-40 overflow-hidden">
+                                <motion.div 
+                                    animate={{ top: ["-10%", "110%"] }}
+                                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                    className="absolute left-0 right-0 h-[1px] bg-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.3)] z-50"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </BentoCard>
+            </div>
+
+            {/* Sidebar Cards */}
+            <div className="md:col-span-1 flex flex-col gap-6">
+                {/* Operations Card */}
+                <BentoCard title="Operations" subtitle="System_CTA" className="flex-1">
+                    <div className="flex flex-col gap-4 mt-4">
+                        <a 
+                            href="/Krish_Resume.pdf" 
+                            download="Krish_Resume.pdf"
+                            className="w-full py-4 bg-white text-black rounded-xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 hover:scale-[1.02] transition-all shadow-[0_10px_20px_rgba(255,255,255,0.1)]"
+                        >
+                            <Shield className="w-4 h-4" />
+                            Download
+                        </a>
+                        <a 
+                            href="/Krish_Resume.pdf" 
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-4 bg-transparent border border-white/10 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 hover:bg-white/5 transition-all"
+                        >
+                            <Compass className="w-4 h-4" />
+                            External
+                        </a>
+                    </div>
+                </BentoCard>
+
+                {/* Metadata Card */}
+                <BentoCard title="Metadata" subtitle="Sync_Data" className="flex-1">
+                    <div className="space-y-4 mt-4">
+                        {[
+                            { label: 'Type', value: 'PDF/A' },
+                            { label: 'Size', value: '2.4 MB' },
+                            { label: 'Status', value: 'Synced', color: 'text-purple-500' },
+                        ].map((item, idx) => (
+                            <div key={idx} className="flex justify-between items-center border-b border-white/5 pb-2 last:border-0 last:pb-0">
+                                <span className="text-[9px] font-mono text-slate-600 uppercase tracking-widest font-black">{item.label}</span>
+                                <span className={`text-[9px] font-mono ${item.color || 'text-slate-300'} font-black tracking-widest uppercase`}>{item.value}</span>
+                            </div>
+                        ))}
+                    </div>
+                </BentoCard>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Sequential Execution Path (Timeline) */}
         <motion.div variants={fadeIn} className="relative">
-          <div className="flex flex-col items-center mb-24 text-center">
-              <div className="flex items-center gap-4 mb-4">
-                  <Target className="text-blue-500 w-5 h-5" />
-                  <span className="text-blue-500 font-mono text-[10px] tracking-widest uppercase">Sequential Execution Path</span>
-              </div>
-              <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter">
-                  The Journey of <span className="text-blue-500">Learning</span>
-              </h2>
-          </div>
+          <SectionHeader 
+            label="ARCHITECTURE // TIMELINE" 
+            title="Career Matrix" 
+            status="SYSTEM_SYNC: ACTIVE"
+          />
 
-          <div className="relative mt-10">
+          <div className="relative pb-32">
             {/* Schematic Central Wire */}
-            <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 md:-translate-x-1/2 w-[2px] h-full bg-blue-500/5 z-10 overflow-hidden">
+            <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 md:-translate-x-1/2 w-[2px] h-full bg-white/5 z-10 overflow-hidden">
                 <motion.div 
                     initial={{ height: 0 }}
                     whileInView={{ height: '100%' }}
-                    transition={{ duration: 4.0, ease: "easeOut" }}
-                    className="w-full bg-pink-500/20"
+                    transition={{ duration: 3.5, ease: [0.32, 0.72, 0, 1] }}
+                    className="w-full bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500"
                 />
                 
                 {/* Flowing Downward Data Pulse */}
@@ -262,11 +396,11 @@ const About = () => {
                         top: ["-20%", "120%"],
                     }}
                     transition={{ 
-                        duration: 8, 
+                        duration: 6, 
                         repeat: Infinity, 
                         ease: "linear" 
                     }}
-                    className="absolute left-0 w-full h-40 bg-gradient-to-b from-transparent via-pink-400 via-blue-400 to-transparent z-20"
+                    className="absolute left-0 w-full h-80 bg-gradient-to-b from-transparent via-purple-500 via-blue-400 to-transparent z-20"
                 />
             </div>
             

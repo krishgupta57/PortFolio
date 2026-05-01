@@ -13,24 +13,23 @@ const CornerFrame = () => (
     </>
 );
 
-const CommunicationModule = ({ icon, label, value, href, color }) => (
+const CommunicationModule = ({ icon, label, value, href }) => (
   <motion.a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     variants={fadeIn}
-    className="group bg-slate-900/20 backdrop-blur-xl border border-blue-500/10 rounded-sm p-6 hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden flex flex-col items-center text-center cursor-none"
+    className="group bg-[#111111]/30 backdrop-blur-3xl border border-white/5 rounded-3xl p-8 hover:border-purple-500/20 transition-all duration-500 relative overflow-hidden flex flex-col items-center text-center shadow-2xl"
   >
-    <CornerFrame />
-    <div className="w-12 h-12 bg-pink-500/5 border border-pink-500/10 rounded-sm flex items-center justify-center mb-4 transition-all group-hover:bg-pink-500/10 group-hover:scale-110" style={{ color: '#ec4899' }}>
-      {icon}
+    <div className="w-16 h-16 bg-purple-500/5 border border-purple-500/10 rounded-2xl flex items-center justify-center mb-6 transition-all group-hover:bg-purple-500/10 group-hover:scale-110 group-hover:border-purple-500/30" style={{ color: '#a855f7' }}>
+      {React.cloneElement(icon, { className: 'w-8 h-8' })}
     </div>
-    <p className="text-xs font-mono uppercase tracking-[0.2em] text-pink-500/50 mb-1">{label}</p>
-    <p className="text-white font-black text-sm uppercase tracking-widest truncate max-w-full">{value}</p>
+    <p className="text-[10px] font-mono uppercase tracking-[0.4em] text-purple-500/50 mb-2 font-black">{label}</p>
+    <p className="text-white font-black text-sm uppercase tracking-widest truncate max-w-full group-hover:text-purple-400 transition-colors">{value}</p>
     
     {/* Diagnostic HUD marker */}
-    <div className="absolute top-2 right-2 font-mono text-[6px] text-blue-500/20">
-        MOD_L: ACTIVE
+    <div className="absolute top-4 right-4 font-mono text-[8px] text-white/5 uppercase tracking-widest">
+        UPLINK: ACTIVE
     </div>
   </motion.a>
 );
@@ -41,16 +40,41 @@ const SysStatusCard = () => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.5 }}
-      className="p-6 bg-pink-500/5 border border-pink-500/10 rounded-sm"
+      className="p-8 bg-purple-500/5 border border-purple-500/10 rounded-[2rem] relative overflow-hidden group shadow-2xl"
   >
-      <div className="flex items-center gap-3 mb-4">
-          <div className="w-2 h-2 bg-pink-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
-          <span className="text-[10px] font-mono text-pink-400 uppercase tracking-widest">Sys_Status: Operational</span>
+      <div className="flex items-center gap-4 mb-6">
+          <div className="w-2.5 h-2.5 bg-purple-500 rounded-full animate-pulse shadow-[0_0_15px_#a855f7]" />
+          <span className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.4em] font-black">Sys_Status: Operational</span>
       </div>
-      <p className="text-[10px] font-mono text-slate-500 leading-relaxed uppercase">
-          Ready for end-to-end architecture deployment and full-stack integration.
+      <p className="text-[11px] font-mono text-slate-500 leading-relaxed uppercase font-bold group-hover:text-slate-400 transition-colors">
+          Ready for end-to-end architecture deployment and full-stack integration. Protocols standing by for initial transmission.
       </p>
+
+      {/* Aesthetic grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:15px_15px] pointer-events-none" />
   </motion.div>
+);
+
+const SectionHeader = ({ label, title, status, location }) => (
+    <motion.div variants={fadeIn} className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 border-b border-white/5 pb-8 w-full">
+        <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+                <div className="w-8 h-[1px] bg-purple-500 shadow-[0_0_10px_#a855f7]" />
+                <span className="text-purple-400 font-mono text-[9px] font-black tracking-[0.4em] uppercase">{label}</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-none uppercase">
+                {title.split(' ')[0]} <span className="text-white/20 italic">{title.split(' ').slice(1).join(' ')}</span>
+                <span className="text-purple-500 italic">.</span>
+            </h2>
+        </div>
+        <div className="flex flex-col items-end gap-2 mb-1">
+            <div className="px-4 py-1.5 bg-[#0a0a0a] border border-white/10 rounded-sm flex items-center gap-2 shadow-2xl relative overflow-hidden group">
+                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                <span className="text-[9px] font-mono text-slate-300 font-black tracking-[0.2em] uppercase">{status || 'SYSTEM_SYNC: ACTIVE'}</span>
+            </div>
+            <span className="text-[9px] font-mono text-slate-600 uppercase tracking-[0.3em] font-black">{location || 'BHOPAL // INDIA_REGION'}</span>
+        </div>
+    </motion.div>
 );
 
 const Contact = () => {
@@ -115,26 +139,18 @@ const Contact = () => {
       id="contact"
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
-      className="py-24 relative overflow-hidden"
+      className="py-20 relative overflow-hidden bg-[#010409]"
     >
-      {/* No local background - handled globally for performance */}
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <SectionHeader 
+            label="04. Communication Protocol" 
+            title="Direct Uplink" 
+            status="TERMINAL: READY"
+        />
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <motion.div variants={fadeIn} className="flex items-center gap-6 mb-16">
-            <div className="p-3 bg-pink-500/10 border border-pink-500/20">
-                <Activity className="text-pink-500 w-6 h-6" />
-            </div>
-            <div>
-                <span className="text-pink-500 font-mono text-[10px] tracking-widest uppercase block mb-1">04. Communcation Protocol</span>
-                <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-none">
-                    Direct <span className="text-pink-blue">Uplink</span>
-                </h2>
-            </div>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-3 gap-12 items-start">
+        <div className="grid lg:grid-cols-3 gap-16 items-start">
           {/* Communication Modules */}
-          <div className="grid grid-cols-1 gap-6 lg:col-span-1">
+          <div className="grid grid-cols-1 gap-8 lg:col-span-1">
             {[
                 { icon: <Mail />, label: "Secure_Mail", value: "krishgupta7898@gmail.com", href: "mailto:krishgupta7898@gmail.com" },
                 { icon: <Phone />, label: "Direct_Line", value: "+91 7898325702", href: "tel:+917898325702" },
@@ -147,12 +163,12 @@ const Contact = () => {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15 }}
                 >
-                    <CommunicationModule {...module} color="#3b82f6" />
+                    <CommunicationModule {...module} />
                 </motion.div>
             ))}
             
             {/* Desktop System Availability Hud */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:block mt-4">
                 <SysStatusCard />
             </div>
           </div>
@@ -165,101 +181,107 @@ const Contact = () => {
             style={{ rotateX, rotateY, perspective: 1000 }}
             className="lg:col-span-2 relative group"
           >
-            <BorderConduit duration={8} className="overflow-hidden shadow-2xl">
-                <div className="bg-slate-900/40 backdrop-blur-2xl border-y border-white/5 rounded-sm p-8 md:p-16 relative">
-                    <CornerFrame />
-                    <div className="absolute top-4 right-8 font-mono text-[9px] text-pink-500/20">TERM_ID: KRISH_UPLINK_PRO</div>
+            <div className="bg-[#111111]/30 backdrop-blur-3xl border border-white/5 rounded-[3rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
+                {/* Neon Corners */}
+                <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-purple-500/20 rounded-tl-[3rem] group-hover:border-purple-500/50 transition-colors duration-700" />
+                <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-purple-500/20 rounded-br-[3rem] group-hover:border-purple-500/50 transition-colors duration-700" />
 
-                    <form onSubmit={handleFormSubmit} className="relative z-10 space-y-8">
-                    <div className="flex items-center gap-4 mb-10">
-                        <Terminal className="w-6 h-6 text-pink-500" />
-                        <h3 className="text-2xl font-black text-white tracking-widest uppercase leading-none">Execute Message Protocol</h3>
-                    </div>
+                <div className="absolute top-6 right-10 font-mono text-[9px] text-purple-500/20 font-black uppercase tracking-widest">TERM_ID: KRISH_UPLINK_PRO</div>
 
-                    {status.msg && (
-                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className={`p-4 font-mono text-[10px] font-bold border ${status.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
-                        {status.msg}
-                        </motion.div>
-                    )}
+                <form onSubmit={handleFormSubmit} className="relative z-10 space-y-10">
+                <div className="flex items-center gap-6 mb-12">
+                    <Terminal className="w-8 h-8 text-purple-500" />
+                    <h3 className="text-3xl font-black text-white tracking-widest uppercase leading-none">Execute Message Protocol</h3>
+                </div>
 
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <motion.div 
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
-                            className="space-y-3 group/input"
-                        >
-                        <div className="flex justify-between items-center px-1">
-                            <span className="text-xs font-mono text-blue-500/50 uppercase tracking-widest">Input_Identity</span>
-                            <span className="text-[10px] font-mono text-slate-600 uppercase">Status: {formState.name ? 'VALID' : 'WAITING'}</span>
-                        </div>
-                        <input 
-                            type="text" required placeholder="User_Name" 
-                            value={formState.name} onChange={e => setFormState({...formState, name: e.target.value})}
-                            className="w-full bg-slate-950 border border-blue-500/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/5 transition-all placeholder:text-slate-700 font-mono text-sm uppercase cursor-none"
-                        />
-                        </motion.div>
-                        <motion.div 
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.4 }}
-                            className="space-y-3 group/input"
-                        >
-                        <div className="flex justify-between items-center px-1">
-                            <span className="text-xs font-mono text-blue-500/50 uppercase tracking-widest">Input_Address</span>
-                            <span className="text-[10px] font-mono text-slate-600 uppercase">Status: {formState.email ? 'VALID' : 'WAITING'}</span>
-                        </div>
-                        <input 
-                            type="email" required placeholder="User_Email" 
-                            value={formState.email} onChange={e => setFormState({...formState, email: e.target.value})}
-                            className="w-full bg-slate-950 border border-blue-500/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/5 transition-all placeholder:text-slate-700 font-mono text-sm uppercase cursor-none"
-                        />
-                        </motion.div>
-                    </div>
-                    
+                {status.msg && (
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className={`p-6 rounded-2xl font-mono text-xs font-black border ${status.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
+                    {status.msg}
+                    </motion.div>
+                )}
+
+                <div className="grid md:grid-cols-2 gap-10">
                     <motion.div 
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.5 }}
-                        className="space-y-3 group/input"
+                        transition={{ delay: 0.3 }}
+                        className="space-y-4 group/input"
                     >
-                        <div className="flex justify-between items-center px-1">
-                            <span className="text-xs font-mono text-blue-500/50 uppercase tracking-widest">Input_Payload</span>
-                            <span className="text-[10px] font-mono text-slate-600 uppercase">Size: {formState.message.length} bytes</span>
-                        </div>
-                        <textarea 
-                        required placeholder="Enter_Encryption_Details..." rows="6"
-                        value={formState.message} onChange={e => setFormState({...formState, message: e.target.value})}
-                        className="w-full bg-slate-950 border border-blue-500/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/5 transition-all placeholder:text-slate-700 resize-none font-mono text-sm uppercase cursor-none"
-                        ></textarea>
+                    <div className="flex justify-between items-center px-2">
+                        <span className="text-[10px] font-mono text-purple-500/50 uppercase tracking-[0.3em] font-black">Input_Identity</span>
+                        <span className="text-[9px] font-mono text-slate-600 uppercase font-bold">Status: {formState.name ? 'VALID' : 'WAITING'}</span>
+                    </div>
+                    <input 
+                        type="text" required placeholder="User_Name" 
+                        value={formState.name} onChange={e => setFormState({...formState, name: e.target.value})}
+                        className="w-full bg-black/40 border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-purple-500/50 focus:ring-4 focus:ring-purple-500/5 transition-all placeholder:text-slate-800 font-mono text-sm uppercase"
+                    />
                     </motion.div>
-
-                    <button 
-                        type="submit" 
-                        disabled={isSubmitting}
-                        className="w-full bg-pink-600 text-white rounded-sm py-6 font-black uppercase tracking-[0.3em] text-xs transition-all shadow-[0_10px_20px_rgba(236,72,153,0.2)] hover:bg-white hover:text-pink-600 disabled:opacity-70 flex justify-center items-center group cursor-none"
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 }}
+                        className="space-y-4 group/input"
                     >
-                        {isSubmitting ? (
-                        <div className="flex items-center gap-3">
-                            <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                            <span className="animate-pulse">ENCRYPTING...</span>
-                        </div>
-                        ) : (
-                        <span className="flex items-center gap-4">
-                            Initialize Transmission
-                            <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        </span>
-                        )}
-                    </button>
-                    </form>
+                    <div className="flex justify-between items-center px-2">
+                        <span className="text-[10px] font-mono text-purple-500/50 uppercase tracking-[0.3em] font-black">Input_Address</span>
+                        <span className="text-[9px] font-mono text-slate-600 uppercase font-bold">Status: {formState.email ? 'VALID' : 'WAITING'}</span>
+                    </div>
+                    <input 
+                        type="email" required placeholder="User_Email" 
+                        value={formState.email} onChange={e => setFormState({...formState, email: e.target.value})}
+                        className="w-full bg-black/40 border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-purple-500/50 focus:ring-4 focus:ring-purple-500/5 transition-all placeholder:text-slate-800 font-mono text-sm uppercase"
+                    />
+                    </motion.div>
                 </div>
-            </BorderConduit>
+                
+                <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 }}
+                    className="space-y-4 group/input"
+                >
+                    <div className="flex justify-between items-center px-2">
+                        <span className="text-[10px] font-mono text-purple-500/50 uppercase tracking-[0.3em] font-black">Input_Payload</span>
+                        <span className="text-[9px] font-mono text-slate-600 uppercase font-bold">Size: {formState.message.length} bytes</span>
+                    </div>
+                    <textarea 
+                    required placeholder="Enter_Encryption_Details..." rows="6"
+                    value={formState.message} onChange={e => setFormState({...formState, message: e.target.value})}
+                    className="w-full bg-black/40 border border-white/5 rounded-2xl px-8 py-5 text-white focus:outline-none focus:border-purple-500/50 focus:ring-4 focus:ring-purple-500/5 transition-all placeholder:text-slate-800 resize-none font-mono text-sm uppercase"
+                    ></textarea>
+                </motion.div>
+
+                <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full bg-white text-black rounded-full py-6 font-black uppercase tracking-[0.4em] text-xs transition-all shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 flex justify-center items-center group relative overflow-hidden"
+                >
+                    <span className="relative z-10 flex items-center gap-4">
+                        {isSubmitting ? (
+                            <>
+                                <div className="w-3 h-3 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
+                                <span className="animate-pulse">ENCRYPTING...</span>
+                            </>
+                        ) : (
+                            <>
+                                Initialize Transmission
+                                <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                            </>
+                        )}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:animate-scan pointer-events-none" />
+                </button>
+                </form>
+
+                {/* Aesthetic grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:30px_30px] pointer-events-none" />
+            </div>
           </motion.div>
 
-          {/* Mobile System Availability Hud - Shown at the bottom on phone view */}
           <div className="lg:hidden w-full">
               <SysStatusCard />
           </div>

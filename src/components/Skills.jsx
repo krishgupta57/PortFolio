@@ -50,57 +50,68 @@ const SkillCard = ({ skill }) => {
       variants={fadeIn}
       className="relative"
     >
-      <BorderConduit duration={Math.random() * 2 + 3}>
-        <div className="group bg-slate-900/20 backdrop-blur-xl border border-pink-500/5 rounded-sm p-6 hover:border-pink-500/20 transition-all duration-300 relative">
-          <CornerFrame />
+        <div className="group bg-[#111111]/30 backdrop-blur-3xl border border-white/5 rounded-3xl p-8 hover:border-purple-500/20 transition-all duration-500 relative overflow-hidden shadow-2xl">
+          {/* Neon Corner */}
+          <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-purple-500/20 rounded-tl-3xl z-20 group-hover:border-purple-500/50 transition-colors" />
           
-          <div className="flex items-center gap-5 mb-6">
+          <div className="flex items-center gap-6 mb-8">
             <div 
-              className="w-12 h-12 rounded-sm flex items-center justify-center bg-pink-500/5 border border-pink-500/10 group-hover:border-pink-500/30 group-hover:bg-pink-500/10 transition-all relative"
-              style={{ color: '#ec4899' }}
+              className="w-14 h-14 rounded-2xl flex items-center justify-center bg-purple-500/5 border border-purple-500/10 group-hover:border-purple-500/30 group-hover:bg-purple-500/10 transition-all relative"
+              style={{ color: skill.color || '#a855f7' }}
             >
-              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity" viewBox="0 0 100 100">
-                <motion.path 
-                    d="M 50,0 L 50,15 L 85,15 L 85,50 L 100,50 M 0,50 L 15,50 L 15,85 L 50,85 L 50,100"
-                    fill="transparent"
-                    stroke="#ec4899"
-                    strokeWidth="2"
-                    strokeDasharray="300"
-                    initial={{ strokeDashoffset: 300 }}
-                    whileInView={{ strokeDashoffset: 0 }}
-                    transition={{ duration: 2, delay: 0.2, ease: "easeInOut" }}
-                    viewport={{ once: true }}
-                />
-              </svg>
-              <div className="relative z-10 group-hover:animate-pulse">
-                {React.cloneElement(skill.icon, { className: 'w-6 h-6' })}
+              <div className="relative z-10 group-hover:scale-110 transition-transform">
+                {React.cloneElement(skill.icon, { className: 'w-7 h-7' })}
               </div>
             </div>
             <div className="flex-grow">
-              <div className="flex justify-between items-baseline">
-                <h4 className="text-lg font-black text-white uppercase tracking-widest group-hover:text-pink-400 transition-colors">
+              <div className="flex justify-between items-baseline mb-1">
+                <h4 className="text-xl font-black text-white uppercase tracking-tight group-hover:text-purple-400 transition-colors">
                   {skill.name}
                 </h4>
-                <span className="text-sm font-mono font-bold text-pink-500">{skill.percentage}%</span>
+                <span className="text-sm font-mono font-black text-purple-500">{skill.percentage}%</span>
               </div>
-              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mt-1">
-                MOD_REF // {skill.category}
+              <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-slate-500 font-bold">
+                MODULE_REF // {skill.category}
               </p>
             </div>
           </div>
 
-          <div className="space-y-4">
-            <LogicLoadMeter percentage={skill.percentage} color={skill.color} />
-            <div className="flex flex-col gap-1.5">
-                <span className="text-[10px] font-mono text-pink-500/30 uppercase tracking-tighter">Diagnostic_Log</span>
-                <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest leading-relaxed line-clamp-2">{skill.details}</span>
+          <div className="space-y-6">
+            <LogicLoadMeter percentage={skill.percentage} color={skill.color || '#a855f7'} />
+            <div className="flex flex-col gap-2">
+                <span className="text-[9px] font-mono text-purple-500/40 uppercase tracking-[0.2em] font-black">Diagnostic_Output:</span>
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-relaxed line-clamp-2 group-hover:text-slate-200 transition-colors">{skill.details}</span>
             </div>
           </div>
+
+          {/* Background Grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:15px_15px] pointer-events-none" />
         </div>
-      </BorderConduit>
     </motion.div>
   );
 };
+
+const SectionHeader = ({ label, title, status, location }) => (
+    <motion.div variants={fadeIn} className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 border-b border-white/5 pb-8 w-full">
+        <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+                <div className="w-8 h-[1px] bg-purple-500 shadow-[0_0_10px_#a855f7]" />
+                <span className="text-purple-400 font-mono text-[9px] font-black tracking-[0.4em] uppercase">{label}</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-none uppercase">
+                {title.split(' ')[0]} <span className="text-white/20 italic">{title.split(' ').slice(1).join(' ')}</span>
+                <span className="text-purple-500 italic">.</span>
+            </h2>
+        </div>
+        <div className="flex flex-col items-end gap-2 mb-1">
+            <div className="px-4 py-1.5 bg-[#0a0a0a] border border-white/10 rounded-sm flex items-center gap-2 shadow-2xl relative overflow-hidden group">
+                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
+                <span className="text-[9px] font-mono text-slate-300 font-black tracking-[0.2em] uppercase">{status || 'SYSTEM_SYNC: ACTIVE'}</span>
+            </div>
+            <span className="text-[9px] font-mono text-slate-600 uppercase tracking-[0.3em] font-black">{location || 'BHOPAL // INDIA_REGION'}</span>
+        </div>
+    </motion.div>
+);
 
 const Skills = () => {
   return (
@@ -108,52 +119,18 @@ const Skills = () => {
       id="skills"
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
-      className="py-16 relative w-full bg-slate-950 overflow-hidden"
+      className="py-20 relative overflow-hidden bg-[#010409]"
     >
-      {/* No local background - handled globally for performance */}
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <SectionHeader 
+            label="Technical Arsenal v4.0" 
+            title="System Matrix" 
+            status="DIAGNOSTIC: COMPLETE"
+        />
 
-      <div className="max-w-[90rem] mx-auto px-6 md:px-12 relative z-10">
-        <motion.div variants={fadeIn} className="flex flex-col mb-16 items-center md:items-start text-center md:text-left">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="p-2 bg-pink-500/10 border border-pink-500/20">
-              <Cpu className="text-pink-500 w-4 h-4" />
-            </div>
-            <span className="text-pink-500 font-mono text-[10px] tracking-widest uppercase">System Core // Arsenal v3.2</span>
-            <div className="h-[1px] w-12 bg-gradient-to-r from-pink-500 to-transparent"></div>
-          </div>
-          <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter">
-            Technical <span className="text-pink-blue">Arsenal</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative">
-          {/* Internal More Flows: Vertical Conduits between cards */}
-          <div className="absolute -top-10 left-[25%] w-[1px] h-[calc(100%+80px)] opacity-10 hidden lg:block">
-            <div className="conduit-lane">
-                <div className="conduit-pulse" style={{ animationDuration: '4s' }} />
-            </div>
-          </div>
-          <div className="absolute -top-10 left-[50%] w-[1px] h-[calc(100%+80px)] opacity-10 hidden lg:block">
-            <div className="conduit-lane">
-                <div className="conduit-pulse" style={{ animationDuration: '6s', animationDelay: '-2s' }} />
-            </div>
-          </div>
-          <div className="absolute -top-10 left-[75%] w-[1px] h-[calc(100%+80px)] opacity-10 hidden lg:block">
-            <div className="conduit-lane">
-                <div className="conduit-pulse" style={{ animationDuration: '5s', animationDelay: '-1s' }} />
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 relative">
           {skills.map((skill, i) => (
-            <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-            >
-                <SkillCard skill={skill} />
-            </motion.div>
+            <SkillCard key={skill.name} skill={skill} />
           ))}
         </div>
       </div>
