@@ -125,7 +125,7 @@ function App() {
       className="min-h-screen text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden relative" 
       style={{ backgroundColor: '#010409' }}
     >
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {showBoot ? (
           <BootSequence key="boot" onComplete={() => setShowBoot(false)} />
         ) : (
@@ -133,7 +133,7 @@ function App() {
             key="content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
 
