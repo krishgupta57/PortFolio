@@ -108,7 +108,7 @@ const EducationCard = ({ item, index }) => {
             <div className="flex items-center justify-between mt-auto">
                 <div className="bg-black border border-white/10 px-4 py-1.5 rounded-full flex items-center gap-2 group-hover:border-blue-500/30 transition-colors">
                     <div className="w-1.5 h-1.5 bg-slate-700 rounded-full group-hover:bg-blue-500 transition-colors" />
-                    <span className="text-[9px] font-black font-mono text-slate-500 tracking-widest uppercase">UNDERGRADUATE</span>
+                    <span className="text-[9px] font-black font-mono text-slate-500 tracking-widest uppercase">{item.type || "UNDERGRADUATE"}</span>
                 </div>
                 
                 <span className="text-4xl font-black text-white/5 italic italic tracking-tighter group-hover:text-blue-500/20 transition-colors duration-700">

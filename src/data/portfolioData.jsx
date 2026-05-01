@@ -110,6 +110,7 @@ export const education = [
     institution: "Cybrom Technology Pvt. Ltd.",
     year: "March 2026 – Present",
     grade: "Internship",
+    type: "INTERNSHIP",
     description: "Intensive hands-on experience in building enterprise-grade web applications. Mastering advanced React patterns, Django REST framework optimizations, and industry-standard deployment workflows.",
     icon: <Code2 className="w-6 h-6" />,
     color: "#10b981"
@@ -120,6 +121,7 @@ export const education = [
     institution: "Lakshmi Narain College of Technology",
     year: "2021 – 2025",
     grade: "CGPA: 7.01",
+    type: "UNDERGRADUATE",
     description: "Deep-diving into Full-Stack Development, Data Structures, and RDBMS. Built multiple engineering projects using React and Django with a focus on scalable architecture.",
     icon: <GraduationCap className="w-6 h-6" />,
     color: "#3b82f6"
@@ -130,6 +132,7 @@ export const education = [
     institution: "Delhi Public School, Satna",
     year: "2021",
     grade: "65%",
+    type: "SCHOOLING",
     description: "Specialized in Physics, Chemistry, and Mathematics (PCM). Developed a strong foundation in analytical thinking and complex problem-solving strategies.",
     icon: <Award className="w-6 h-6" />,
     color: "#6366f1"
@@ -140,6 +143,7 @@ export const education = [
     institution: "Delhi Public School, Satna",
     year: "2019",
     grade: "65%",
+    type: "SCHOOLING",
     description: "Gained foundational knowledge in Science and Mathematics, consistently maintaining high academic performance and participating in various technical workshops.",
     icon: <BookOpen className="w-6 h-6" />,
     color: "#a855f7"
