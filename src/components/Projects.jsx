@@ -142,26 +142,30 @@ const ProjectSlide = memo(({ project, active, index }) => {
                     {/* Button & Tag Group - Responsive Flow */}
                     <div className="flex flex-col gap-6 mt-auto md:mt-0">
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
-                            <button 
-                                onClick={() => window.open(project.link, '_blank')}
-                                className="group relative px-6 md:px-10 py-4 md:py-5 bg-white text-black rounded-xl font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.1)] overflow-hidden flex justify-center items-center"
+                            <a 
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative px-6 md:px-10 py-4 md:py-5 bg-white text-black rounded-xl font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.1)] overflow-hidden flex justify-center items-center cursor-none"
                             >
                                 <span className="relative z-10 flex items-center gap-3">
                                     Launch Core
                                     <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:rotate-45 transition-transform" />
                                 </span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:animate-scan pointer-events-none" />
-                            </button>
+                            </a>
 
-                            <button 
-                                onClick={() => window.open(project.github || '#', '_blank')}
-                                className="group relative px-6 md:px-8 py-4 md:py-5 bg-transparent border border-white/10 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all hover:bg-white/5 active:scale-95 overflow-hidden flex justify-center items-center"
+                            <a 
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative px-6 md:px-8 py-4 md:py-5 bg-transparent border border-white/10 text-white rounded-xl font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all hover:bg-white/5 active:scale-95 overflow-hidden flex justify-center items-center cursor-none"
                             >
                                 <span className="relative z-10 flex items-center gap-3">
                                     <Code2 className="w-3.5 h-3.5 md:w-4 md:h-4" />
                                     Source_Code
                                 </span>
-                            </button>
+                            </a>
                         </div>
                         
                         {/* Tags - Hidden on tiny screens to save space */}
