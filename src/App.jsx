@@ -93,7 +93,7 @@ const CustomCursor = () => {
 };
 
 const BackgroundDataStream = () => {
-    const particles = useMemo(() => Array.from({ length: 15 }), []);
+    const particles = useMemo(() => Array.from({ length: 8 }), []);
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
@@ -189,9 +189,9 @@ function App() {
                 }}
             />
         </div>
-        {/* Layer 4: Breathing Telemetry Glows (System Pulse) */}
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-600/10 blur-[64px] animate-breathing" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-pink-600/10 blur-[64px] animate-breathing" style={{ animationDelay: '-5s' }} />
+        {/* Layer 4: Breathing Telemetry Glows - Optimized size and blur */}
+        <div className="absolute top-[-5%] left-[-5%] w-[40%] h-[40%] rounded-full bg-blue-600/5 blur-[40px] animate-breathing" />
+        <div className="absolute bottom-[-5%] right-[-5%] w-[40%] h-[40%] rounded-full bg-pink-600/5 blur-[40px] animate-breathing" style={{ animationDelay: '-5s' }} />
       </div>
 
       <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">

@@ -50,15 +50,17 @@ const SysStatusCard = () => (
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent animate-scan" style={{ animationDirection: 'reverse' }} />
       </div>
 
-      {/* 2. Scrolling Hex Stream Background */}
-      <div className="absolute inset-0 opacity-[0.03] font-mono text-[8px] whitespace-pre-wrap overflow-hidden pointer-events-none select-none">
-          {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} className="flex gap-4 mb-1 animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}>
-                  {Array.from({ length: 8 }).map((_, j) => (
-                      <span key={j}>0x{Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0')}</span>
-                  ))}
-              </div>
-          ))}
+      {/* 2. Optimized Hex Stream Background (Minimal DOM nodes) */}
+      <div className="absolute inset-0 opacity-[0.03] overflow-hidden pointer-events-none select-none">
+          <div className="absolute inset-0 animate-data-drift flex flex-col font-mono text-[8px] gap-2 p-4">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className="opacity-50">
+                  0x{Math.floor(Math.random()*0xFFFFFF).toString(16).toUpperCase().padStart(6,'0')} 
+                  0x{Math.floor(Math.random()*0xFFFFFF).toString(16).toUpperCase().padStart(6,'0')}
+                  0x{Math.floor(Math.random()*0xFFFFFF).toString(16).toUpperCase().padStart(6,'0')}
+                </div>
+              ))}
+          </div>
       </div>
 
       <div className="relative z-10">
