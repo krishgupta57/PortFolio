@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Mail, MapPin, Phone, Send, Terminal, Hash, ShieldCheck, Activity } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Terminal, Hash, ShieldCheck, Activity, Globe } from 'lucide-react';
 import { fadeIn, staggerContainer } from '../utils/animations';
 import BorderConduit from './BorderConduit';
 
@@ -12,6 +12,8 @@ const CornerFrame = () => (
         <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-pink-500/50 translate-x-1 translate-y-1" />
     </>
 );
+
+
 
 const CommunicationModule = ({ icon, label, value, href }) => (
   <motion.a
@@ -40,18 +42,63 @@ const SysStatusCard = () => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.5 }}
-      className="p-8 bg-purple-500/5 border border-purple-500/10 rounded-[2rem] relative overflow-hidden group shadow-2xl"
+      className="p-10 bg-[#080808] border border-white/5 rounded-[2.5rem] relative overflow-hidden group shadow-3xl"
   >
-      <div className="flex items-center gap-4 mb-6">
-          <div className="w-2.5 h-2.5 bg-purple-500 rounded-full animate-pulse shadow-[0_0_15px_#a855f7]" />
-          <span className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.4em] font-black">Sys_Status: Operational</span>
+      {/* 1. Kinetic Border Patrol */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent animate-scan" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent animate-scan" style={{ animationDirection: 'reverse' }} />
       </div>
-      <p className="text-[11px] font-mono text-slate-500 leading-relaxed uppercase font-bold group-hover:text-slate-400 transition-colors">
-          Ready for end-to-end architecture deployment and full-stack integration. Protocols standing by for initial transmission.
-      </p>
 
-      {/* Aesthetic grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:15px_15px] pointer-events-none" />
+      {/* 2. Scrolling Hex Stream Background */}
+      <div className="absolute inset-0 opacity-[0.03] font-mono text-[8px] whitespace-pre-wrap overflow-hidden pointer-events-none select-none">
+          {Array.from({ length: 20 }).map((_, i) => (
+              <div key={i} className="flex gap-4 mb-1 animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}>
+                  {Array.from({ length: 8 }).map((_, j) => (
+                      <span key={j}>0x{Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0')}</span>
+                  ))}
+              </div>
+          ))}
+      </div>
+
+      <div className="relative z-10">
+          <div className="flex items-center gap-5 mb-8">
+              <div className="relative">
+                  {/* Radar Wave Pulse */}
+                  <div className="absolute inset-0 bg-purple-500 rounded-full animate-ping opacity-20 scale-150" />
+                  <div className="w-3 h-3 bg-purple-500 rounded-full shadow-[0_0_20px_#a855f7] relative z-10" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.5em] font-black">SYS_STATUS</span>
+                <span className="text-[12px] font-black text-white italic tracking-tighter uppercase mt-1">Operational_Mode</span>
+              </div>
+          </div>
+
+          <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl relative mb-4">
+              {/* Corner Accents */}
+              <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-purple-500/30" />
+              <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-purple-500/30" />
+              
+              <p className="text-[11px] font-mono text-slate-400 leading-relaxed uppercase font-bold tracking-tight">
+                  Ready for end-to-end architecture deployment and full-stack integration. 
+                  <span className="text-purple-500/80 block mt-2 animate-pulse font-black">
+                      {">"} PROTOCOLS_STANDING_BY_FOR_INITIAL_TRANSMISSION...
+                  </span>
+              </p>
+          </div>
+
+          {/* HUD Metadata */}
+          <div className="flex justify-between items-center opacity-30 group-hover:opacity-60 transition-opacity">
+              <span className="text-[7px] font-mono font-black text-slate-500 uppercase tracking-[0.4em]">Auth: SEC_V4</span>
+              <div className="flex gap-2">
+                  <div className="w-8 h-[2px] bg-white/10" />
+                  <div className="w-2 h-[2px] bg-purple-500" />
+              </div>
+          </div>
+      </div>
+
+      {/* Industrial Grid Overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.03),transparent_70%)] pointer-events-none" />
   </motion.div>
 );
 
@@ -188,10 +235,7 @@ const Contact = () => {
                 </motion.div>
             ))}
             
-            {/* Desktop System Availability Hud */}
-            <div className="hidden lg:block mt-4">
-                <SysStatusCard />
-            </div>
+            {/* Desktop System Availability Hud removed from here */}
           </div>
 
           {/* Command Terminal Form */}
@@ -303,9 +347,11 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          <div className="lg:hidden w-full">
-              <SysStatusCard />
-          </div>
+        </div>
+
+        {/* Global System Status HUD - Full Width */}
+        <div className="mt-16 md:mt-24 w-full">
+            <SysStatusCard />
         </div>
       </div>
     </motion.section>
