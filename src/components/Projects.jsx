@@ -68,7 +68,7 @@ const ProjectSlide = memo(({ project, active, index }) => {
           filter: active ? "blur(0px)" : "blur(4px)"
         }}
         transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-        className="w-full max-w-7xl h-[600px] md:h-[700px] bg-[#111111]/30 backdrop-blur-md border border-white/5 rounded-[2rem] md:rounded-[3rem] relative overflow-hidden group shadow-2xl will-change-[transform,opacity]"
+        className="w-full max-w-7xl bg-[#111111]/30 backdrop-blur-3xl border border-white/5 rounded-2xl md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden shadow-2xl"
       >
         {/* Large Background Number */}
         <div className="absolute top-0 right-0 text-[20rem] font-black text-white/5 leading-none select-none -translate-y-1/4 translate-x-1/4 pointer-events-none group-hover:text-purple-500/10 transition-colors duration-1000 will-change-transform">
@@ -88,7 +88,7 @@ const ProjectSlide = memo(({ project, active, index }) => {
         <div className="relative w-full h-full p-1 flex flex-col md:flex-row">
             
             {/* Image Section */}
-            <div className="relative w-full md:w-1/2 h-1/2 md:h-full overflow-hidden rounded-[2.5rem] md:rounded-r-none">
+            <div className="relative w-full md:w-1/2 h-64 md:h-full overflow-hidden rounded-[2.5rem] md:rounded-r-none">
                 <motion.img 
                     style={{ y: active ? parallaxY : 0 }}
                     src={project.image} 
@@ -108,7 +108,7 @@ const ProjectSlide = memo(({ project, active, index }) => {
             </div>
 
             {/* Content Section */}
-            <div className="w-full md:w-1/2 h-1/2 md:h-full p-6 sm:p-8 md:p-16 flex flex-col justify-center relative z-10 overflow-hidden">
+            <div className="w-full md:w-1/2 h-auto md:h-full p-6 sm:p-8 md:p-16 flex flex-col justify-center relative z-10 overflow-hidden">
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={active ? { opacity: 1, x: 0 } : {}}

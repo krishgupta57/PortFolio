@@ -72,9 +72,9 @@ const Hero = () => {
             </div>
 
             {/* Headline */}
-            <div className="relative group">
-               <h1 className="text-4xl sm:text-5xl md:text-[6rem] font-black text-white leading-[0.9] tracking-tighter mb-6 select-none">
-                CRAFTING <br />
+            <div className="relative group w-full">
+               <h1 className="text-3xl sm:text-5xl md:text-[6rem] font-black text-white leading-[0.9] tracking-tighter mb-6 select-none break-words">
+                CRAFTING <br className="hidden md:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-yellow-500">DIGITAL ARC</span>
               </h1>
               {/* Subtle background text glitch effect */}

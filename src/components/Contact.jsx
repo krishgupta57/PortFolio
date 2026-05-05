@@ -42,7 +42,7 @@ const SysStatusCard = () => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.5 }}
-      className="p-10 bg-[#080808] border border-white/5 rounded-[2.5rem] relative overflow-hidden group shadow-3xl"
+      className="p-6 md:p-10 bg-[#080808] border border-white/5 rounded-2xl md:rounded-[2.5rem] relative overflow-hidden group shadow-3xl"
   >
       {/* 1. Kinetic Border Patrol */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">

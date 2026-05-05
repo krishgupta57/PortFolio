@@ -208,8 +208,8 @@ const BootSequence = ({ onComplete }) => {
                     </div>
 
                     {/* Main Core Projector */}
-                    <div className="lg:col-span-2 relative flex flex-col items-center">
-                        <div className="relative w-80 h-80 flex items-center justify-center">
+                    <div className="lg:col-span-2 relative flex flex-col items-center scale-75 sm:scale-90 md:scale-100 transition-transform">
+                        <div className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
                             {/* Outer Rings */}
                             <motion.div 
                                 animate={{ rotate: 360, scale: [1, 1.05, 1] }} 
@@ -223,7 +223,7 @@ const BootSequence = ({ onComplete }) => {
                             />
                             
                             {/* Inner Dynamic Rings */}
-                            <svg className="absolute inset-0 w-full h-full -rotate-90">
+                            <svg className="absolute inset-0 w-full h-full -rotate-90 scale-75 sm:scale-100">
                                 <circle cx="160" cy="160" r="140" fill="transparent" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
                                 <motion.circle
                                     cx="160" cy="160" r="140"
