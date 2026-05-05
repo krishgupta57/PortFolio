@@ -152,17 +152,17 @@ export const education = [
 
 export const projects = [
   {
-    title: 'Work At Home – Job Portal',
+    title: 'AirBNB Clone – Rental Hub',
     category: 'Full Stack',
-    tags: ['React.js', 'Django', 'MySQL', 'REST API'],
-    specs: ['Performance: 98%', 'Security: AES-256', 'Uptime: 99.9%'],
-    status: 'SYSTEM_STABLE',
-    description: 'Developed a full-stack job portal with role-based authentication. Integrated REST APIs, optimized database queries improving response times, and built responsive UI components.',
-    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+    tags: ['React.js', 'Tailwind CSS', 'Django', 'MySQL'],
+    specs: ['UX: High Fidelity', 'Search: Geo-Query', 'Sync: Real-time'],
+    status: 'SYSTEM_SYNCED',
+    description: 'A high-fidelity rental platform with advanced search filters, map integration, and a sophisticated reservation management system. Built with modular architecture for high scalability.',
+    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
     link: '#',
     github: '#',
-    featured: true,
-    accent: '#3b82f6'
+    featured: false,
+    accent: '#f43f5e'
   },
   {
     title: 'Credit Management System',
@@ -178,6 +178,19 @@ export const projects = [
     accent: '#10b981'
   },
   {
+    title: 'Work At Home – Job Portal',
+    category: 'Full Stack',
+    tags: ['React.js', 'Django', 'MySQL', 'REST API'],
+    specs: ['Performance: 98%', 'Security: AES-256', 'Uptime: 99.9%'],
+    status: 'SYSTEM_STABLE',
+    description: 'Developed a full-stack job portal with role-based authentication. Integrated REST APIs, optimized database queries improving response times, and built responsive UI components.',
+    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+    link: '#',
+    github: '#',
+    featured: true,
+    accent: '#3b82f6'
+  },
+  {
     title: 'Quiz Application System',
     category: 'EdTech',
     tags: ['Templates', 'Django', 'SQLite'],
@@ -190,17 +203,4 @@ export const projects = [
     featured: false,
     accent: '#a855f7'
   },
-  {
-    title: 'AirBNB Clone – Rental Hub',
-    category: 'Full Stack',
-    tags: ['React.js', 'Tailwind CSS', 'Django', 'MySQL'],
-    specs: ['UX: High Fidelity', 'Search: Geo-Query', 'Sync: Real-time'],
-    status: 'SYSTEM_SYNCED',
-    description: 'A high-fidelity rental platform with advanced search filters, map integration, and a sophisticated reservation management system. Built with modular architecture for high scalability.',
-    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    link: '#',
-    github: '#',
-    featured: false,
-    accent: '#f43f5e'
-  }
 ];
