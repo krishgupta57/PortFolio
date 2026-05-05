@@ -160,7 +160,7 @@ export const projects = [
     description: 'A high-fidelity rental platform with advanced search filters, map integration, and a sophisticated reservation management system. Built with modular architecture for high scalability.',
     image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
     link: '#',
-    github: '#',
+    github: 'https://github.com/krishgupta57/AirBNB_Clone.git',
     featured: false,
     accent: '#f43f5e'
   },
@@ -186,7 +186,7 @@ export const projects = [
     description: 'Developed a full-stack job portal with role-based authentication. Integrated REST APIs, optimized database queries improving response times, and built responsive UI components.',
     image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
     link: '#',
-    github: '#',
+    github: 'https://github.com/krishgupta57/WorkAtHome.git',
     featured: true,
     accent: '#3b82f6'
   },
@@ -199,7 +199,7 @@ export const projects = [
     description: 'Developed a quiz platform with strict admin controls, automated scoring, and real-time result calculations via an efficiently designed architecture.',
     image: 'https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
     link: 'https://quiz-app-bykg-54.vercel.app',
-    github: '#',
+    github: 'https://github.com/krishgupta57/Quiz-App.git',
     featured: false,
     accent: '#a855f7'
   }
