@@ -202,5 +202,5 @@ export const projects = [
     github: '#',
     featured: false,
     accent: '#a855f7'
-  },
+  }
 ];
