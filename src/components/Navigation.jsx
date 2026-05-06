@@ -67,7 +67,7 @@ const Navigation = () => {
   const { scrollY, scrollYProgress } = useScroll();
   const lastScrollY = useRef(0);
   
-  const navItems = ['About', 'Skills', 'Projects', 'Contact'];
+  const navItems = ['About', 'Skills', 'Projects', 'Certificates', 'Contact'];
 
   // Reading Progress Ring Math
   const circumference = 2 * Math.PI * 18;

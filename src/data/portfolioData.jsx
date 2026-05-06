@@ -234,3 +234,46 @@ export const projects = [
     accent: '#a855f7'
   }
 ];
+
+export const certificates = [
+  {
+    title: 'AWS Cloud Foundation',
+    issuer: 'Amazon Web Services',
+    date: '202f',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
+    link: '/AWS cloud formation.pdf',
+    tags: ['AWS', 'Cloud']
+  },
+  {
+    title: 'Full Stack Development',
+    issuer: 'Cybrom Technology',
+    date: '2026',
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
+    link: '/Krish Gupta - Course Completion Certificate .pdf',
+    tags: ['React', 'Django', 'MySQL']
+  },
+  {
+    title: 'Python Backend Specialist',
+    issuer: 'OpenEGD & CISCO',
+    date: '2025',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
+    link: '/Programming Essentials in Python.pdf',
+    tags: ['Python', 'Django', 'REST API']
+  },
+  {
+    title: 'Cisco Virtual Internship Program 2024',
+    issuer: 'Cisco Networking Academy',
+    date: '2024',
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
+    link: '/CISCO Virtual Internship Program 2024.pdf',
+    tags: ['Networking', 'Security', 'Protocols']
+  },
+  {
+    title: 'Cisco Virtual Internship Program 2023',
+    issuer: 'Cisco Networking Academy',
+    date: '2023',
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
+    link: '/CISCO Virtual Internship Program 2023.pdf',
+    tags: ['Networking', 'Security', 'Protocols']
+  }
+];

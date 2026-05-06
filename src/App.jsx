@@ -7,6 +7,7 @@ import TechMarquee from './components/TechMarquee';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BootSequence from './components/BootSequence';
@@ -158,6 +159,10 @@ function App() {
                 
                 <div id="projects" className="w-full relative">
                     <Projects />
+                </div>
+
+                <div id="certificates" className="w-full relative">
+                    <Certificates />
                 </div>
 
                 <div id="contact" className="w-full relative">
