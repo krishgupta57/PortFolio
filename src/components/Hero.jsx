@@ -48,10 +48,9 @@ const Typewriter = ({ words }) => {
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden bg-[#010409]">
-      {/* Background Grid - More pronounced like the image */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,#1a1b1e,transparent)]" />
+    <section className="min-h-screen flex items-center relative overflow-hidden bg-transparent">
+      {/* Background Atmosphere - Using Global Grid from App.jsx */}
+
 
       <div className="w-full px-6 md:px-20 py-16 relative z-10">
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center">

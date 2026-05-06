@@ -236,7 +236,7 @@ const Skills = () => {
       id="skills"
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
-      className="py-32 relative overflow-hidden bg-[#010409]"
+      className="py-32 relative overflow-hidden bg-transparent"
     >
       {/* Background Atmosphere */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">

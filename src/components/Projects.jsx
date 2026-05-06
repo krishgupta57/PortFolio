@@ -247,7 +247,7 @@ const Projects = () => {
       id="projects"
       initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       variants={staggerContainer}
-      className="py-20 relative overflow-hidden bg-[#010409]"
+      className="py-20 relative overflow-hidden bg-transparent"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <SectionHeader 

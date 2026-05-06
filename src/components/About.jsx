@@ -238,12 +238,11 @@ const About = () => {
         )}
       </AnimatePresence>
 
-      {/* Background Atmosphere - Optimized */}
+      {/* Background Atmosphere - Simplified to allow global grid through */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,#1a1b1e,transparent)] opacity-40" />
           
-          {/* Animated Glows - Reduced Blur for Performance */}
+          {/* Animated Glows */}
           <div className="absolute top-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/5 blur-[80px] animate-breathing will-change-transform" />
           <div className="absolute bottom-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/5 blur-[80px] animate-breathing will-change-transform" style={{ animationDelay: '-5s' }} />
       </div>

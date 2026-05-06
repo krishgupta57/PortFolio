@@ -138,11 +138,22 @@ function App() {
             className="relative"
           >
 
+            {/* Global Background Layer (Matched to Hero Style) */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-[#010409]">
+                {/* 1. The Main Grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+                
+                {/* 2. Radial Depth Gradient */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,#1a1b1e,transparent)]" />
+                
+                {/* 3. Subtle Ambient Vignette */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(1,4,9,0.5)_100%)]" />
+            </div>
 
             <Navigation />
             <SystemTelemetry />
 
-            <main className="relative w-full">
+            <main className="relative z-10 w-full">
                 <div id="hero" className="w-full relative">
                     <Hero />
                 </div>
