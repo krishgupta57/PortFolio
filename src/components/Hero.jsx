@@ -74,6 +74,9 @@ const Hero = () => {
             {/* Headline */}
             <div className="relative group w-full">
                <h1 className="text-3xl sm:text-5xl md:text-[6rem] font-black text-white leading-[0.9] tracking-tighter mb-6 select-none break-words">
+                <span style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: '0' }}>
+                  Krish Gupta | Full Stack Developer & Software Engineer - 
+                </span>
                 CRAFTING <br className="hidden md:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-yellow-500">DIGITAL ARC</span>
               </h1>
