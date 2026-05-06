@@ -1,39 +1,51 @@
-import React from 'react';
-import { Layout, Server, Database, Layers, Globe, Code2, Command, ShieldCheck, Box, GraduationCap, BookOpen, Award } from 'lucide-react';
+import { 
+  Layout, Server, Database, Layers, Globe, Code2, Command, 
+  ShieldCheck, Box, GraduationCap, BookOpen, Award, 
+  Palette, Braces, Atom, Terminal, Cpu, GitBranch, Send, Brackets
+} from 'lucide-react';
 
 export const skills = [
   { 
-    name: 'HTML/CSS', 
+    name: 'HTML', 
+    category: 'Frontend',
+    label: 'Structure', 
+    details: 'HTML5, Semantic Tags, SEO Basics', 
+    percentage: 95, 
+    color: '#ff4b2b', 
+    icon: <Code2 className="w-6 h-6" /> 
+  },
+  { 
+    name: 'CSS', 
     category: 'Frontend',
     label: 'Styling', 
-    details: 'Responsive Design, Animations, Transitions', 
-    percentage: 95, 
-    color: '#ff0000', 
-    icon: <Code2 className="w-6 h-6" /> 
+    details: 'Flexbox, Grid, Animations', 
+    percentage: 90, 
+    color: '#2965f1', 
+    icon: <Palette className="w-6 h-6" /> 
   },
   { 
     name: 'JavaScript', 
     category: 'Frontend',
-    label: 'Core Language', 
-    details: 'ES6+, TypeScript (Basic), DOM, Promises', 
+    label: 'Core Logic', 
+    details: 'ES6+, DOM, Async/Await, Promises', 
     percentage: 90, 
     color: '#eab308', 
-    icon: <Code2 className="w-6 h-6" /> 
+    icon: <Braces className="w-6 h-6" /> 
   },
   { 
     name: 'React.js', 
     category: 'Frontend',
-    label: 'Frontend Library', 
-    details: 'Next.js, Redux, Context API, Hooks', 
+    label: 'UI Framework', 
+    details: 'Hooks, Context API, Next.js, Redux', 
     percentage: 90, 
     color: '#3b82f6', 
-    icon: <Layout className="w-6 h-6" /> 
+    icon: <Atom className="w-6 h-6" /> 
   },
   { 
     name: 'Tailwind CSS', 
     category: 'Frontend',
     label: 'Styling Framework', 
-    details: 'SASS, Animations, Responsive Design', 
+    details: 'Responsive Design, Utility-first CSS', 
     percentage: 95, 
     color: '#06b6d4', 
     icon: <Command className="w-6 h-6" /> 
@@ -45,30 +57,39 @@ export const skills = [
     details: 'OOP, Scripting, Automation', 
     percentage: 80, 
     color: '#6366f1', 
-    icon: <Code2 className="w-6 h-6" /> 
+    icon: <Terminal className="w-6 h-6" /> 
+  },
+  { 
+    name: 'C++', 
+    category: 'Backend',
+    label: 'System Prog', 
+    details: 'DSA, Memory Management, OOP', 
+    percentage: 70, 
+    color: '#00599c', 
+    icon: <Cpu className="w-6 h-6" /> 
   },
   { 
     name: 'Django', 
     category: 'Backend',
-    label: 'Backend Framework', 
+    label: 'Web Framework', 
     details: 'DRF, ORM, Middleware, Security', 
     percentage: 75, 
     color: '#10b981', 
-    icon: <Server className="w-6 h-6" /> 
+    icon: <Globe className="w-6 h-6" /> 
   },
   { 
     name: 'REST APIs', 
     category: 'Backend',
-    label: 'Integration Layer', 
+    label: 'Integration', 
     details: 'Postman, JWT Auth, API Design', 
     percentage: 70, 
     color: '#f97316', 
-    icon: <Globe className="w-6 h-6" /> 
+    icon: <Layers className="w-6 h-6" /> 
   },
   { 
     name: 'MySQL', 
     category: 'Database',
-    label: 'Relational Database', 
+    label: 'Relational DB', 
     details: 'Query Optimization, Data Modeling', 
     percentage: 80, 
     color: '#0ea5e9', 
@@ -77,8 +98,8 @@ export const skills = [
   { 
     name: 'PostgreSQL', 
     category: 'Database',
-    label: 'Database', 
-    details: 'Basic Knowledge', 
+    label: 'Modern DB', 
+    details: 'JSONB, Advanced Queries', 
     percentage: 50, 
     color: '#336791', 
     icon: <Database className="w-6 h-6" /> 
@@ -87,10 +108,19 @@ export const skills = [
     name: 'Git & GitHub', 
     category: 'Tools',
     label: 'Version Control', 
-    details: 'Branching, Pull Requests, Workflows', 
+    details: 'Branching, PRs, GitFlow', 
     percentage: 90, 
     color: '#ef4444', 
-    icon: <ShieldCheck className="w-6 h-6" /> 
+    icon: <GitBranch className="w-6 h-6" /> 
+  },
+  { 
+    name: 'Postman', 
+    category: 'Tools',
+    label: 'API Testing', 
+    details: 'Testing, Documentation, JWT', 
+    percentage: 85, 
+    color: '#f97316',
+    icon: <Send className="w-6 h-6" /> 
   },
   { 
     name: 'System Design', 
