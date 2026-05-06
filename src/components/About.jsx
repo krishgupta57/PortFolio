@@ -266,10 +266,10 @@ const About = () => {
           >
             <div className="space-y-8 mt-4">
               <p className="text-slate-100 text-2xl md:text-5xl font-black leading-tight tracking-tight">
-                "Bridging <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Stunning Design</span> with Iron-Clad Backend Logic."
+                "Architecting <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Scalable Systems</span> with Precision & Performance."
               </p>
               <p className="text-slate-400 text-lg md:text-xl leading-relaxed font-medium border-l-4 border-purple-500/20 pl-8 max-w-2xl">
-                I thrive on building end-to-end applications that solve real-world problems. My strength lies in distilling complex workflows into maintainable architectures.
+                Currently a Full-Stack Intern at <strong>Cybrom Technology</strong>, I specialize in building enterprise-grade applications using <strong>React.js</strong> and <strong>Django</strong>. I bridge the gap between high-fidelity design and iron-clad backend logic, focusing on data integrity and system scalability.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                   {['System Design', 'OOP', 'Query Optimization', 'Clean Code'].map(tag => (
