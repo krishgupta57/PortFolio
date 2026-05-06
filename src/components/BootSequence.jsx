@@ -166,15 +166,15 @@ const BootSequence = ({ onComplete }) => {
             <div className="relative w-full max-w-7xl px-8 flex flex-col items-center">
                 
                 {/* Top HUD Stats */}
-                <div className="w-full flex justify-between items-end mb-12 border-b border-white/10 pb-4">
+                <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 border-b border-white/10 pb-4 gap-4">
                     <div className="flex flex-col gap-1">
                         <span className="text-[8px] text-slate-500 uppercase tracking-widest">Initialization_Vector</span>
                         <div className="flex items-center gap-3">
                             <div className={`w-2 h-2 rounded-full animate-pulse shadow-[0_0_10px] ${phase === 'READY' ? 'bg-emerald-500 shadow-emerald-500' : 'bg-purple-500 shadow-purple-500'}`} />
-                            <span className="text-xs text-white font-black uppercase tracking-widest">{phase}_OS_v4.0</span>
+                            <span className="text-[10px] md:text-xs text-white font-black uppercase tracking-widest">{phase}_OS_v4.0</span>
                         </div>
                     </div>
-                    <div className="text-[10px] text-slate-400 font-black flex gap-8">
+                    <div className="text-[8px] md:text-[10px] text-slate-400 font-black flex gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-end">
                         <div className="flex flex-col items-end">
                             <span className="text-[6px] uppercase tracking-widest text-slate-600">Buffer_Rate</span>
                             <span>{Math.floor(Math.random() * 900) + 100} MB/s</span>
@@ -208,54 +208,54 @@ const BootSequence = ({ onComplete }) => {
                     </div>
 
                     {/* Main Core Projector */}
-                    <div className="lg:col-span-2 relative flex flex-col items-center scale-75 sm:scale-90 md:scale-100 transition-transform">
-                        <div className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
+                    <div className="lg:col-span-2 relative flex flex-col items-center">
+                        <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 flex items-center justify-center">
                             {/* Outer Rings */}
                             <motion.div 
                                 animate={{ rotate: 360, scale: [1, 1.05, 1] }} 
                                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }} 
-                                className="absolute inset-0 border-2 border-dashed border-purple-500/20 rounded-full" 
+                                className="absolute inset-0 border border-dashed border-purple-500/20 rounded-full" 
                             />
                             <motion.div 
                                 animate={{ rotate: -360 }} 
                                 transition={{ duration: 8, repeat: Infinity, ease: "linear" }} 
-                                className="absolute inset-8 border border-white/10 rounded-full shadow-[inset_0_0_30px_rgba(168,85,247,0.1)]" 
+                                className="absolute inset-4 sm:inset-6 md:inset-8 border border-white/10 rounded-full shadow-[inset_0_0_30px_rgba(168,85,247,0.1)]" 
                             />
                             
                             {/* Inner Dynamic Rings */}
-                            <svg className="absolute inset-0 w-full h-full -rotate-90 scale-75 sm:scale-100">
-                                <circle cx="160" cy="160" r="140" fill="transparent" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+                            <svg className="absolute inset-0 w-full h-full -rotate-90">
+                                <circle cx="50%" cy="50%" r="45%" fill="transparent" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
                                 <motion.circle
-                                    cx="160" cy="160" r="140"
+                                    cx="50%" cy="50%" r="45%"
                                     fill="transparent"
                                     stroke={phase === 'GFX' ? '#10b981' : '#a855f7'}
-                                    strokeWidth="6"
-                                    strokeDasharray={2 * Math.PI * 140}
-                                    animate={{ strokeDashoffset: 2 * Math.PI * 140 * (1 - progress / 100) }}
+                                    strokeWidth="4"
+                                    strokeDasharray="282.7" // Approx 2 * pi * 45
+                                    animate={{ strokeDashoffset: 282.7 * (1 - progress / 100) }}
                                     className="drop-shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-colors duration-500"
                                 />
                             </svg>
-
+    
                             <div className="flex flex-col items-center z-10">
                                 <motion.div 
                                     animate={{ scale: [1, 1.1, 1], filter: ['hue-rotate(0deg)', 'hue-rotate(90deg)', 'hue-rotate(0deg)'] }}
                                     transition={{ duration: 2, repeat: Infinity }}
-                                    className="text-8xl font-black text-white italic tracking-tighter"
+                                    className="text-5xl sm:text-7xl md:text-8xl font-black text-white italic tracking-tighter"
                                 >
                                     KG
                                 </motion.div>
-                                <div className="mt-4 px-4 py-1 bg-white/5 border border-white/10 rounded-sm">
-                                    <span className="text-[10px] font-black text-purple-500 uppercase tracking-[0.6em]">System_Sync</span>
+                                <div className="mt-2 sm:mt-4 px-3 sm:px-4 py-0.5 sm:py-1 bg-white/5 border border-white/10 rounded-sm">
+                                    <span className="text-[8px] sm:text-[10px] font-black text-purple-500 uppercase tracking-[0.4em] sm:tracking-[0.6em]">System_Sync</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Large Percentage */}
-                        <div className="mt-12 flex flex-col items-center">
-                            <span className="text-7xl font-black text-white italic tracking-tighter flex items-end gap-2">
-                                {Math.floor(progress)}<span className="text-3xl text-purple-500 mb-2">%</span>
+                        <div className="mt-8 md:mt-12 flex flex-col items-center">
+                            <span className="text-5xl md:text-7xl font-black text-white italic tracking-tighter flex items-end gap-2">
+                                {Math.floor(progress)}<span className="text-2xl md:text-3xl text-purple-500 mb-1 md:mb-2">%</span>
                             </span>
-                            <div className="h-1 w-64 bg-white/5 mt-4 overflow-hidden rounded-full border border-white/5">
+                            <div className="h-1 w-48 md:w-64 bg-white/5 mt-4 overflow-hidden rounded-full border border-white/5">
                                 <motion.div 
                                     animate={{ width: `${progress}%` }}
                                     className={`h-full transition-colors duration-500 ${phase === 'GFX' ? 'bg-emerald-500' : 'bg-purple-500'}`}
@@ -265,7 +265,7 @@ const BootSequence = ({ onComplete }) => {
                     </div>
 
                     {/* Right Terminal Feed */}
-                    <div className="bg-[#080808] border border-white/10 p-6 h-[450px] rounded-3xl relative overflow-hidden flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                    <div className="bg-[#080808] border border-white/10 p-5 md:p-6 h-[250px] sm:h-[350px] md:h-[450px] rounded-2xl md:rounded-3xl relative overflow-hidden flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)]">
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
                         <div className="mb-4 text-[10px] font-black text-slate-500 border-b border-white/5 pb-2 flex justify-between items-center">
                             <span>DIAGNOSTIC_FEED_v4.0</span>
