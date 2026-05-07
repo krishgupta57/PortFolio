@@ -239,7 +239,7 @@ export const certificates = [
   {
     title: 'AWS Cloud Foundation',
     issuer: 'Amazon Web Services',
-    date: '202f',
+    date: '2024',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
     link: '/AWS cloud formation.pdf',
     tags: ['AWS', 'Cloud']
