@@ -42,7 +42,7 @@ const SysStatusCard = () => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.5 }}
-      className="p-6 md:p-10 bg-[#080808] border border-white/5 rounded-2xl md:rounded-[2.5rem] relative overflow-hidden group shadow-3xl"
+      className="p-5 md:p-10 bg-[#080808] border border-white/5 rounded-2xl md:rounded-[2.5rem] relative overflow-hidden group shadow-3xl"
   >
       {/* 1. Kinetic Border Patrol */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
@@ -64,24 +64,24 @@ const SysStatusCard = () => (
       </div>
 
       <div className="relative z-10">
-          <div className="flex items-center gap-5 mb-8">
+          <div className="flex items-center gap-4 md:gap-5 mb-6 md:mb-8">
               <div className="relative">
                   {/* Radar Wave Pulse */}
                   <div className="absolute inset-0 bg-purple-500 rounded-full animate-ping opacity-20 scale-150" />
-                  <div className="w-3 h-3 bg-purple-500 rounded-full shadow-[0_0_20px_#a855f7] relative z-10" />
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-purple-500 rounded-full shadow-[0_0_20px_#a855f7] relative z-10" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.5em] font-black">SYS_STATUS</span>
-                <span className="text-[12px] font-black text-white italic tracking-tighter uppercase mt-1">Operational_Mode</span>
+                <span className="text-[8px] md:text-[10px] font-mono text-purple-400 uppercase tracking-[0.3em] md:tracking-[0.5em] font-black">SYS_STATUS</span>
+                <span className="text-[10px] md:text-[12px] font-black text-white italic tracking-tighter uppercase mt-0.5 md:mt-1">Operational_Mode</span>
               </div>
           </div>
 
-          <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl relative mb-4">
+          <div className="bg-white/[0.02] border border-white/5 p-4 md:p-6 rounded-2xl relative mb-4">
               {/* Corner Accents */}
               <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-purple-500/30" />
               <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-purple-500/30" />
               
-              <p className="text-[11px] font-mono text-slate-400 leading-relaxed uppercase font-bold tracking-tight">
+              <p className="text-[9px] md:text-[11px] font-mono text-slate-400 leading-relaxed uppercase font-bold tracking-tight break-words">
                   Ready for end-to-end architecture deployment and full-stack integration. 
                   <span className="text-purple-500/80 block mt-2 animate-pulse font-black">
                       {">"} PROTOCOLS_STANDING_BY_FOR_INITIAL_TRANSMISSION...

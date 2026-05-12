@@ -264,7 +264,7 @@ const About = () => {
             className="md:col-span-2 md:row-span-2"
           >
             <div className="space-y-8 mt-4">
-              <p className="text-slate-100 text-2xl md:text-5xl font-black leading-tight tracking-tight">
+              <p className="text-slate-100 text-xl sm:text-3xl md:text-5xl font-black leading-tight tracking-tight">
                 "Architecting <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Scalable Systems</span> with Precision & Performance."
               </p>
               <p className="text-slate-400 text-lg md:text-xl leading-relaxed font-medium border-l-4 border-purple-500/20 pl-8 max-w-2xl">
