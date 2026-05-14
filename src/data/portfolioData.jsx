@@ -189,7 +189,7 @@ export const projects = [
     status: 'SYSTEM_SYNCED',
     description: 'A high-fidelity rental platform with advanced search filters, map integration, and a sophisticated reservation management system. Built with modular architecture for high scalability.',
     image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    link: '#',
+    link: 'https://air-bnb-clone-bykrishgupta.vercel.app/',
     github: 'https://github.com/krishgupta57/AirBNB_Clone.git',
     featured: false,
     accent: '#f43f5e'
