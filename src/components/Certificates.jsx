@@ -62,6 +62,15 @@ const CertificateCard = ({ item, index, onView }) => (
 const Certificates = () => {
   const [selectedCert, setSelectedCert] = useState(null);
 
+  // Close on Escape key
+  React.useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setSelectedCert(null);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
   return (
     <section id="certificates" className="py-20 relative">
       {/* Certificate Viewer Modal */}
@@ -71,14 +80,15 @@ const Certificates = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-3xl flex items-center justify-center p-0 md:p-6"
+            onClick={() => setSelectedCert(null)}
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
           >
             <motion.div 
               initial={{ scale: 0.9, y: 50, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 50, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full h-full md:h-[92vh] bg-[#0a0a0a] rounded-none md:rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] border border-white/10 flex flex-col"
+              className="relative w-full max-w-5xl h-[80vh] md:h-[85vh] bg-[#0a0a0a] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] border border-white/10 flex flex-col cursor-default"
             >
               {/* OS Style Header */}
               <div className="bg-[#111111] px-6 py-4 flex items-center justify-between border-b border-white/5 select-none">
@@ -100,10 +110,10 @@ const Certificates = () => {
                 
                 <button 
                   onClick={() => setSelectedCert(null)}
-                  className="flex items-center gap-2 px-3 py-1 bg-white/5 hover:bg-white/10 rounded-md transition-all group"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-red-500/20 hover:text-red-500 rounded-full transition-all group border border-white/5"
                 >
-                  <span className="text-[9px] font-mono text-slate-500 group-hover:text-white uppercase font-black tracking-widest">Close</span>
-                  <X className="w-3 h-3 text-slate-500 group-hover:text-white" />
+                  <span className="text-[10px] font-mono group-hover:text-red-500 uppercase font-black tracking-widest text-slate-300">Close</span>
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
