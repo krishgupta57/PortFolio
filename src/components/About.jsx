@@ -268,7 +268,7 @@ const About = () => {
                 "Architecting <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Scalable Systems</span> with Precision & Performance."
               </p>
               <p className="text-slate-400 text-lg md:text-xl leading-relaxed font-medium border-l-4 border-purple-500/20 pl-8 max-w-2xl">
-                Currently a Full-Stack Intern at <strong>Cybrom Technology</strong>, I specialize in building enterprise-grade applications using <strong>React.js</strong> and <strong>Django</strong>. I bridge the gap between high-fidelity design and iron-clad backend logic, focusing on data integrity and system scalability.
+                I specialize in building enterprise-grade applications using <strong>React.js</strong> and <strong>Django</strong>. I bridge the gap between high-fidelity design and iron-clad backend logic, focusing on data integrity and system scalability.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                   {['System Design', 'OOP', 'Query Optimization', 'Clean Code'].map(tag => (

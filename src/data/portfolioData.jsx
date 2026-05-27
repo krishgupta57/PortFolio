@@ -138,7 +138,7 @@ export const education = [
     id: 0,
     title: "Full Stack Developer Intern",
     institution: "Cybrom Technology Pvt. Ltd.",
-    year: "March 2026 – Present",
+    year: "March 2026 – May 2026",
     grade: "Internship",
     type: "INTERNSHIP",
     description: "Intensive hands-on experience in building enterprise-grade web applications. Mastering advanced React patterns, Django REST framework optimizations, and industry-standard deployment workflows.",
