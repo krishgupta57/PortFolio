@@ -23,6 +23,9 @@ const CustomCursor = () => {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    // Only run on fine pointer devices (mouse/trackpad)
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -30,13 +33,12 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e) => {
       const target = e.target;
-      setIsHovering(window.getComputedStyle(target).cursor === 'pointer' || 
-                    target.closest('button') || 
-                    target.closest('a'));
+      if (!target) return;
+      setIsHovering(Boolean(target.closest('button, a, input, select, textarea, [role="button"], .cursor-pointer')));
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', moveCursor, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
@@ -191,26 +193,24 @@ function App() {
       
       {/* 1. Global Multi-Layered Background System */}
       <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        {/* Layer 1: Fixed Technical Noise Texture */}
-        <div className="absolute inset-0 opacity-[0.03] bg-noise" />
         {/* Layer 2: Topological Schematic Pattern */}
-        <div className="absolute inset-0 opacity-[0.08] bg-topology" />
-        {/* Layer 3: High-Performance Moving Blueprint Grid */}
-        <div className="absolute inset-[-100px] opacity-[0.04]">
+        <div className="absolute inset-0 opacity-[0.04] bg-topology" />
+        {/* Layer 3: High-Performance Moving Blueprint Grid - Desktop Only */}
+        <div className="hidden md:block absolute inset-[-100px] opacity-[0.03]">
             <div 
                 className="absolute inset-0 animate-bp-grid"
                 style={{ 
                     backgroundImage: "linear-gradient(to right, #3b82f6 1px, transparent 1px), linear-gradient(to bottom, #3b82f6 1px, transparent 1px)",
-                    backgroundSize: "45px 45px"
+                    backgroundSize: "60px 60px"
                 }}
             />
         </div>
-        {/* Layer 4: Breathing Telemetry Glows - Optimized size and blur */}
-        <div className="absolute top-[-5%] left-[-5%] w-[40%] h-[40%] rounded-full bg-blue-600/5 blur-[40px] animate-breathing" />
-        <div className="absolute bottom-[-5%] right-[-5%] w-[40%] h-[40%] rounded-full bg-pink-600/5 blur-[40px] animate-breathing" style={{ animationDelay: '-5s' }} />
+        {/* Layer 4: Breathing Telemetry Glows - Desktop Only */}
+        <div className="hidden md:block absolute top-[-5%] left-[-5%] w-[40%] h-[40%] rounded-full bg-blue-600/5 blur-[40px] animate-breathing" />
+        <div className="hidden md:block absolute bottom-[-5%] right-[-5%] w-[40%] h-[40%] rounded-full bg-pink-600/5 blur-[40px] animate-breathing" style={{ animationDelay: '-5s' }} />
       </div>
 
-      <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden hidden md:block">
         <div className="w-full h-[1px] bg-blue-500/20 animate-scan" />
       </div>
     </motion.div>

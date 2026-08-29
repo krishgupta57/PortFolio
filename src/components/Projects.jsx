@@ -68,20 +68,20 @@ const ProjectSlide = memo(({ project, active, index }) => {
           filter: active ? "blur(0px)" : "blur(4px)"
         }}
         transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-        className="w-full max-w-7xl bg-[#111111]/30 backdrop-blur-3xl border border-white/5 rounded-2xl md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden shadow-2xl"
+        className="w-full max-w-7xl bg-[#111111]/90 md:bg-[#111111]/30 md:backdrop-blur-3xl border border-white/5 rounded-2xl md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden shadow-2xl"
       >
         {/* Large Background Number */}
         <div className="absolute top-0 right-0 text-[20rem] font-black text-white/5 leading-none select-none -translate-y-1/4 translate-x-1/4 pointer-events-none group-hover:text-purple-500/10 transition-colors duration-1000 will-change-transform">
             0{index + 1}
         </div>
 
-        {/* Raster Scan Line Animation - Enhanced Visibility */}
+        {/* Raster Scan Line Animation - Desktop only */}
         {active && (
             <motion.div 
                 initial={{ top: "-10%" }}
                 animate={{ top: "110%" }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                className="absolute left-0 w-full h-[2px] bg-purple-500/40 shadow-[0_0_20px_rgba(168,85,247,0.5)] z-40 pointer-events-none will-change-[top]"
+                className="hidden md:block absolute left-0 w-full h-[2px] bg-purple-500/40 shadow-[0_0_20px_rgba(168,85,247,0.5)] z-40 pointer-events-none will-change-[top]"
             />
         )}
 

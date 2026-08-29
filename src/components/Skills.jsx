@@ -21,23 +21,14 @@ const LogicLoadMeter = React.memo(({ percentage, color, isActive }) => {
     return (
         <div className="flex gap-1.5 h-2 w-full">
             {[...Array(blocks)].map((_, i) => (
-                <motion.div
+                <div
                     key={i}
-                    initial={{ opacity: 0.1 }}
-                    animate={{ 
-                        opacity: isActive ? (i < filledBlocks ? [1, 0.4, 1] : 0.1) : (i < filledBlocks ? 0.4 : 0.05),
-                    }}
-                    transition={{ 
-                        duration: 1.5,
-                        repeat: isActive && i < filledBlocks ? Infinity : 0,
-                        delay: i * 0.05 
-                    }}
-                    className="h-full flex-grow rounded-sm transition-colors duration-500"
+                    className="h-full flex-grow rounded-sm transition-all duration-300"
                     style={{ 
                         backgroundColor: i < filledBlocks ? (isActive ? color : `${color}40`) : 'transparent',
                         border: `1px solid ${i < filledBlocks ? (isActive ? color : `${color}20`) : '#1e293b10'}`,
-                        boxShadow: isActive && i < filledBlocks ? `0 0 15px ${color}` : 'none',
-                        willChange: 'opacity, transform'
+                        boxShadow: isActive && i < filledBlocks ? `0 0 10px ${color}` : 'none',
+                        opacity: i < filledBlocks ? (isActive ? 1 : 0.4) : 0.1
                     }}
                 />
             ))}
@@ -58,6 +49,7 @@ const SkillCard = ({ skill, index }) => {
   const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-10deg", "10deg"]);
 
   const handleMouseMove = (e) => {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;

@@ -127,7 +127,7 @@ const EducationCard = ({ item, index }) => {
 const BentoCard = ({ children, className, title, subtitle }) => (
   <motion.div
     variants={fadeIn}
-    className={`relative group bg-[#111111]/40 backdrop-blur-md border border-white/5 rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 overflow-hidden shadow-2xl hover:border-purple-500/20 transition-all duration-700 ${className}`}
+    className={`relative group bg-[#111111]/90 md:bg-[#111111]/40 md:backdrop-blur-md border border-white/5 rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 overflow-hidden shadow-2xl hover:border-purple-500/20 transition-all duration-700 ${className}`}
   >
     {/* Neon Corners */}
     <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-purple-500/20 rounded-tl-[2.5rem] z-20 group-hover:border-purple-500/50 transition-colors" />
@@ -242,9 +242,9 @@ const About = () => {
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,#1a1b1e,transparent)] opacity-40" />
           
-          {/* Animated Glows */}
-          <div className="absolute top-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/5 blur-[80px] animate-breathing will-change-transform" />
-          <div className="absolute bottom-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/5 blur-[80px] animate-breathing will-change-transform" style={{ animationDelay: '-5s' }} />
+          {/* Animated Glows - Desktop only */}
+          <div className="hidden md:block absolute top-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/5 blur-[80px] animate-breathing will-change-transform" />
+          <div className="hidden md:block absolute bottom-[10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/5 blur-[80px] animate-breathing will-change-transform" style={{ animationDelay: '-5s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
